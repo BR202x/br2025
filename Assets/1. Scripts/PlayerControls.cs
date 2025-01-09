@@ -578,6 +578,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""8962f5c3-626d-491d-ae45-2a243165ffcf"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -642,7 +651,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Melee Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -666,6 +675,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";XR"",
                     ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9042abd3-8d5b-4551-8482-5fb25fb9f833"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -753,6 +773,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_MeleeAttack = m_Player.FindAction("Melee Attack", throwIfNotFound: true);
         m_Player_Defense = m_Player.FindAction("Defense", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
+        m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -942,6 +963,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_MeleeAttack;
     private readonly InputAction m_Player_Defense;
     private readonly InputAction m_Player_Aim;
+    private readonly InputAction m_Player_Dash;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -950,6 +972,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @MeleeAttack => m_Wrapper.m_Player_MeleeAttack;
         public InputAction @Defense => m_Wrapper.m_Player_Defense;
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
+        public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -971,6 +994,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Aim.started += instance.OnAim;
             @Aim.performed += instance.OnAim;
             @Aim.canceled += instance.OnAim;
+            @Dash.started += instance.OnDash;
+            @Dash.performed += instance.OnDash;
+            @Dash.canceled += instance.OnDash;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -987,6 +1013,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Aim.started -= instance.OnAim;
             @Aim.performed -= instance.OnAim;
             @Aim.canceled -= instance.OnAim;
+            @Dash.started -= instance.OnDash;
+            @Dash.performed -= instance.OnDash;
+            @Dash.canceled -= instance.OnDash;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1068,5 +1097,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnMeleeAttack(InputAction.CallbackContext context);
         void OnDefense(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
     }
 }

@@ -1,3 +1,5 @@
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -7,19 +9,37 @@ public class PlayerMovement : MonoBehaviour
     IPlayerState currentState;
     [HideInInspector] public IdleState stateIdle = new IdleState();
     [HideInInspector] public WalkState stateWalk = new WalkState();
+    [HideInInspector] public DashState stateDash = new DashState();
+    [HideInInspector] public AttackState stateAttack = new AttackState();
 
     [HideInInspector] public Rigidbody rb;
     [HideInInspector] public InputReader input;
 
     [Header("Parametros")]
+    [Header("movimiento")]
     public float moveSpeed;
     public float rotationSpeed;
     public float moveSmooth;
+    [Header("Dash")]
+    public float dashForce;
+    public float dashDuration;
+    [Header("Ataque")]
+    public float attackMoveVelocity = 5;
+    public float attackDuration = 0.3f;
+    public float attackMoveSmooth;
+
+    public int attackDamage = 5;
+
     [HideInInspector] public Vector3 currentVelocity;
     [HideInInspector] public float currentRotation;
     [HideInInspector] public Transform model;
     private Animator anim;
-    
+
+    [Header("Testing y debug")]
+    [SerializeField] TMP_Text currentStateText;
+
+
+
 
     private void Awake()
     {
@@ -27,10 +47,17 @@ public class PlayerMovement : MonoBehaviour
         anim = transform.GetChild(0).GetComponent<Animator>();
         model = transform.GetChild(0);
         rb = GetComponent<Rigidbody>();
-       
+
     }
     void Start()
     {
+        //ocultar cursor
+        Cursor.lockState = CursorLockMode.Locked;
+        //eventos
+        input.OnDash += Dash;
+        input.OnAttack += Attack;
+
+        //estados
         currentState = stateIdle;
         currentState.StartState(this);
     }
@@ -38,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         currentState.UpdateState(this);
+        currentStateText.text = currentState.ToString();
     }
 
     private void FixedUpdate()
@@ -56,4 +84,23 @@ public class PlayerMovement : MonoBehaviour
     {
         anim.CrossFade(animation, crossfade);
     }
+
+    private void Dash(object sender, EventArgs e)
+    {
+        if (currentState == stateWalk)
+        {
+            ChangeState(stateDash);
+        }
+    }
+    private void Attack(object sender, EventArgs e)
+    {
+        Debug.Log("intentando atacar");
+        if (currentState == stateWalk || currentState == stateIdle)
+        {
+            Debug.Log("atacando");
+
+            ChangeState(stateAttack);
+        }
+    }
+
 }

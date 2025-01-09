@@ -1,3 +1,5 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WalkState : IPlayerState
@@ -19,10 +21,10 @@ public class WalkState : IPlayerState
         Vector3 moveInput = player.input.GetMoveInput();
 
         Vector3 direction = forward * moveInput.z + right * moveInput.x;
-        Vector3 SpeedTarget = new Vector3(direction.x, player.rb.linearVelocity.y, direction.z);
-        SpeedTarget *= player.moveSpeed;
-        SpeedTarget.y = player.rb.linearVelocity.y;
-        player.rb.linearVelocity = Vector3.SmoothDamp(player.rb.linearVelocity, SpeedTarget, ref player.currentVelocity, player.moveSmooth);
+        Vector3 speedTarget = new Vector3(direction.x, player.rb.linearVelocity.y, direction.z);
+        speedTarget *= player.moveSpeed;
+        speedTarget.y = player.rb.linearVelocity.y;
+        player.rb.linearVelocity = Vector3.SmoothDamp(player.rb.linearVelocity, speedTarget, ref player.currentVelocity, player.moveSmooth);
         player.model.transform.rotation = Quaternion.Slerp(player.model.transform.rotation, Quaternion.LookRotation(direction), player.rotationSpeed); 
     }
 
@@ -39,6 +41,9 @@ public class WalkState : IPlayerState
         {
             player.ChangeState(player.stateIdle);
         }
+       
         
     }
+
+    
 }
