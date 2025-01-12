@@ -5,7 +5,6 @@ public class Stream : MonoBehaviour
 {
     private LineRenderer lineRenderer = null;
     public ParticleSystem splashParticle = null;
-    // public InicioLLenado inicioLLenado;
 
     private Coroutine pourRoutine = null;
 
@@ -14,13 +13,14 @@ public class Stream : MonoBehaviour
     public float velocidadAnimacion = 1.75f;
 
     public bool estaTocando = false;
-    
+
+    [Header("Configuración de Dirección")]
+    public Vector3 direccionLinea = Vector3.down; // Dirección configurable desde el Inspector
 
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
-        splashParticle = GetComponentInChildren<ParticleSystem>();
-        //inicioLLenado = GameObject.Find("LlenadoDeAguaManager").GetComponent<InicioLLenado>();
+        splashParticle = GetComponentInChildren<ParticleSystem>();        
     }
 
     private void Start()
@@ -79,8 +79,9 @@ public class Stream : MonoBehaviour
     private Vector3 FindEndPoint()
     {
         RaycastHit hit;
-        Ray ray = new Ray(transform.position, Vector3.down);
+        Ray ray = new Ray(transform.position, direccionLinea.normalized);
 
+        // Usa la dirección configurada desde el inspector
         Physics.Raycast(ray, out hit, 50f);
         Vector3 endPoint = hit.collider ? hit.point : ray.GetPoint(2);
 
@@ -122,12 +123,10 @@ public class Stream : MonoBehaviour
             if (isHitting && !estaTocando)
             {
                 estaTocando = true;
-                //inicioLLenado.estaLlenando = true;
             }
             else if (!isHitting && estaTocando)
             {
                 estaTocando = false;
-                //inicioLLenado.estaLlenando = false;
             }
 
             splashParticle.gameObject.SetActive(isHitting);
@@ -137,7 +136,7 @@ public class Stream : MonoBehaviour
     }
 
     private void OnDisable()
-    {   
+    {
         estaTocando = false;
         Destroy(gameObject);
     }

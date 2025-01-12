@@ -5,8 +5,16 @@ public class PourDetector : MonoBehaviour
 {
     public bool mostrarDebug;
     [Space]
-    public Transform origin = null;
+    public Transform origen = null;
+    public GameObject valvulaPadre = null;
     public GameObject streamPrefab = null;
+
+    [Header("Configuración de Dirección")]
+    public Vector3 direccionLinea = Vector3.down; // Dirección de la línea que se aplicará al Stream
+
+    [Header("Configuración de Ancho del LineRenderer")]
+    public float anchoInicial = 0.1f; // Ancho inicial del LineRenderer
+    public float anchoFinal = 0.05f;  // Ancho final del LineRenderer
 
     private bool isPouring = false;
     public bool pourCheck = false;
@@ -33,6 +41,20 @@ public class PourDetector : MonoBehaviour
                 EndPour();
             }
         }
+
+        // Buscar el objeto hijo con el componente Stream
+        Stream streamComponent = valvulaPadre.GetComponentInChildren<Stream>();
+
+        if (streamComponent != null)
+        {
+            MostrarDebug($"Se encontró un Stream en {streamComponent.gameObject.name}");
+            // Puedes modificar propiedades del Stream si es necesario
+            streamComponent.direccionLinea = direccionLinea;
+        }
+        else
+        {
+            MostrarDebug("No se encontró ningún Stream en los hijos de valvulaPadre");
+        }
     }
 
     private void StartPour()
@@ -54,28 +76,38 @@ public class PourDetector : MonoBehaviour
 
     private Stream CreateStream()
     {
-        // Determina el número basado en el nombre del origin
-        string originName = origin.name;
-        string streamName = "Stream"; // Nombre por defecto
+        // Determina el número basado en el nombre del origen
+        string originName = origen.name;
+        string streamName = "Stream";
         int number = ExtractNumberFromName(originName);
 
         if (number != -1)
         {
-            streamName += number; // Si el nombre contiene un número, lo agrega
+            streamName += number;
         }
 
         // Instancia el Stream y le asigna un nombre único
-        GameObject streamObject = Instantiate(streamPrefab, origin.position, Quaternion.identity, transform);
+        GameObject streamObject = Instantiate(streamPrefab, origen.position, Quaternion.identity, valvulaPadre.transform);
         streamObject.name = streamName;
 
-        MostrarDebug($"Creado Stream con nombre: {streamName}");
-        return streamObject.GetComponent<Stream>();
+        // Configura el Stream instanciado
+        Stream streamComponent = streamObject.GetComponent<Stream>();
+        streamComponent.direccionLinea = direccionLinea;
+
+        // Configurar el ancho del LineRenderer
+        LineRenderer lineRenderer = streamObject.GetComponent<LineRenderer>();
+        if (lineRenderer != null)
+        {
+            lineRenderer.startWidth = anchoInicial;
+            lineRenderer.endWidth = anchoFinal;
+        }
+
+        MostrarDebug($"Creado Stream con nombre: {streamName}, dirección: {direccionLinea}, ancho inicial: {anchoInicial}, ancho final: {anchoFinal}");
+        return streamComponent;
     }
 
-    // Método para extraer números del nombre
     private int ExtractNumberFromName(string name)
     {
-        // Filtra los caracteres del nombre que son números
         string numberString = "";
         foreach (char c in name)
         {
@@ -85,11 +117,9 @@ public class PourDetector : MonoBehaviour
             }
         }
 
-        // Si encuentra un número, lo convierte en entero; de lo contrario, devuelve -1
         return int.TryParse(numberString, out int result) ? result : -1;
     }
 
-    // Método para mostrar mensajes de depuración si está habilitado
     private void MostrarDebug(string mensaje)
     {
         if (mostrarDebug)

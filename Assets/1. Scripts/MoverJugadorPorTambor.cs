@@ -6,47 +6,64 @@ public class MoverJugadorPorTambor : MonoBehaviour
     [Space]
     private Rigidbody rigidJugador;
 
+    public Transform tambor; 
     public DetectarRotacionTambor detectarRotacionTambor;
 
-    [Header("Fuerza Tambor")]
-    public float fuerzaTambor = 5f; // Empuje que causa el tambor al jugador
-    public ForceMode modoFuerza = ForceMode.Acceleration; // NOTA: Probando cuál fuerza se siente mejor
- 
-    
+    [Header("Configuración de Fuerzas")]
+    public float fuerzaTangencial = 1f; 
+    public ForceMode modoFuerza = ForceMode.Acceleration; 
 
     private void Start()
-    {
+    {        
         rigidJugador = GetComponent<Rigidbody>();
-        rigidJugador.useGravity = true; // Dependerá de tu diseño
+        rigidJugador.useGravity = true;
+
+        DLog("Jugador inicializado y preparado para ser afectado por el tambor.");
     }
 
     private void FixedUpdate()
-    {
-        if (detectarRotacionTambor != null)
+    {     
+        if (detectarRotacionTambor != null && tambor != null)
         {
-            Vector3 fuerza = Vector3.zero;
-
             if (detectarRotacionTambor.girandoSentidoHorario)
-            {
-                fuerza = Vector3.right * fuerzaTambor;
-                DLog("Aplicando fuerza hacia la derecha (X+)");
+            {     
+                AplicarFuerzaTangencial(true);
+                DLog("Tambor girando en sentido horario.");
             }
             else if (detectarRotacionTambor.girandoSentidoContrario)
-            {
-                fuerza = Vector3.left * fuerzaTambor;
-                DLog("Aplicando fuerza hacia la izquierda (X-)");
+            {             
+                AplicarFuerzaTangencial(false);
+                DLog("Tambor girando en sentido antihorario.");
             }
-
-            if (fuerza != Vector3.zero)
-            {
-                rigidJugador.AddForce(fuerza, modoFuerza);
+            else
+            {             
+                DLog("Tambor está quieto. No se aplica fuerza.");
             }
         }
+    }
+
+    private void AplicarFuerzaTangencial(bool sentidoHorario)
+    {        
+        Vector3 posicionRelativa = transform.position - tambor.position;             
+        Vector3 direccionTangencial = Vector3.Cross(posicionRelativa.normalized, Vector3.up);
+                
+        if (sentidoHorario)
+        {
+            direccionTangencial = -direccionTangencial; // Invertir dirección si el tambor gira en sentido horario
+        }
+                
+        Vector3 fuerzaTangencialAplicada = direccionTangencial * fuerzaTangencial;
+                
+        rigidJugador.AddForce(fuerzaTangencialAplicada, modoFuerza);
+
+        DLog($"Fuerza tangencial aplicada: {fuerzaTangencialAplicada} (Modo: {modoFuerza})");
     }
 
     private void DLog(string texto)
     {
         if (mostrarDebug)
-        Debug.Log($"[MoverJugadorPorTambor]: {texto}");
+        {
+            Debug.Log($"[MoverJugadorPorTambor]: {texto}");
+        }
     }
 }

@@ -12,7 +12,7 @@ public class DetectarRotacionTambor : MonoBehaviour
     public bool girandoSentidoContrario;
     public bool tamborEstatico;    
 
-    private float ultimaRotacionZ;
+    private float ultimaRotacionY;
     private const float umbralEstatico = 0.1f; // Umbral para considerar el tambor estático
     [Space]
     public float velocidadRotacionTambor; // Velocidad de rotación del tambor en Z
@@ -21,7 +21,7 @@ public class DetectarRotacionTambor : MonoBehaviour
     {
         if (tambor != null)
         {
-            ultimaRotacionZ = tambor.eulerAngles.z;
+            ultimaRotacionY = tambor.eulerAngles.y;
         }
     }
 
@@ -31,8 +31,8 @@ public class DetectarRotacionTambor : MonoBehaviour
         {
             #region Cálculo Velocidad de Rotación del Tambor
 
-            float rotacionActualZ = tambor.eulerAngles.z;
-            velocidadRotacionTambor = rotacionActualZ - ultimaRotacionZ;
+            float rotacionActualY = tambor.eulerAngles.y;
+            velocidadRotacionTambor = rotacionActualY - ultimaRotacionY;
 
             // Ajuste para evitar saltos entre 360 y 0
             if (velocidadRotacionTambor > 180f)
@@ -44,7 +44,7 @@ public class DetectarRotacionTambor : MonoBehaviour
                 velocidadRotacionTambor += 360f;
             }
 
-            ultimaRotacionZ = rotacionActualZ;
+            ultimaRotacionY = rotacionActualY;
 
             #endregion
 
