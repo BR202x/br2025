@@ -7,7 +7,7 @@ public class InputReader : MonoBehaviour
 {
     public event EventHandler OnAttack;
     public event EventHandler OnDefense;
-    public event EventHandler OnAim;
+    public event EventHandler OnNoDefense;
     public event EventHandler OnDash;
     PlayerControls controls;
 
@@ -22,6 +22,8 @@ public class InputReader : MonoBehaviour
     {
         controls.Player.MeleeAttack.started += AttackInteraction;
         controls.Player.Dash.started += DashInteraction;
+        controls.Player.Defense.started += DefenseInteraction;
+        controls.Player.Defense.canceled += NoDefenseInteraction;
     }
 
 
@@ -30,7 +32,10 @@ public class InputReader : MonoBehaviour
 
         return new Vector3(controls.Player.Move.ReadValue<Vector2>().x, 0, controls.Player.Move.ReadValue<Vector2>().y);
     }
-
+    public Vector2 GetMouseInput()
+    {
+        return controls.Player.CameraMove.ReadValue<Vector2>();
+    }
     public void AttackInteraction(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         OnAttack?.Invoke(this, EventArgs.Empty);
@@ -41,9 +46,9 @@ public class InputReader : MonoBehaviour
         OnDefense?.Invoke(this, EventArgs.Empty);
     }
 
-    public void AimInteraction(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    public void NoDefenseInteraction(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        OnAim?.Invoke(this, EventArgs.Empty);
+        OnNoDefense?.Invoke(this, EventArgs.Empty);
     }
     public void DashInteraction(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {

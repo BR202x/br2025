@@ -25,7 +25,14 @@ public class WalkState : IPlayerState
         speedTarget *= player.moveSpeed;
         speedTarget.y = player.rb.linearVelocity.y;
         player.rb.linearVelocity = Vector3.SmoothDamp(player.rb.linearVelocity, speedTarget, ref player.currentVelocity, player.moveSmooth);
-        player.model.transform.rotation = Quaternion.Slerp(player.model.transform.rotation, Quaternion.LookRotation(direction), player.rotationSpeed); 
+
+        if (!player.IsShield())
+        {
+            player.model.transform.rotation = Quaternion.Slerp(player.model.transform.rotation, Quaternion.LookRotation(direction), player.rotationSpeed);
+        }
+        
+             
+        
     }
 
     public void StartState(PlayerMovement player)
@@ -44,6 +51,7 @@ public class WalkState : IPlayerState
        
         
     }
+
 
     
 }
