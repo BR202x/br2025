@@ -21,13 +21,12 @@ public class CameraController : MonoBehaviour
     [SerializeField] Transform spawnProjectile;
     [SerializeField] GameObject projectile;
     [SerializeField] bool shotShield;
-
     private InputReader input;
     private PlayerMovement player;
     private Vector3 angles;
     private Vector3 mouseWorldPosition;
     private CinemachineImpulseSource cameraShake;
-    
+
 
     private void Awake()
     {
@@ -48,19 +47,20 @@ public class CameraController : MonoBehaviour
     {
         if (!player.IsShield()) { return; }
 
-        if(shotShield)
+        if (shotShield)
         {
             Debug.Log("ya lanzaste el boton");
         }
         else
         {
+            player.ChangeAnimation("Throw");
             cameraShake.GenerateImpulse();
             shotShield = true;
             Vector3 direction = (mouseWorldPosition - spawnProjectile.position).normalized;
-            GameObject shield= Instantiate(projectile, spawnProjectile.position, Quaternion.LookRotation(direction));
-            shield.GetComponent<shield>().Configure(player.model.transform);
+            GameObject shield = Instantiate(projectile, spawnProjectile.position, Quaternion.LookRotation(direction));
+            shield.GetComponent<Shield>().Configure(player.model.transform);
         }
-        
+
     }
     //funcion que el escudo lanzado llama cuando vuelve hacia el jugador
     public void RecoverShield()
@@ -72,6 +72,12 @@ public class CameraController : MonoBehaviour
     {
         if (player.IsShield() && !shotShield)
         {
+            if(player.GetCurrentAnimation() != "Shield")
+            {
+                player.ChangeAnimation("Shield");
+            }
+
+
             mainCamera.SetActive(false);
             aimCamera.SetActive(true);
             crossAir.SetActive(true);
@@ -93,11 +99,19 @@ public class CameraController : MonoBehaviour
         }
         else
         {
+
+
+
+
+
+
             mainCamera.SetActive(true);
             aimCamera.SetActive(false);
             crossAir.SetActive(false);
 
         }
+
+        
     }
     private void CameraMove()
     {

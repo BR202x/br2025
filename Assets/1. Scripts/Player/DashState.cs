@@ -26,7 +26,7 @@ public class DashState : IPlayerState
         Vector3 direction = forward * moveInput.z + right * moveInput.x;
         direction.y = 0f;
         player.rb.AddForce(direction * player.dashForce, ForceMode.Impulse);
-
+        player.ChangeAnimation("Roll");
 
     }
 

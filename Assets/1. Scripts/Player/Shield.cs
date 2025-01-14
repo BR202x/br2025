@@ -1,14 +1,12 @@
-using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 using Cinemachine;
 
-public class shield : MonoBehaviour
+public class Shield : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] float speedBack;
     [SerializeField] bool hitSomething = false;
-    
+
     Transform playerTransform;
     Rigidbody rb;
     CinemachineImpulseSource cameraShake;
@@ -29,10 +27,10 @@ public class shield : MonoBehaviour
         {
             rb.linearVelocity = transform.forward * speed;
         }
-        else if(hitSomething)
+        else if (hitSomething)
         {
 
-            rb.position = Vector3.MoveTowards(transform.position, playerTransform.position, speedBack * Time.deltaTime);
+            rb.position = Vector3.MoveTowards(transform.position, playerTransform.position + Vector3.up, speedBack * Time.deltaTime);
         }
     }
 

@@ -3,6 +3,7 @@ using UnityEngine;
 public class AttackState : IPlayerState
 {
     float timer;
+    bool attack1;
     Vector3 direction;
     public void ExitState(PlayerMovement player)
     {
@@ -17,6 +18,7 @@ public class AttackState : IPlayerState
 
     public void StartState(PlayerMovement player)
     {
+        attack1 = !attack1;
         timer = 0;
         Vector3 forward = Camera.main.transform.forward;
         Vector3 right = Camera.main.transform.right;
@@ -31,6 +33,16 @@ public class AttackState : IPlayerState
         direction *= player.attackMoveVelocity;
         direction.y = 0f;
         player.rb.AddForce(direction, ForceMode.VelocityChange);
+        //animation
+        if(attack1)
+        {
+            player.ChangeAnimation("Attack", 0);
+        }
+        else
+        {
+            player.ChangeAnimation("Attack 2", 0);
+
+        }
 
     }
 

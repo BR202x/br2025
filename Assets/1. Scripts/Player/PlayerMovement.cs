@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.XR;
@@ -17,7 +18,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Parametros")]
     [Header("movimiento")]
-    public float moveSpeed;
+    [HideInInspector] public float moveSpeed = 0;
+    public float moveShieldSpeed = 4;
+    public float moveNormalSpeed = 10;
     public float rotationSpeed;
     public float moveSmooth;
     private bool isAiming;
@@ -35,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public float currentRotation;
     [HideInInspector] public Transform model;
     private Animator anim;
+    private string currentAnimation;
 
     [Header("Testing y debug")]
     [SerializeField] TMP_Text currentStateText;
@@ -69,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
     {
         currentState.UpdateState(this);
         currentStateText.text = currentState.ToString();
+
     }
 
     private void FixedUpdate()
@@ -83,9 +88,36 @@ public class PlayerMovement : MonoBehaviour
         currentState.StartState(this);
     }
 
-    public void ChangeAnimation(string animation, float crossfade = 0.1f)
+    public void ChangeAnimation(string animation, float crossfade = 0.3f, float time = 0)
     {
-        anim.CrossFade(animation, crossfade);
+        if (time > 0)
+        {
+            StartCoroutine(Wait());
+        }
+        else
+        {
+            Validate();
+        }
+
+        IEnumerator Wait()
+        {
+            yield return new WaitForSeconds(time);
+            Validate();
+        }
+        void Validate()
+        {
+
+            if (currentAnimation != animation)
+            {
+                currentAnimation = animation;
+                anim.CrossFade(animation, crossfade);
+            }
+        }
+    }
+    public string GetCurrentAnimation()
+    {
+        Debug.Log(currentAnimation);
+        return currentAnimation;
     }
 
     private void Dash(object sender, EventArgs e)
@@ -113,14 +145,16 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Shield(object sender, EventArgs e)
     {
+
         isAiming = true;
-        Debug.Log("defendiendo");
+        moveSpeed = moveShieldSpeed;
+
     }
     private void UnShield(object sender, EventArgs e)
     {
         isAiming = false;
-                Debug.Log("defendiendo");
-
+        moveSpeed = moveNormalSpeed;
+        ChangeAnimation("Unshield");
 
     }
 

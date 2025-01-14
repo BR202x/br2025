@@ -37,7 +37,7 @@ public class WalkState : IPlayerState
 
     public void StartState(PlayerMovement player)
     {
-        //player.ChangeAnimation("Walk");
+        
 
     }
 
@@ -48,8 +48,12 @@ public class WalkState : IPlayerState
         {
             player.ChangeState(player.stateIdle);
         }
-       
-        
+        if (!player.IsShield())
+        {
+            player.ChangeAnimation("Walk");
+
+        }
+
     }
 
 
