@@ -555,7 +555,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 196514450}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: Spawn Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1059,7 +1059,6 @@ Transform:
   m_Children:
   - {fileID: 707942080}
   - {fileID: 163795138}
-  - {fileID: 1399666049}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &375305655
@@ -1281,7 +1280,7 @@ GameObject:
   - component: {fileID: 495375819}
   - component: {fileID: 495375818}
   - component: {fileID: 495375817}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1954,7 +1953,7 @@ GameObject:
   - component: {fileID: 905372909}
   - component: {fileID: 905372911}
   - component: {fileID: 905372910}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: cara
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2281,7 +2280,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1159763823}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: Follow target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2699,7 +2698,7 @@ GameObject:
   - component: {fileID: 1399666053}
   - component: {fileID: 1399666051}
   - component: {fileID: 1399666052}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: Jugador
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2721,7 +2720,7 @@ Transform:
   m_Children:
   - {fileID: 495375816}
   - {fileID: 1159763823}
-  m_Father: {fileID: 335288534}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 69.736, z: 0}
 --- !u!114 &1399666050
 MonoBehaviour:
@@ -4928,6 +4927,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 932654982}
+  - {fileID: 1399666049}
   - {fileID: 335288534}
   - {fileID: 1476958473}
   - {fileID: 501106114}
