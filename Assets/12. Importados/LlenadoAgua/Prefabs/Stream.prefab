@@ -4891,7 +4891,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4fb5bb872e1e574481445a9b19c880a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidadAnimacion: 8
+  splashParticle: {fileID: 0}
+  velocidadAnimacion: 15
+  estaTocando: 0
+  direccionLinea: {x: 0, y: -1, z: 0}
 --- !u!120 &5238570228697279500
 LineRenderer:
   serializedVersion: 2

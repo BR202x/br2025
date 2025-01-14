@@ -11,10 +11,17 @@ TagManager:
   - 
   - Water
   - UI
+<<<<<<< Updated upstream
   - ColliderMask
   - 
   - 
   - 
+=======
+  - SuperficieTambor
+  - Player
+  - Agua
+  - Flotante
+>>>>>>> Stashed changes
   - 
   - 
   - 

@@ -9,8 +9,9 @@ public class PourDetector : MonoBehaviour
     public GameObject valvulaPadre = null;
     public GameObject streamPrefab = null;
 
-    [Header("Configuración de Dirección")]
+    [Header("Configuración Salida Agua")]
     public Vector3 direccionLinea = Vector3.down; // Dirección de la línea que se aplicará al Stream
+    public float velocidadAgua;
 
     [Header("Configuración de Ancho del LineRenderer")]
     public float anchoInicial = 0.1f; // Ancho inicial del LineRenderer
@@ -61,7 +62,8 @@ public class PourDetector : MonoBehaviour
     {
         MostrarDebug("Start");
         currentStream = CreateStream();
-        currentStream.Begin();
+        currentStream.Begin();        
+
     }
 
     private void EndPour()
@@ -93,11 +95,13 @@ public class PourDetector : MonoBehaviour
         // Configura el Stream instanciado
         Stream streamComponent = streamObject.GetComponent<Stream>();
         streamComponent.direccionLinea = direccionLinea;
+        streamComponent.velocidadAnimacion = velocidadAgua;
 
         // Configurar el ancho del LineRenderer
         LineRenderer lineRenderer = streamObject.GetComponent<LineRenderer>();
         if (lineRenderer != null)
         {
+                
             lineRenderer.startWidth = anchoInicial;
             lineRenderer.endWidth = anchoFinal;
         }

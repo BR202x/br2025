@@ -2,20 +2,24 @@ using UnityEngine;
 
 public class DetectarRotacionTambor : MonoBehaviour
 {
+#region Variables
+
     public bool mostrarDebug; // Controla si se mostrarán los mensajes de depuración en la consola
-
     [Header("Referencia Tambor")]
+        [Tooltip("Transform del objeto Superficie Del Tambor para detectar su rotacion")]
     public Transform tambor;
-
-    [Header("Checks")] // Check para saber hacia dónde aplicar la fuerza
+    [Header("Checks")] // Check para saber hacia dónde aplicar la fuerza    
     public bool girandoSentidoHorario;
     public bool girandoSentidoContrario;
     public bool tamborEstatico;    
-
     private float ultimaRotacionY;
-    private const float umbralEstatico = 0.1f; // Umbral para considerar el tambor estático
-    [Space]
+    [Header("Valores de Velocidad")]
+        [Tooltip("Umbral para determinar cuando afectar al jugador por la rotacion de la superficie")]
+    public float umbralMovJugador = 0.5f; // Umbral para considerar el tambor estático - mover al jugador fuerza tangencial    
+        [Tooltip("Valor de Velocidad de rotacion de la superficie")]
     public float velocidadRotacionTambor; // Velocidad de rotación del tambor en Z
+
+#endregion
 
     private void Start()
     {
@@ -34,7 +38,7 @@ public class DetectarRotacionTambor : MonoBehaviour
             float rotacionActualY = tambor.eulerAngles.y;
             velocidadRotacionTambor = rotacionActualY - ultimaRotacionY;
 
-            // Ajuste para evitar saltos entre 360 y 0
+            // Arreglo "Machetazo" para evitar saltos negativos hacer el calculo.
             if (velocidadRotacionTambor > 180f)
             {
                 velocidadRotacionTambor -= 360f;
@@ -50,7 +54,7 @@ public class DetectarRotacionTambor : MonoBehaviour
 
             #region Estados Movimiento del Tambor
 
-            if (Mathf.Abs(velocidadRotacionTambor) < umbralEstatico) // Verificar si el tambor está estático
+            if (Mathf.Abs(velocidadRotacionTambor) < umbralMovJugador)
             {
                 girandoSentidoHorario = false;
                 girandoSentidoContrario = false;
@@ -58,7 +62,7 @@ public class DetectarRotacionTambor : MonoBehaviour
 
                 DLog("El tambor está estático.");
             }
-            else if (velocidadRotacionTambor > 0) // Girando en sentido horario
+            else if (velocidadRotacionTambor > 0)
             {
                 girandoSentidoHorario = true;
                 girandoSentidoContrario = false;
@@ -66,7 +70,7 @@ public class DetectarRotacionTambor : MonoBehaviour
 
                 DLog("El tambor está girando en sentido horario.");
             }
-            else if (velocidadRotacionTambor < 0) // Girando en sentido antihorario
+            else if (velocidadRotacionTambor < 0)
             {
                 girandoSentidoHorario = false;
                 girandoSentidoContrario = true;

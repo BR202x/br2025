@@ -2,16 +2,19 @@ using UnityEngine;
 
 public class MoverJugadorPorTambor : MonoBehaviour
 {
+#region Variables
+
     public bool mostrarDebug;
     [Space]
     private Rigidbody rigidJugador;
-
+    [Header("Referencias")]
     public Transform tambor; 
     public DetectarRotacionTambor detectarRotacionTambor;
-
     [Header("Configuración de Fuerzas")]
     public float fuerzaTangencial = 1f; 
-    public ForceMode modoFuerza = ForceMode.Acceleration; 
+    public ForceMode modoFuerza = ForceMode.Acceleration;
+
+#endregion
 
     private void Start()
     {        
@@ -49,11 +52,13 @@ public class MoverJugadorPorTambor : MonoBehaviour
                 
         if (sentidoHorario)
         {
-            direccionTangencial = -direccionTangencial; // Invertir dirección si el tambor gira en sentido horario
+            direccionTangencial = -direccionTangencial;
         }
-                
-        Vector3 fuerzaTangencialAplicada = direccionTangencial * fuerzaTangencial;
-                
+
+        // Fuerzas multiplicadas por la velocidad del tambor, de la referencia.
+
+        Vector3 fuerzaTangencialAplicada = direccionTangencial * fuerzaTangencial * Mathf.Abs(detectarRotacionTambor.velocidadRotacionTambor);
+        
         rigidJugador.AddForce(fuerzaTangencialAplicada, modoFuerza);
 
         DLog($"Fuerza tangencial aplicada: {fuerzaTangencialAplicada} (Modo: {modoFuerza})");
