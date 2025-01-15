@@ -2,25 +2,31 @@ using UnityEngine;
 
 public class MenuPausaManager : MonoBehaviour
 {
-    public GameObject canvasPausa; // Referencia al GameObject del menú de pausa
-    private bool canvasPausaOn;    // Estado del menú de pausa
+#region Variables
+
+    [Header("Depuración")]
+    public bool mostrarDebug = true;
+    [Space]
+    public GameObject canvasPausa;
+    private bool canvasPausaOn;
+
+#endregion
 
     void Start()
-    {        
+    {
         canvasPausaOn = canvasPausa.activeSelf;
         ActualizarEstado();
+        if (mostrarDebug) Debug.Log($"[MenuPausaManager] Menú de pausa iniciado con estado: {(canvasPausaOn ? "Activado" : "Desactivado")}.");
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-        {            
+        {
             canvasPausaOn = !canvasPausaOn;
             canvasPausa.SetActive(canvasPausaOn);
-
             ActualizarEstado();
-
-            Debug.Log($"Estado del menú de pausa: {(canvasPausaOn ? "Activado" : "Desactivado")}");
+            if (mostrarDebug) Debug.Log($"[MenuPausaManager] Estado del menú de pausa: {(canvasPausaOn ? "Activado" : "Desactivado")}.");
         }
     }
 
@@ -30,15 +36,15 @@ public class MenuPausaManager : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-
             ControladorScripts.instance.MovimientoJugador(false);
+            if (mostrarDebug) Debug.Log("[MenuPausaManager] Cursor desbloqueado, jugador detenido.");
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-
             ControladorScripts.instance.MovimientoJugador(true);
+            if (mostrarDebug) Debug.Log("[MenuPausaManager] Cursor bloqueado, jugador habilitado.");
         }
     }
 
@@ -47,5 +53,6 @@ public class MenuPausaManager : MonoBehaviour
         canvasPausaOn = false;
         canvasPausa.SetActive(false);
         ActualizarEstado();
+        if (mostrarDebug) Debug.Log("[MenuPausaManager] Menú de pausa desactivado al volver.");
     }
 }

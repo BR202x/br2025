@@ -2,14 +2,19 @@ using UnityEngine;
 
 public class ControladorScripts : MonoBehaviour
 {
-    public static ControladorScripts instance;
+#region Variables
 
+    [Header("Depuración")]
+    public bool mostrarDebug = true;
+
+    public static ControladorScripts instance;
     [Header("Scripts Referenciados")]
     public PlayerMovement playerMovement;
     public CameraController cameraController;
-
     public Shield shield;
     private Vector3 storedVelocity;
+
+#endregion
 
     private void Awake()
     {
@@ -21,7 +26,6 @@ public class ControladorScripts : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
     }
 
     public void MovimientoJugador(bool estado)
@@ -31,7 +35,7 @@ public class ControladorScripts : MonoBehaviour
         if (shield != null)
         {
             shield.enabled = estado;
-            MostrarLog($"Shield {(estado ? "activado" : "desactivado")}");
+            if (mostrarDebug) Debug.Log($"[ControladorScripts] Shield {(estado ? "activado" : "desactivado")}");
         }
 
         if (!estado)
@@ -44,22 +48,16 @@ public class ControladorScripts : MonoBehaviour
             playerMovement.rb.linearVelocity = storedVelocity;
         }
 
-
         playerMovement.enabled = estado;
         playerMovement.GetComponentInChildren<Animator>().enabled = estado;
 
         cameraController.enabled = estado;
 
-        MostrarLog($"Movimiento del jugador {(estado ? "activado" : "desactivado")}");
-    }
-
-    private void MostrarLog(string mensaje)
-    {
-        Debug.Log($"[ControladorScripts]: {mensaje}");
+        if (mostrarDebug) Debug.Log($"[ControladorScripts] Movimiento del jugador {(estado ? "activado" : "desactivado")}");
     }
 
     public void Prueba()
     {
-        MostrarLog("El método 'Prueba' fue llamado desde el singleton ControladorScripts.");
+        if (mostrarDebug) Debug.Log("[ControladorScripts] El método 'Prueba' fue llamado desde el singleton ControladorScripts.");
     }
 }

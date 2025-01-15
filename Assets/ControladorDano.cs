@@ -2,10 +2,13 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class ControladorDaño : MonoBehaviour
+public class ControladorDano : MonoBehaviour
 {
+    [Header("Configuración de Depuración")]
+    public bool mostrarDebug = true;
+
     [Header("Variables Vida")]
-    [Tooltip("Determina si el daño se aplica de menor a mayor en la lista de vidas.")]
+    [Tooltip("Esta tiene nombre, se que se despertara la duda 'Ni si piidi hicir qi si ridisqi in il itri sintidi?' xD")]
     public bool actuarDeMenorAMayor = true;
     public int vida = 4;
     public int vidaActual;
@@ -17,6 +20,10 @@ public class ControladorDaño : MonoBehaviour
     public Slider sliderOxigeno;
     public float tiempoOxigeno = 5f;
 
+    [Header("Daño por oxígeno bajo")]
+    public float tiempoParaReducirVida = 3f;
+    private float contadorTiempo = 0f;
+
     [Header("Objetos")]
     public GameObject panelVida;
     public GameObject prefabVida;
@@ -24,7 +31,7 @@ public class ControladorDaño : MonoBehaviour
     private bool dañoAplicado = false;
 
     void Start()
-    {
+    {        
         vidaActual = vida;
         GenerarVidas();
         sliderOxigeno.maxValue = 1;
@@ -35,19 +42,19 @@ public class ControladorDaño : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            MostrarLog("Presionando M: Recibir Daño");
+            if (mostrarDebug) Debug.Log("[ControladorDaño] Input M: Recibir Daño.");
             RecibirDaño();
         }
 
         if (Input.GetKeyDown(KeyCode.N))
         {
-            MostrarLog("Presionando N: Recuperar Vida");
+            if (mostrarDebug) Debug.Log("[ControladorDaño] Input N: Recuperar Vida.");
             RecuperarVida();
         }
 
         if (Input.GetKeyDown(KeyCode.O))
         {
-            MostrarLog("Presionando O: Cambiando estado de estaEnAgua");
+            if (mostrarDebug) Debug.Log("[ControladorDaño] Input O: Cambiando estado de agua.");
             estaEnAgua = !estaEnAgua;
         }
 
@@ -55,14 +62,24 @@ public class ControladorDaño : MonoBehaviour
         {
             ReducirOxigeno();
         }
-        else
+        else if (oxigeno < 1)
         {
             RecuperarOxigeno();
+        }
+
+        if (oxigeno <= 0)
+        {
+            ContarParaReducirVida();
+        }
+        else
+        {
+            contadorTiempo = tiempoParaReducirVida;
         }
     }
 
     void GenerarVidas()
     {
+        if (mostrarDebug) Debug.Log("[ControladorDaño] Generando vidas.");
         foreach (Transform child in panelVida.transform)
         {
             Destroy(child.gameObject);
@@ -80,6 +97,7 @@ public class ControladorDaño : MonoBehaviour
 
     public void RecibirDaño()
     {
+        if (mostrarDebug) Debug.Log("[ControladorDaño] Aplicando daño.");
         if (vidaActual > 0)
         {
             int index = actuarDeMenorAMayor ? vidaActual - 1 : listaVidas.Count - vidaActual;
@@ -88,7 +106,7 @@ public class ControladorDaño : MonoBehaviour
             if (cambioSprite != null)
             {
                 cambioSprite.lleno = false;
-                MostrarLog($"Vida {vidaPrefab.name} ahora está vacía.");
+                if (mostrarDebug) Debug.Log($"[ControladorDaño] Vida {vidaPrefab.name} vacía.");
             }
             vidaActual--;
         }
@@ -96,6 +114,7 @@ public class ControladorDaño : MonoBehaviour
 
     public void RecuperarVida()
     {
+        if (mostrarDebug) Debug.Log("[ControladorDaño] Recuperando vida.");
         if (vidaActual < vida)
         {
             int index = actuarDeMenorAMayor ? vidaActual : listaVidas.Count - vidaActual - 1;
@@ -104,31 +123,32 @@ public class ControladorDaño : MonoBehaviour
             if (cambioSprite != null)
             {
                 cambioSprite.lleno = true;
-                MostrarLog($"Vida {vidaPrefab.name} ahora está llena.");
+                if (mostrarDebug) Debug.Log($"[ControladorDaño] Vida {vidaPrefab.name} llena.");
             }
             vidaActual++;
         }
         else
         {
-            MostrarLog("La vida ya está al máximo.");
+            if (mostrarDebug) Debug.Log("[ControladorDaño] Vida al máximo.");
         }
     }
 
     private void ReducirOxigeno()
     {
+        if (mostrarDebug) Debug.Log("[ControladorDaño] Reduciendo oxígeno.");
         oxigeno -= Time.deltaTime / tiempoOxigeno;
         oxigeno = Mathf.Clamp(oxigeno, 0, 1);
         sliderOxigeno.value = oxigeno;
 
         if (oxigeno <= 0 && !dañoAplicado)
         {
-            RecibirDaño();
             dañoAplicado = true;
         }
     }
 
     private void RecuperarOxigeno()
     {
+        if (mostrarDebug) Debug.Log("[ControladorDaño] Recuperando oxígeno.");
         oxigeno += Time.deltaTime / (tiempoOxigeno / 2);
         oxigeno = Mathf.Clamp(oxigeno, 0, 1);
         sliderOxigeno.value = oxigeno;
@@ -139,8 +159,15 @@ public class ControladorDaño : MonoBehaviour
         }
     }
 
-    private void MostrarLog(string mensaje)
+    private void ContarParaReducirVida()
     {
-        Debug.Log(mensaje);
+        if (mostrarDebug) Debug.Log("[ControladorDaño] Contando para daño.");
+        contadorTiempo -= Time.deltaTime;
+
+        if (contadorTiempo <= 0f)
+        {
+            RecibirDaño();
+            contadorTiempo = tiempoParaReducirVida;
+        }
     }
 }

@@ -5,14 +5,15 @@ using UnityEngine.UI;
 
 public class OpcionesGraficas : MonoBehaviour
 {
+#region Variables
+
+    [Header("Depuración")]
+    public bool mostrarDebug;
+    [Header("Objetos Opciones")]
     public TMP_Dropdown dropdownGraficos;
     public TMP_Dropdown dropdownResolucion;
     public Toggle togglePantallaCompleta;
-
-    [Header("Depuración")]
-    public bool mostrarDebug; // Controla si se muestran los mensajes de depuración
-
-    // Lista de resoluciones personalizadas
+    
     private List<Resolution> resolucionesPersonalizadas = new List<Resolution>
     {
         new Resolution { width = 800, height = 600 },
@@ -22,6 +23,8 @@ public class OpcionesGraficas : MonoBehaviour
     };
 
     private int estaPantallaCompleta;
+
+#endregion
 
     void Start()
     {
