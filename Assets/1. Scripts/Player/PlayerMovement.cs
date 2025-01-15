@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public Vector3 currentVelocity;
     [HideInInspector] public float currentRotation;
     [HideInInspector] public Transform model;
+    [HideInInspector] public CameraController controllerCam;
     private Animator anim;
     private string currentAnimation;
 
@@ -52,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         anim = transform.GetChild(0).GetComponent<Animator>();
         model = transform.GetChild(0);
         rb = GetComponent<Rigidbody>();
+        controllerCam = GetComponent<CameraController>();
 
     }
     void Start()
@@ -119,6 +121,11 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log(currentAnimation);
         return currentAnimation;
     }
+    public IPlayerState GetCurrentState()
+    {
+        return currentState;
+
+    }
 
     private void Dash(object sender, EventArgs e)
     {
@@ -145,9 +152,12 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Shield(object sender, EventArgs e)
     {
+        if (controllerCam.GetCanShield())
+        {
+            isAiming = true;
+            moveSpeed = moveShieldSpeed;
 
-        isAiming = true;
-        moveSpeed = moveShieldSpeed;
+        }
 
     }
     private void UnShield(object sender, EventArgs e)

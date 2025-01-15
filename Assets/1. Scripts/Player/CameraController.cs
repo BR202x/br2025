@@ -34,6 +34,8 @@ public class CameraController : MonoBehaviour
         player = GetComponent<PlayerMovement>();
         input.OnAttack += ThrowShield;
         cameraShake = GetComponent<CinemachineImpulseSource>();
+        mainCamera = GameObject.Find("Normal camera");
+        aimCamera = GameObject.Find("Aim camera");
     }
 
 
@@ -47,11 +49,8 @@ public class CameraController : MonoBehaviour
     {
         if (!player.IsShield()) { return; }
 
-        if (shotShield)
-        {
-            Debug.Log("ya lanzaste el boton");
-        }
-        else
+        
+        if(!shotShield)
         {
             player.ChangeAnimation("Throw");
             cameraShake.GenerateImpulse();
@@ -137,5 +136,10 @@ public class CameraController : MonoBehaviour
     private void LateUpdate()
     {
         CameraMove();
+    }
+
+    public  bool GetCanShield()
+    {
+        return !shotShield;
     }
 }
