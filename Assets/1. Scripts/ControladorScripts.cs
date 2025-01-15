@@ -4,7 +4,7 @@ public class ControladorScripts : MonoBehaviour
 {
 #region Variables
 
-    [Header("Depuración")]
+    [Header("Depuracion")]
     public bool mostrarDebug = true;
 
     public static ControladorScripts instance;

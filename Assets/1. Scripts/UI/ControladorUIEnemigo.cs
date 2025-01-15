@@ -3,6 +3,9 @@ using TMPro;
 
 public class ControladorUIEnemigo : MonoBehaviour
 {
+    [Header("Depuración")]
+    public bool mostrarLog;
+
     [Header("Referencias de UI")]
     public TextMeshProUGUI textoNombreEnemigo;
     public Transform panelVidaEnemigo;
@@ -12,14 +15,12 @@ public class ControladorUIEnemigo : MonoBehaviour
     {
         if (enemigo == null)
         {
-            Debug.LogWarning("[ControladorUIEnemigo] El enemigo es null, no se puede actualizar la UI.");
+            if (mostrarLog) { Debug.LogWarning("[ControladorUIEnemigo] El enemigo es null, no se puede actualizar la UI."); }
             return;
         }
 
-        // Actualizar el nombre del enemigo
         textoNombreEnemigo.text = enemigo.nombreEnemigo;
 
-        // Actualizar las vidas visibles en la UI
         foreach (Transform child in panelVidaEnemigo)
         {
             Destroy(child.gameObject);
@@ -30,6 +31,6 @@ public class ControladorUIEnemigo : MonoBehaviour
             Instantiate(prefabVida, panelVidaEnemigo);
         }
 
-        Debug.Log($"[ControladorUIEnemigo] UI actualizada para {enemigo.nombreEnemigo} con {enemigo.vidaActual} vidas.");
+        if (mostrarLog) { Debug.Log($"[ControladorUIEnemigo] UI actualizada para {enemigo.nombreEnemigo} con {enemigo.vidaActual} vidas."); }
     }
 }

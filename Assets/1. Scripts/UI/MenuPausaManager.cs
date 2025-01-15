@@ -2,21 +2,21 @@ using UnityEngine;
 
 public class MenuPausaManager : MonoBehaviour
 {
-#region Variables
+    #region Variables
 
-    [Header("Depuración")]
+    [Header("depuracion")]
     public bool mostrarDebug = true;
     [Space]
     public GameObject canvasPausa;
     private bool canvasPausaOn;
 
-#endregion
+    #endregion
 
     void Start()
     {
         canvasPausaOn = canvasPausa.activeSelf;
         ActualizarEstado();
-        if (mostrarDebug) Debug.Log($"[MenuPausaManager] Menú de pausa iniciado con estado: {(canvasPausaOn ? "Activado" : "Desactivado")}.");
+        if (mostrarDebug) Debug.Log($"[MenuPausaManager] Menu de pausa iniciado con estado: {(canvasPausaOn ? "Activado" : "Desactivado")}.");
     }
 
     void Update()
@@ -26,7 +26,7 @@ public class MenuPausaManager : MonoBehaviour
             canvasPausaOn = !canvasPausaOn;
             canvasPausa.SetActive(canvasPausaOn);
             ActualizarEstado();
-            if (mostrarDebug) Debug.Log($"[MenuPausaManager] Estado del menú de pausa: {(canvasPausaOn ? "Activado" : "Desactivado")}.");
+            if (mostrarDebug) Debug.Log($"[MenuPausaManager] Estado del menu de pausa: {(canvasPausaOn ? "Activado" : "Desactivado")}.");
         }
     }
 
@@ -53,6 +53,6 @@ public class MenuPausaManager : MonoBehaviour
         canvasPausaOn = false;
         canvasPausa.SetActive(false);
         ActualizarEstado();
-        if (mostrarDebug) Debug.Log("[MenuPausaManager] Menú de pausa desactivado al volver.");
+        if (mostrarDebug) Debug.Log("[MenuPausaManager] Menu de pausa desactivado al volver.");
     }
 }

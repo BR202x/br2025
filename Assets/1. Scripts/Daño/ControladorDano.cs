@@ -4,11 +4,13 @@ using UnityEngine.UI;
 
 public class ControladorDano : MonoBehaviour
 {
+#region Variables
+
     [Header("Configuración de Depuración")]
     public bool mostrarDebug = true;
 
     [Header("Variables Vida")]
-    [Tooltip("Esta tiene nombre, se que se despertara la duda 'Ni si piidi hicir qi si ridisqi in il itri sintidi?' xD")]
+        [Tooltip("Esta tiene nombre, se que se despertara la duda 'Ni si piidi hicir qi si ridisqi in il itri sintidi?' xD")]
     public bool actuarDeMenorAMayor = true;
     public int vida = 4;
     public int vidaActual;
@@ -29,6 +31,8 @@ public class ControladorDano : MonoBehaviour
     public GameObject prefabVida;
 
     private bool dañoAplicado = false;
+
+#endregion
 
     void Start()
     {        

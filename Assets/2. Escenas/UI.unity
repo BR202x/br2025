@@ -7723,7 +7723,7 @@ GameObject:
   - component: {fileID: 1002456407}
   - component: {fileID: 1002456406}
   m_Layer: 5
-  m_Name: Panel_Enemigos (1)
+  m_Name: Panel_VidaEnemigos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9118,7 +9118,7 @@ GameObject:
   - component: {fileID: 1195986874}
   - component: {fileID: 1195986873}
   - component: {fileID: 1195986872}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Target TRES
   m_TagString: Enemigo
   m_Icon: {fileID: 0}
@@ -9374,6 +9374,7 @@ GameObject:
   - component: {fileID: 1200668727}
   - component: {fileID: 1200668728}
   - component: {fileID: 1200668729}
+  - component: {fileID: 1200668730}
   m_Layer: 0
   m_Name: "Controlador_Da\xF1o"
   m_TagString: Untagged
@@ -9432,6 +9433,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecff0a570a2df2d4f898f5e473ada665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1200668730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200668726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc071dd9d77c5ff40a5ec2c37febdb20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanciaMaxima: 100
+  capaEnemigos:
+    serializedVersion: 2
+    m_Bits: 1024
+  mostrarRaycast: 1
+  panelInfoEnemigo: {fileID: 1647836880}
+  panelVidaEnemigo: {fileID: 1002456405}
+  prefabVida: {fileID: 7838986197056239846, guid: 6acb2748b4a94be47bb171eea595ad86, type: 3}
+  textoNombreEnemigo: {fileID: 195546492}
+  tiempoParaOcultar: 3
+  camaraApuntar: {fileID: 1337705025}
+  camaraMain: {fileID: 364653090}
 --- !u!4 &1221337991 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2b7a7f0158624d843a955155c3d9eb2f, type: 3}
@@ -12932,7 +12957,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1647836881
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12949,9 +12974,9 @@ RectTransform:
   - {fileID: 195546491}
   m_Father: {fileID: 1421819574}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 209.6468, y: -75}
   m_SizeDelta: {x: 419.2936, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1647836882
@@ -14020,7 +14045,7 @@ GameObject:
   - component: {fileID: 1793015933}
   - component: {fileID: 1793015932}
   - component: {fileID: 1793015936}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Target DOS
   m_TagString: Enemigo
   m_Icon: {fileID: 0}
