@@ -5,6 +5,7 @@ public class Shield : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] float speedBack;
+    [SerializeField] int damage;
     [SerializeField] bool hitSomething = false;
 
     Transform playerTransform;
@@ -47,6 +48,10 @@ public class Shield : MonoBehaviour
         }
         else
         {
+            if(other.TryGetComponent<Idamageable>(out Idamageable target))
+            {
+                target.DealDamage(damage);
+            }
             hitSomething = true;
             rb.linearVelocity = Vector3.zero;
 

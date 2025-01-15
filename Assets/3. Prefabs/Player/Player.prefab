@@ -334,6 +334,62 @@ MonoBehaviour:
   needleHand: {fileID: 110565111384194914}
   needleBack: {fileID: 1961171540836098295}
   timeToSheathNeedle: 3
+--- !u!1 &4761404602437291425
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6454176183555871455}
+  - component: {fileID: 8726010793766945900}
+  m_Layer: 0
+  m_Name: Arma
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6454176183555871455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4761404602437291425}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 775497433469380056}
+  m_Father: {fileID: 8109737210926883783}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &8726010793766945900
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4761404602437291425}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &640092293139736247
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -755,7 +811,7 @@ PrefabInstance:
       addedObject: {fileID: 7860209548450780162}
     - targetCorrespondingSourceObject: {fileID: -546761250162391696, guid: 49387008d4be7334f8083803621f625d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 775497433469380056}
+      addedObject: {fileID: 6454176183555871455}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 49387008d4be7334f8083803621f625d, type: 3}
       insertIndex: -1
@@ -814,7 +870,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8109737210926883783}
+    m_TransformParent: {fileID: 6454176183555871455}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 2b7a7f0158624d843a955155c3d9eb2f, type: 3}
       propertyPath: m_LocalScale.x
@@ -822,11 +878,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2b7a7f0158624d843a955155c3d9eb2f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.0316293
+      value: 2.031629
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2b7a7f0158624d843a955155c3d9eb2f, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.0316293
+      value: 2.031629
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2b7a7f0158624d843a955155c3d9eb2f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -846,15 +902,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2b7a7f0158624d843a955155c3d9eb2f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.000000015832482
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2b7a7f0158624d843a955155c3d9eb2f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.000000014901159
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2b7a7f0158624d843a955155c3d9eb2f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.00000007799826
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2b7a7f0158624d843a955155c3d9eb2f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

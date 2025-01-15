@@ -31,8 +31,7 @@ public class PlayerMovement : MonoBehaviour
     public float attackMoveVelocity = 5;
     public float attackDuration = 0.3f;
     public float attackMoveSmooth;
-
-    public int attackDamage = 5;
+    public static event EventHandler OnAttack;
 
     [HideInInspector] public Vector3 currentVelocity;
     [HideInInspector] public float currentRotation;
@@ -141,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (currentState == stateWalk || currentState == stateIdle)
         {
-            Debug.Log("atacando");
+            OnAttack?.Invoke(this, EventArgs.Empty);
 
             ChangeState(stateAttack);
         }

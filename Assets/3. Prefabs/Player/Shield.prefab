@@ -151,6 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 65
   speedBack: 45
+  damage: 6
   hitSomething: 0
 --- !u!1001 &7742013928951179156
 PrefabInstance:
