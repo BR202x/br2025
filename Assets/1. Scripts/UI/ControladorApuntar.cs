@@ -26,15 +26,27 @@ public class ControladorApuntar : MonoBehaviour
     [Header("Cámara")]
     public GameObject camaraApuntar;
     public Camera camaraMain;
+    public GameObject escudoRebote;
 
     private Coroutine ocultarInfoCoroutine;
 
     #endregion
 
+    public void Start()
+    {
+        if (!camaraApuntar.activeSelf)
+        {
+            escudoRebote.SetActive(false);
+        }
+    }
+
+
     private void Update()
     {
         if (camaraApuntar.gameObject.activeSelf)
         {
+            escudoRebote.SetActive(true);
+
             Ray ray = camaraMain.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
@@ -54,6 +66,8 @@ public class ControladorApuntar : MonoBehaviour
         }
         else
         {
+            escudoRebote.SetActive(false);
+
             if (ocultarInfoCoroutine == null)
             {
                 ocultarInfoCoroutine = StartCoroutine(TemporizadorOcultarUI());
