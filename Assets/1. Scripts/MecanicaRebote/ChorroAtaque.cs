@@ -1,9 +1,10 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class ChorroAtaque : MonoBehaviour
 {
-    [Header("depuracion")]
+    [Header("Depuración")]
     public bool mostrarLog = true;
 
     #region Variables
@@ -12,17 +13,17 @@ public class ChorroAtaque : MonoBehaviour
     private ParticleSystem splashParticle = null;
     private Coroutine pourRoutine = null;
 
-    [Header("Configuracion del Chorro")]
+    [Header("Configuración del Chorro")]
     public Vector3 direccionLinea = Vector3.down;
     public float velocidadAnimacion = 5f;
     public float longitudChorro = 10f;
     public int layerEscudo = 8;
 
-    [Header("Configuracion del LineRenderer")]
+    [Header("Configuración del LineRenderer")]
     public float anchoInicial = 0.1f;
     public float anchoFinal = 0.05f;
 
-    [Header("Configuracion de las Particulas")]
+    [Header("Configuración de las Partículas")]
     public float tamanoParticulas = 0.01f;
     public GameObject prefabParticulaRebote;
 
@@ -40,7 +41,7 @@ public class ChorroAtaque : MonoBehaviour
 
         if (mainCamera == null)
         {
-            if (mostrarLog) { Debug.LogError("No se encontro ninguna Main Camera en la escena."); }
+            if (mostrarLog) { Debug.LogError("No se encontró ninguna Main Camera en la escena."); }
         }
     }
 
@@ -65,11 +66,6 @@ public class ChorroAtaque : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        
-    }
-
     public void Begin()
     {
         pourRoutine = StartCoroutine(HandlePour());
@@ -82,9 +78,15 @@ public class ChorroAtaque : MonoBehaviour
             Vector3[] puntos = CalcularReboteYColision();
 
             lineRenderer.positionCount = puntos.Length;
-            for (int i = 0; i < puntos.Length; i++)
+
+            // Animamos el primer tramo del chorro (del origen al primer impacto).
+            AnimateToPosition(0, puntos[0]);
+            AnimateToPosition(1, puntos[1]);
+
+            // Si hay rebote (más de 2 puntos en el array), animamos el rebote.
+            if (puntos.Length > 2)
             {
-                AnimateToPosition(i, puntos[i]);
+                AnimateRebote(puntos[1], puntos[2]);
             }
 
             yield return null;
@@ -108,8 +110,6 @@ public class ChorroAtaque : MonoBehaviour
                 Vector3 puntoRebote = hit.point;
                 puntos.Add(puntoRebote);
 
-                if (mostrarLog) { Debug.Log($"Impacto inicial con el Escudo: {hit.collider.gameObject.name}"); }
-
                 InstanciarParticulaRebote(puntoRebote);
 
                 if (mainCamera != null)
@@ -124,8 +124,6 @@ public class ChorroAtaque : MonoBehaviour
                         puntos.Add(endPoint);
 
                         ControlarParticula(endPoint);
-
-                        if (mostrarLog) { Debug.Log($"Impacto tras el rebote con: {segundoHit.collider.gameObject.name}"); }
                     }
                     else
                     {
@@ -133,8 +131,6 @@ public class ChorroAtaque : MonoBehaviour
                         puntos.Add(endPoint);
 
                         ControlarParticula(endPoint);
-
-                        if (mostrarLog) { Debug.Log("No se detecto colision tras el rebote. Linea extendida."); }
                     }
                 }
             }
@@ -145,8 +141,6 @@ public class ChorroAtaque : MonoBehaviour
 
                 ControlarParticula(endPoint);
 
-                if (mostrarLog) { Debug.Log($"Impacto con: {hit.collider.gameObject.name}"); }
-
                 DestruirParticulaRebote();
             }
         }
@@ -155,9 +149,7 @@ public class ChorroAtaque : MonoBehaviour
             Vector3 endPoint = ray.GetPoint(longitudChorro);
             puntos.Add(endPoint);
 
-            ControlarParticula(endPoint);
-
-            if (mostrarLog) { Debug.Log("No se detecto ningun impacto inicial."); }
+            // ControlarParticula(endPoint);
 
             DestruirParticulaRebote();
         }
@@ -179,8 +171,6 @@ public class ChorroAtaque : MonoBehaviour
         {
             Destroy(particulaReboteInstanciada);
             particulaReboteInstanciada = null;
-
-            if (mostrarLog) { Debug.Log("Particula de rebote eliminada."); }
         }
     }
 
@@ -212,7 +202,37 @@ public class ChorroAtaque : MonoBehaviour
             Vector3 current = lineRenderer.GetPosition(index);
             Vector3 newPosition = Vector3.MoveTowards(current, targetPosition, Time.deltaTime * velocidadAnimacion);
             lineRenderer.SetPosition(index, newPosition);
+
+            // Log when the animation reaches the endpoint
+            if (newPosition == targetPosition && mostrarLog)
+            {
+                Debug.Log($"Animación completada. Punto final alcanzado: {targetPosition}");
+                ControlarParticula(targetPosition);
+            }
         }
+    }
+
+    private void AnimateRebote(Vector3 start, Vector3 end)
+    {
+        // Creamos un nuevo punto en el LineRenderer para animar el rebote.
+        int reboteIndex = 2;
+        lineRenderer.positionCount = reboteIndex + 1;
+
+        Vector3 current = start;
+        while (current != end)
+        {
+            current = Vector3.MoveTowards(current, end, Time.deltaTime * velocidadAnimacion);
+            lineRenderer.SetPosition(reboteIndex, current);
+
+            // Log when the animation reaches the endpoint of the rebound
+            if (current == end && mostrarLog)
+            {
+                Debug.Log($"Rebote completado. Punto final del rebote alcanzado: {end}");
+                ControlarParticula(end);
+            }
+        }
+
+        lineRenderer.SetPosition(reboteIndex, end);
     }
 
     public void End()

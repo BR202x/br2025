@@ -5094,10 +5094,10 @@ RectTransform:
   - {fileID: 1627071193}
   m_Father: {fileID: 190082413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 120, y: -30}
-  m_SizeDelta: {x: 240, y: 60}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &617875374
 MonoBehaviour:
@@ -6195,7 +6195,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2101061954}
-  - {fileID: 1957808177}
   - {fileID: 561718811}
   - {fileID: 1711980441}
   m_Father: {fileID: 997381213}
@@ -8974,7 +8973,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1957808177}
   m_Father: {fileID: 51275427}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1200668728
@@ -14991,7 +14991,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 769943473}
+  m_Father: {fileID: 1200668727}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1957808179
 MonoBehaviour:
@@ -15010,7 +15010,7 @@ MonoBehaviour:
   valvulaPadre: {fileID: 1799560662}
   streamPrefab: {fileID: 5238570228697279498, guid: 72d61d2e6d144464dbc6c983e341b6e0, type: 3}
   direccionLinea: {x: 0.61, y: -1, z: -2.05}
-  velocidadAgua: 40
+  velocidadAgua: 20
   anchoInicial: 0.1
   anchoFinal: 0.2
   pourCheck: 0
