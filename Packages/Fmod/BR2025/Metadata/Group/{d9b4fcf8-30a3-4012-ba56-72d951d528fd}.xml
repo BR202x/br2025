@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="MixerGroup" id="{d9b4fcf8-30a3-4012-ba56-72d951d528fd}">
+		<property name="name">
+			<value>Musica</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{50188226-49e9-4ddf-a055-f5b4f3114319}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{0c25c8ab-b32c-49be-9fdf-4b2039256595}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{577d53ee-649c-4341-bfe8-6efe47d8e432}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{50188226-49e9-4ddf-a055-f5b4f3114319}">
+		<relationship name="effects">
+			<destination>{60c98232-228a-4e32-bc49-9bde68fff7cd}</destination>
+			<destination>{169c9056-8c13-4b4b-93f3-5f579b0da257}</destination>
+			<destination>{c00f3f27-5306-4bd4-b670-3e15d01112d1}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{0c25c8ab-b32c-49be-9fdf-4b2039256595}" />
+	<object class="MixerBusFader" id="{60c98232-228a-4e32-bc49-9bde68fff7cd}" />
+	<object class="LowpassEffect" id="{169c9056-8c13-4b4b-93f3-5f579b0da257}" />
+	<object class="SFXReverbEffect" id="{c00f3f27-5306-4bd4-b670-3e15d01112d1}" />
+</objects>

@@ -6,9 +6,15 @@
 		</property>
 		<relationship name="items">
 			<destination>{650216e0-5040-4d9d-bac2-f94c2b82be91}</destination>
+			<destination>{8870e01f-cd61-4ae8-9d02-f29b0683cc26}</destination>
 		</relationship>
 	</object>
 	<object class="Tag" id="{650216e0-5040-4d9d-bac2-f94c2b82be91}">
+		<property name="name">
+			<value>placeholder</value>
+		</property>
+	</object>
+	<object class="Tag" id="{8870e01f-cd61-4ae8-9d02-f29b0683cc26}">
 		<property name="name">
 			<value>placeholder</value>
 		</property>

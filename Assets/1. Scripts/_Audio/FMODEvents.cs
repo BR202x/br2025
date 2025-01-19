@@ -1,24 +1,22 @@
+using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 
+
 public class FMODEvents : MonoBehaviour
 {
-    [field: Header("Test1")]
-    [field: SerializeField] public EventReference test1 { get; private set; }
+    [System.Serializable]
+    public class FMODEvent
+    {
+        public string nombreEvento;
+        public EventReference eventReference;
+    }
 
-    [field: Header("Test2 Pasos ")]
-    [field: SerializeField] public EventReference pasosTest1 { get; private set; }    
-    [field: SerializeField] public EventReference pasosTest2 { get; private set; }
+    [SerializeField] private List<FMODEvent> musica = new List<FMODEvent>();
 
+    [SerializeField] private List<FMODEvent> sfx = new List<FMODEvent>();
 
-    [field: Header("Test3 Cercania")]
-    [field: SerializeField] public EventReference cercaniaObjeto1 { get; private set; }    
-    [field: SerializeField] public EventReference cercaniaObjeto2 { get; private set; }
-
-    [field: Header("Test4 Ambiente")]
-
-    [field: SerializeField] public EventReference ambiente { get; private set; }
-
+    [SerializeField] private List<FMODEvent> ambiente = new List<FMODEvent>();
 
     public static FMODEvents instance { get; private set; }
 
@@ -26,11 +24,72 @@ public class FMODEvents : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogError("Mas de un Evento sucediendo FMOD Events");
+            Debug.LogError("Más de un FMODEvents activo en la escena.");
+            return;
         }
 
         instance = this;
     }
 
+    // Método para obtener un evento por nombre
+    public EventReference GetEventReference(string eventName)
+    {
+        foreach (var musicaEvent in musica)
+        {
+            if (musicaEvent.nombreEvento == eventName)
+            {
+                return musicaEvent.eventReference;
+            }
+        }
 
+        foreach (var sfxEvent in sfx)
+        {
+            if (sfxEvent.nombreEvento == eventName)
+            {
+                return sfxEvent.eventReference;
+            }
+        }
+
+        foreach (var ambienceEvent in ambiente)
+        {
+            if (ambienceEvent.nombreEvento == eventName)
+            {
+                return ambienceEvent.eventReference;
+            }
+        }
+
+        Debug.LogError($"Evento no encontrado: {eventName}");
+        return default;
+    }
+
+    public void EventPlayOneShot3DUbicacion(string eventReference, Vector3 vector3)
+    {     
+        AudioManager.instance.PlayOneShot(GetEventReference(eventReference), vector3);
+    }
+
+    public void EventPlayOneShot3D(string eventReference)
+    {
+        AudioManager.instance.PlayOneShot(GetEventReference(eventReference));
+    }
+
+
+    public void EventTimeline3DUbicacion(string eventReference, Transform transform, bool start, bool fade = true)
+    {
+        AudioManager.instance.HandleEvent(GetEventReference(eventReference), transform, start, fade);
+    }
+
+    public void EventTimeline3D(string eventReference, bool start, bool fade = true)
+    {
+        AudioManager.instance.HandleEvent(GetEventReference(eventReference), null, start, fade);
+    }
+
+    public void EventEmitter(string eventReference, string nombreEmisor)
+    {
+        AudioManager.instance.InitializeEventEmitter(GetEventReference(eventReference), FMODEmisores.instance.GetEmisor(nombreEmisor));
+    }
+
+    public void EventAmbient(string eventReference, Transform transform = null)
+    {
+        AudioManager.instance.InitializeAmbienceEvent(GetEventReference(eventReference), transform);
+    }
 }
