@@ -9,6 +9,7 @@ public class InputReader : MonoBehaviour
     public event EventHandler OnDefense;
     public event EventHandler OnNoDefense;
     public event EventHandler OnDash;
+    public event EventHandler OnJump;
     PlayerControls controls;
 
 
@@ -24,6 +25,7 @@ public class InputReader : MonoBehaviour
         controls.Player.Dash.started += DashInteraction;
         controls.Player.Defense.started += DefenseInteraction;
         controls.Player.Defense.canceled += NoDefenseInteraction;
+        controls.Player.Jump.started += JumpInteraction;
     }
 
 
@@ -54,7 +56,10 @@ public class InputReader : MonoBehaviour
     {
         OnDash?.Invoke(this, EventArgs.Empty);
     }
-
+    public void JumpInteraction(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        OnJump?.Invoke(this, EventArgs.Empty);
+    }
 
 
 

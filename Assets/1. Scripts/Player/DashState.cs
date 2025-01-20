@@ -36,7 +36,6 @@ public class DashState : IPlayerState
         direction.y = 0f;
         player.model.transform.rotation = Quaternion.Slerp(player.model.transform.rotation, Quaternion.LookRotation(direction), player.rotationSpeed);
 
-        Debug.Log("toy dasheando");
         timer += Time.deltaTime;
         if (timer > player.dashDuration)
         {

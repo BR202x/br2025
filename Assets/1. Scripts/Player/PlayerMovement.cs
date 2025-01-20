@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.VFX;
 using UnityEngine.XR;
+using static UnityEngine.UI.Image;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public WalkState stateWalk = new WalkState();
     [HideInInspector] public DashState stateDash = new DashState();
     [HideInInspector] public AttackState stateAttack = new AttackState();
+    [HideInInspector] public JumpState stateJump = new JumpState();
+    [HideInInspector] public FallState stateFall = new FallState();
 
     [HideInInspector] public Rigidbody rb;
     [HideInInspector] public InputReader input;
@@ -24,14 +29,24 @@ public class PlayerMovement : MonoBehaviour
     public float rotationSpeed;
     public float moveSmooth;
     private bool isAiming;
+    public float jumpForce;
+    public float gravityScale = 5;
+    public float raySize = 1;
+    [SerializeField] private bool isGround;
+    [SerializeField] private Transform[] checkGrounds;
+    [SerializeField] LayerMask layerGround;
     [Header("Dash")]
     public float dashForce;
     public float dashDuration;
+    [SerializeField] private float dashCooldown;
+    private bool canDash = true;
     [Header("Ataque")]
     public float attackMoveVelocity = 5;
     public float attackDuration = 0.3f;
     public float attackMoveSmooth;
     public static event EventHandler OnAttack;
+    [SerializeField] public VisualEffect slashAttack;
+    [SerializeField] public VisualEffect slashAttack2;
 
     [HideInInspector] public Vector3 currentVelocity;
     [HideInInspector] public float currentRotation;
@@ -56,7 +71,10 @@ public class PlayerMovement : MonoBehaviour
 
     }
     void Start()
-    {
+    {//setear valor default
+        moveSpeed = moveNormalSpeed;
+        canDash = true;
+
         //ocultar cursor
         Cursor.lockState = CursorLockMode.Locked;
         //eventos
@@ -64,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
         input.OnAttack += Attack;
         input.OnDefense += Shield;
         input.OnNoDefense += UnShield;
+        input.OnJump += Jump;
 
         //estados
         currentState = stateIdle;
@@ -74,11 +93,21 @@ public class PlayerMovement : MonoBehaviour
     {
         currentState.UpdateState(this);
         currentStateText.text = currentState.ToString();
+        CheckGround();
+    }
 
+    private void CheckGround()
+    {
+        foreach (Transform t in checkGrounds)
+        {
+            isGround = Physics.Raycast(t.position, Vector3.down, raySize, layerGround);
+        }
     }
 
     private void FixedUpdate()
     {
+        //gravity
+        rb.AddForce(Physics.gravity * (gravityScale - 1) * rb.mass);
         currentState.FixedUpdateState(this);
     }
 
@@ -89,6 +118,10 @@ public class PlayerMovement : MonoBehaviour
         currentState.StartState(this);
     }
 
+    public bool GetIsGround()
+    {
+        return isGround;
+    }
     public void ChangeAnimation(string animation, float crossfade = 0.3f, float time = 0)
     {
         if (time > 0)
@@ -128,9 +161,28 @@ public class PlayerMovement : MonoBehaviour
 
     private void Dash(object sender, EventArgs e)
     {
+        if (!canDash) {return; }
+
+        canDash = false;
+        Invoke(nameof(EnableDash), dashCooldown);
         if (currentState == stateWalk)
         {
             ChangeState(stateDash);
+        }
+    }
+
+    private void EnableDash()
+    {
+        canDash = true;
+    }
+    private void Jump(object sender, EventArgs e)
+    {
+        if (currentState == stateWalk || currentState == stateIdle)
+        {
+            if (GetIsGround())
+            {
+                ChangeState(stateJump);
+            }
         }
     }
     private void Attack(object sender, EventArgs e)
@@ -163,8 +215,19 @@ public class PlayerMovement : MonoBehaviour
     {
         isAiming = false;
         moveSpeed = moveNormalSpeed;
-        ChangeAnimation("Unshield");
 
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        foreach(Transform t in checkGrounds)
+        {
+            Gizmos.DrawRay(t.position, Vector3.down * raySize);
+
+        }
     }
 
 }

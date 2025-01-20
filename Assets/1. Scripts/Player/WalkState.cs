@@ -53,6 +53,11 @@ public class WalkState : IPlayerState
             player.ChangeAnimation("Walk");
 
         }
+        if (player.rb.linearVelocity.y < 0 && !player.GetIsGround())
+        {
+            //esta cayendo
+            player.ChangeState(player.stateFall);
+        }
 
     }
 

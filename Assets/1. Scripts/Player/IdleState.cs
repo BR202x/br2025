@@ -11,7 +11,7 @@ public class IdleState : IPlayerState
     public void StartState(PlayerMovement player)
     {
        
-
+       
     }
 
     public void UpdateState(PlayerMovement player)
@@ -29,6 +29,12 @@ public class IdleState : IPlayerState
             player.ChangeAnimation("Idle");
 
         }
+        if (player.rb.linearVelocity.y < 0 && !player.GetIsGround())
+        {
+            //esta cayendo
+            player.ChangeState(player.stateFall);
+        }
+
     }
     public void ExitState(PlayerMovement player)
     {
