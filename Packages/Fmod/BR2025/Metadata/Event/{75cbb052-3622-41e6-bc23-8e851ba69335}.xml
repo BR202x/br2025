@@ -5,7 +5,7 @@
 			<value>Minas</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{2c3eebe9-6ccf-43d8-87e0-e90ed8612a99}</destination>
@@ -137,9 +137,36 @@
 	<object class="MixerBusEffectChain" id="{2055872c-0747-47f4-901d-7a54b94ebd37}">
 		<relationship name="effects">
 			<destination>{0d0e9984-1a0f-4620-ae68-1c04d37dac90}</destination>
+			<destination>{980632a2-c7bf-417f-ad1f-9ac83f511eb7}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{aebeeb83-44e5-4e9e-84be-8e161af3af27}" />
 	<object class="MixerBusFader" id="{7181e7cd-8a60-4d97-886d-f9e5a7b39f6e}" />
 	<object class="MixerBusFader" id="{0d0e9984-1a0f-4620-ae68-1c04d37dac90}" />
+	<object class="SpatialiserEffect" id="{980632a2-c7bf-417f-ad1f-9ac83f511eb7}">
+		<property name="distanceRolloffType">
+			<value>1</value>
+		</property>
+		<property name="minimumDistance">
+			<value>5.5999999</value>
+		</property>
+		<property name="maximumDistance">
+			<value>9</value>
+		</property>
+		<property name="overrideRange">
+			<value>true</value>
+		</property>
+		<property name="extentMode">
+			<value>1</value>
+		</property>
+		<property name="soundSize">
+			<value>0.5</value>
+		</property>
+		<property name="minimumExtent">
+			<value>80</value>
+		</property>
+		<property name="panBlend">
+			<value>0.794999957</value>
+		</property>
+	</object>
 </objects>
