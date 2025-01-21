@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MoverJugadorPorTambor : MonoBehaviour
+public class MoverObjetosTambor : MonoBehaviour
 {
     #region Variables
 
@@ -11,15 +11,15 @@ public class MoverJugadorPorTambor : MonoBehaviour
     public Transform tambor;
     public DetectarRotacionTambor detectarRotacionTambor;
 
-    [Header("Configuraci√≥n de Fuerzas")]
+    [Header("ConfiguraciÛn de Fuerzas")]
     public float fuerzaTangencial = 1f;
     public ForceMode modoFuerza = ForceMode.Acceleration;
 
-    [Header("Configuraci√≥n del Raycast")]
-    [Tooltip("Distancia m√°xima del Raycast hacia abajo")]
-    public float distanciaRaycast = 1f;
-    [Tooltip("Capa de objetos que puede detectar el Raycast")]
+    [Header("ConfiguraciÛn de Colisiones")]
+    [Tooltip("Capa de objetos que pueden activar la fuerza")]
     public LayerMask layerObjetivo;
+
+    private bool tocandoSuperficieValida;
 
     #endregion
 
@@ -33,7 +33,7 @@ public class MoverJugadorPorTambor : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (detectarRotacionTambor != null && tambor != null && TocandoSuperficieValida())
+        if (detectarRotacionTambor != null && tambor != null && tocandoSuperficieValida)
         {
             if (detectarRotacionTambor.girandoSentidoHorario)
             {
@@ -47,22 +47,27 @@ public class MoverJugadorPorTambor : MonoBehaviour
             }
             else
             {
-                DLog("Tambor est√° quieto. No se aplica fuerza.");
+                DLog("Tambor est· quieto. No se aplica fuerza.");
             }
         }
     }
 
-    private bool TocandoSuperficieValida()
+    private void OnCollisionStay(Collision collision)
     {
-        Ray ray = new Ray(transform.position, Vector3.down);
-        bool resultado = Physics.Raycast(ray, out RaycastHit hit, distanciaRaycast, layerObjetivo);
-
-        if (mostrarDebug)
+        // Verificar si la capa del objeto colisionado es v·lida
+        if (((1 << collision.gameObject.layer) & layerObjetivo) != 0)
         {
-            Debug.DrawRay(transform.position, Vector3.down * distanciaRaycast, resultado ? Color.green : Color.red);
+            tocandoSuperficieValida = true;
         }
+    }
 
-        return resultado;
+    private void OnCollisionExit(Collision collision)
+    {
+        // Al salir de la colisiÛn, dejar de aplicar fuerza
+        if (((1 << collision.gameObject.layer) & layerObjetivo) != 0)
+        {
+            tocandoSuperficieValida = false;
+        }
     }
 
     private void AplicarFuerzaTangencial(bool sentidoHorario)

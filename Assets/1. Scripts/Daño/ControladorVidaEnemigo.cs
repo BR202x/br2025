@@ -13,6 +13,7 @@ public class ControladorVidaEnemigo : MonoBehaviour
 
     [Header("Información del Enemigo")]
     public string nombreEnemigo;
+    public GameObject canvasPuntero;
 
     #endregion
 
@@ -39,5 +40,10 @@ public class ControladorVidaEnemigo : MonoBehaviour
         {
             if (mostrarLog) { Debug.Log($"[ControladorVidaEnemigo] {nombreEnemigo} ya no tiene vidas."); }
         }
+    }
+
+    public void ActivarPuntero()
+    { 
+        canvasPuntero.SetActive(true);
     }
 }

@@ -47,7 +47,11 @@ public class ControladorApuntar : MonoBehaviour
         {
             escudoRebote.SetActive(true);
 
-            Ray ray = camaraMain.ScreenPointToRay(Input.mousePosition);
+            // Calcular el punto desplazado en la pantalla
+            Vector3 puntoPantalla = new Vector3(Screen.width / 2, Screen.height / 2 - 7f, 0f);
+
+            // Generar el raycast desde la cámara al punto desplazado
+            Ray ray = camaraMain.ScreenPointToRay(puntoPantalla);
             RaycastHit hit;
 
             if (mostrarRaycast)
@@ -60,8 +64,16 @@ public class ControladorApuntar : MonoBehaviour
                 ControladorVidaEnemigo enemigo = hit.collider.GetComponent<ControladorVidaEnemigo>();
                 if (enemigo != null)
                 {
+                    enemigo.ActivarPuntero();
+                }
+
+                 /*
+                ControladorVidaEnemigo enemigo = hit.collider.GetComponent<ControladorVidaEnemigo>();
+                if (enemigo != null)
+                {
                     ActualizarUIEnemigo(enemigo);
                 }
+                */
             }
         }
         else
