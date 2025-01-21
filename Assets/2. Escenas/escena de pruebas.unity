@@ -1550,7 +1550,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2593023799023124786, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: field of view
-      value: 60.000004
+      value: 44.25
       objectReference: {fileID: 0}
     - target: {fileID: 4212152140026027835, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: m_Follow
@@ -1562,15 +1562,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7553006285069151591, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.34683728
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7553006285069151591, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.45999992
+      value: -0.029999971
       objectReference: {fileID: 0}
     - target: {fileID: 7553006285069151591, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.2260113
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7972483665441625014, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: m_Follow
@@ -1662,7 +1662,6 @@ SceneRoots:
   - {fileID: 94192224}
   - {fileID: 63438769}
   - {fileID: 2341689611126111146}
-  - {fileID: 3249936346053766405}
   - {fileID: 1985794287}
   - {fileID: 1861797015}
   - {fileID: 102655299}
@@ -1673,3 +1672,4 @@ SceneRoots:
   - {fileID: 695915370}
   - {fileID: 1836746060}
   - {fileID: 1985619633}
+  - {fileID: 3249936346053766405}

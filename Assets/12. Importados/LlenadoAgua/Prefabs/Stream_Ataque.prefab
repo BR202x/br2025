@@ -5007,7 +5007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e509d74eea01d794f85663e77235ed19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mostrarLog: 0
+  mostrarLog: 1
   direccionLinea: {x: 0, y: 60.3, z: 0}
   velocidadAnimacion: 1.75
   longitudChorro: 50

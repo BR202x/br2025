@@ -29,7 +29,7 @@ public class PourAtaque : MonoBehaviour
 
     private void Update()
     {        
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.X))
         {
             if (mostrarLog) { Debug.Log("Presionando X en: " + this.name); }
             pourCheck = !pourCheck;
