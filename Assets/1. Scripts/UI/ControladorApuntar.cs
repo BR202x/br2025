@@ -12,6 +12,7 @@ public class ControladorApuntar : MonoBehaviour
     [Header("Configuración del Raycast")]
     public float distanciaMaxima = 50f;
     public LayerMask capaEnemigos;
+    public LayerMask capaValvulas;
     public bool mostrarRaycast = true;
 
     [Header("Referencias de UI")]
@@ -46,11 +47,9 @@ public class ControladorApuntar : MonoBehaviour
         if (camaraApuntar.gameObject.activeSelf)
         {
             escudoRebote.SetActive(true);
-
-            // Calcular el punto desplazado en la pantalla
+                        
             Vector3 puntoPantalla = new Vector3(Screen.width / 2, Screen.height / 2 - 7f, 0f);
-
-            // Generar el raycast desde la cámara al punto desplazado
+                        
             Ray ray = camaraMain.ScreenPointToRay(puntoPantalla);
             RaycastHit hit;
 
@@ -62,19 +61,25 @@ public class ControladorApuntar : MonoBehaviour
             if (Physics.Raycast(ray, out hit, distanciaMaxima, capaEnemigos))
             {
                 ControladorVidaEnemigo enemigo = hit.collider.GetComponent<ControladorVidaEnemigo>();
+
                 if (enemigo != null)
                 {
                     enemigo.ActivarPuntero();
                 }
-
-                 /*
-                ControladorVidaEnemigo enemigo = hit.collider.GetComponent<ControladorVidaEnemigo>();
-                if (enemigo != null)
-                {
-                    ActualizarUIEnemigo(enemigo);
-                }
-                */
             }
+
+            if (Physics.Raycast(ray, out hit, distanciaMaxima, capaValvulas))
+            {
+                ControladorGolpeValvula valvula = hit.collider.GetComponent<ControladorGolpeValvula>();                
+
+                if (valvula != null)
+                {
+                    valvula.ActivarPuntero();                    
+                }
+            }
+
+
+
         }
         else
         {
@@ -85,29 +90,6 @@ public class ControladorApuntar : MonoBehaviour
                 ocultarInfoCoroutine = StartCoroutine(TemporizadorOcultarUI());
             }
         }
-    }
-
-    private void ActualizarUIEnemigo(ControladorVidaEnemigo enemigo)
-    {
-        if (ocultarInfoCoroutine != null)
-        {
-            StopCoroutine(ocultarInfoCoroutine);
-            ocultarInfoCoroutine = null;
-        }
-
-        textoNombreEnemigo.text = enemigo.nombreEnemigo;
-
-        foreach (Transform child in panelVidaEnemigo)
-        {
-            Destroy(child.gameObject);
-        }
-
-        for (int i = 0; i < enemigo.vidaActual; i++)
-        {
-            Instantiate(prefabVida, panelVidaEnemigo);
-        }
-
-        panelInfoEnemigo.SetActive(true);
     }
 
     private IEnumerator TemporizadorOcultarUI()

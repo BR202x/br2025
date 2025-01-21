@@ -120,14 +120,14 @@ public class ChorroAtaque : MonoBehaviour
                         Vector3 endPoint = segundoHit.point;
                         puntos.Add(endPoint);
 
-                        ControlarParticula(endPoint);
+                        //ControlarParticula(endPoint);
                     }
                     else
                     {
                         Vector3 endPoint = puntoRebote + (direccionCamara.normalized * longitudChorro);
                         puntos.Add(endPoint);
 
-                        ControlarParticula(endPoint);
+                        //ControlarParticula(endPoint);
                     }
                 }
             }
@@ -136,7 +136,7 @@ public class ChorroAtaque : MonoBehaviour
                 Vector3 endPoint = hit.point;
                 puntos.Add(endPoint);
 
-                ControlarParticula(endPoint);
+                //ControlarParticula(endPoint);
 
                 DestruirParticulaRebote();
             }
@@ -201,6 +201,10 @@ public class ChorroAtaque : MonoBehaviour
             if (newPosition == targetPosition && mostrarLog)
             {
                 Debug.Log($"Animacion completada. Punto final alcanzado: {targetPosition}");
+            }
+
+            if (newPosition == targetPosition)
+            {
                 ControlarParticula(targetPosition);
             }
         }
@@ -217,9 +221,10 @@ public class ChorroAtaque : MonoBehaviour
             current = Vector3.MoveTowards(current, end, Time.deltaTime * velocidadAnimacion);
             lineRenderer.SetPosition(reboteIndex, current);
 
-            if (current == end && mostrarLog)
-            {
-                Debug.Log($"Rebote completado. Punto final del rebote alcanzado: {end}");
+            if (current == end && mostrarLog) { Debug.Log($"Rebote completado. Punto final del rebote alcanzado: {end}"); }
+
+            if (current == end)
+            {                
                 ControlarParticula(end);
             }
         }

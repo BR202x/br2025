@@ -58,7 +58,7 @@ public class PourDetector : MonoBehaviour
         }
     }
 
-    private void StartPour()
+    public void StartPour()
     {
         MostrarDebug("Start");
         currentStream = CreateStream();
@@ -66,7 +66,7 @@ public class PourDetector : MonoBehaviour
 
     }
 
-    private void EndPour()
+    public void EndPour()
     {
         MostrarDebug("End");
         if (currentStream != null)
