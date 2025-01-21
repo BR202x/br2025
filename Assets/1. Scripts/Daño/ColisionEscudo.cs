@@ -3,36 +3,39 @@ using UnityEngine;
 public class ColisionEscudo : MonoBehaviour
 {
     [Header("Depuración")]
-    public bool mostrarLog;
+    public bool mostrarLog = true;
     [Space]
     public bool daño = false;
-    private ControladorUIEnemigo controladorUI;
+    public ControladorUIEnemigo controladorUI;
+    public ActivacionPanelTargets panelVidaEnemigos;
+
+    private void OnEnable()
+    {
+        panelVidaEnemigos = GameObject.Find("Panel_VidaEnemigos").GetComponent<ActivacionPanelTargets>();
+    }
 
     private void Start()
     {
-        controladorUI = FindFirstObjectByType<ControladorUIEnemigo>();
-        if (controladorUI == null)
-        {
-            if (mostrarLog) { Debug.LogError("[ColisionEscudo] No se encontró un ControladorUIEnemigo en la escena."); }
-        }
+        // panelVidaEnemigos = FindFirstObjectByType<ActivacionPanelTargets>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (mostrarLog) { Debug.Log($"El Shield entró en contacto con: {other.gameObject.name}"); }
+
         if (other.CompareTag("Enemigo") && !daño)
         {
-            if (mostrarLog) { Debug.Log($"El Shield entró en contacto con: {other.gameObject.name}"); }
+            panelVidaEnemigos.activarCanvasTarget();
+            ControladorUIEnemigo controladorUI = panelVidaEnemigos.GetComponentInChildren<ControladorUIEnemigo>();
 
             ControladorVidaEnemigo enemigo = other.GetComponent<ControladorVidaEnemigo>();
+
             if (enemigo != null)
             {
                 enemigo.RecibirDaño();
-                daño = true;
+                controladorUI.ActualizarUI(enemigo);
+                daño = true;               
 
-                if (controladorUI != null)
-                {
-                    controladorUI.ActualizarUI(enemigo);
-                }
             }
         }
     }
