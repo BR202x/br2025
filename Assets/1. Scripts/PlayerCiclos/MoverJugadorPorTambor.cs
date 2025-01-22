@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MoverJugadorPorTambor : MonoBehaviour
@@ -20,15 +22,45 @@ public class MoverJugadorPorTambor : MonoBehaviour
     public float distanciaRaycast = 1f;
     [Tooltip("Capa de objetos que puede detectar el Raycast")]
     public LayerMask layerObjetivo;
+    public LayerMask layerObjeto;
+
+    public List<FlotacionObjetos> listaObjetosFlotantes;
 
     #endregion
 
     private void Start()
     {
-        rigidJugador = GetComponent<Rigidbody>();
-        rigidJugador.useGravity = true;
+        // Obtener todos los objetos del tipo FlotacionObjetos en la escena
+        listaObjetosFlotantes = new List<FlotacionObjetos>(
+            Object.FindObjectsByType<FlotacionObjetos>(FindObjectsSortMode.None)
+        );
 
-        DLog("Jugador inicializado y preparado para ser afectado por el tambor.");
+        Debug.Log($"Se han registrado {listaObjetosFlotantes.Count} objetos flotantes.");
+    }
+
+
+    private void Update()
+    {
+        Ray ray = new Ray(transform.position, Vector3.down);
+        RaycastHit hit;
+
+        // Actualizar el estado de todos los objetos
+        foreach (var objeto in listaObjetosFlotantes)
+        {
+            objeto.jugadorParado = false;
+        }
+
+        // Si el raycast impacta un objeto, actualizar su estado
+        if (Physics.Raycast(ray, out hit, distanciaRaycast, layerObjeto))
+        {
+            FlotacionObjetos objetoFlotante = hit.collider.GetComponent<FlotacionObjetos>();
+
+            if (objetoFlotante != null)
+            {
+                objetoFlotante.jugadorParado = true;
+                Debug.Log($"Jugador parado sobre: {hit.collider.name}");
+            }
+        }
     }
 
     private void FixedUpdate()

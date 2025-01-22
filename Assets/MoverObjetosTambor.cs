@@ -87,10 +87,6 @@ public class MoverObjetosTambor : MonoBehaviour
         DLog($"Fuerza tangencial aplicada: {fuerzaTangencialAplicada} (Modo: {modoFuerza})");
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        
-    }
 
     private void DLog(string texto)
     {
