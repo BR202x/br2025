@@ -22,13 +22,13 @@ public class ControladorVidaEnemigo : MonoBehaviour
         vidaActual = vida;
     }
 
-    public void RecibirDaño()
+    public void RecibirDano()
     {
         if (vidaActual > 0)
         {
             vidaActual--;
 
-            if (mostrarLog) { Debug.Log($"[ControladorVidaEnemigo] {nombreEnemigo} recibió daño. Vida actual: {vidaActual}/{vida}"); }
+            if (mostrarLog) { Debug.Log($"[ControladorVidaEnemigo] {nombreEnemigo} recibió dano. Vida actual: {vidaActual}/{vida}"); }
 
             if (vidaActual <= 0)
             {

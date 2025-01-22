@@ -2,12 +2,17 @@ using UnityEngine;
 
 public class ColisionEscudo : MonoBehaviour
 {
-    [Header("Depuración")]
+    #region Variables
+
+    [Header("depuracion")]
     public bool mostrarLog = false;
-    [Space]
-    public bool daño = false;
-    public ControladorUIEnemigo controladorUI;
-    public ActivacionPanelTargets panelVidaEnemigos;
+
+    [Header("Configuracion")]
+    private bool dano = false;
+    private ControladorUIEnemigo controladorUI;
+    private ActivacionPanelTargets panelVidaEnemigos;
+
+    #endregion
 
     private void OnEnable()
     {
@@ -16,14 +21,14 @@ public class ColisionEscudo : MonoBehaviour
 
     private void Start()
     {
-        
+        // Inicializacion si es necesaria en el futuro
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (mostrarLog) { Debug.Log($"El Shield entró en contacto con: {other.gameObject.name}"); }
+        if (mostrarLog) { Debug.Log($"El Shield entro en contacto con: {other.gameObject.name}"); }
 
-        if (other.CompareTag("Enemigo") && !daño)
+        if (other.CompareTag("Enemigo") && !dano)
         {
             panelVidaEnemigos.activarCanvasTarget();
             ControladorUIEnemigo controladorUI = panelVidaEnemigos.GetComponentInChildren<ControladorUIEnemigo>();
@@ -32,10 +37,9 @@ public class ColisionEscudo : MonoBehaviour
 
             if (enemigo != null)
             {
-                enemigo.RecibirDaño();
+                enemigo.RecibirDano();
                 controladorUI.ActualizarUI(enemigo);
-                daño = true;               
-
+                dano = true;
             }
         }
 

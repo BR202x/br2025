@@ -22,7 +22,7 @@ public class ControladorGolpeValvula : MonoBehaviour
         vidaActual = vida;
     }
 
-    public void RecibirDaño()
+    public void RecibirDano()
     {
         if (vidaActual > 0)
         {
