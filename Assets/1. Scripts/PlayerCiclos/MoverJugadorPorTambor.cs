@@ -1,56 +1,55 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MoverJugadorPorTambor : MonoBehaviour
 {
+    [Header("depuracion")]
+    public bool mostrarDebug;
+
     #region Variables
 
-    public bool mostrarDebug;
-    [Space]
     private Rigidbody rigidJugador;
+
     [Header("Referencias")]
     public Transform tambor;
     public DetectarRotacionTambor detectarRotacionTambor;
 
-    [Header("Configuración de Fuerzas")]
+    [Header("Configuracion de Fuerzas")]
     public float fuerzaTangencial = 1f;
     public ForceMode modoFuerza = ForceMode.Acceleration;
 
-    [Header("Configuración del Raycast")]
-    [Tooltip("Distancia máxima del Raycast hacia abajo")]
+    [Header("Configuracion del Raycast")]
     public float distanciaRaycast = 1f;
-    [Tooltip("Capa de objetos que puede detectar el Raycast")]
     public LayerMask layerObjetivo;
     public LayerMask layerObjeto;
 
-    public List<FlotacionObjetos> listaObjetosFlotantes;
+    private List<FlotacionObjetos> listaObjetosFlotantes;
 
     #endregion
 
     private void Start()
     {
-        // Obtener todos los objetos del tipo FlotacionObjetos en la escena
+        rigidJugador = GetComponent<Rigidbody>();
+
         listaObjetosFlotantes = new List<FlotacionObjetos>(
             Object.FindObjectsByType<FlotacionObjetos>(FindObjectsSortMode.None)
         );
 
-        Debug.Log($"Se han registrado {listaObjetosFlotantes.Count} objetos flotantes.");
+        if (mostrarDebug) { Debug.Log($"Se han registrado {listaObjetosFlotantes.Count} objetos flotantes."); }
     }
-
 
     private void Update()
     {
         Ray ray = new Ray(transform.position, Vector3.down);
         RaycastHit hit;
 
-        // Actualizar el estado de todos los objetos
         foreach (var objeto in listaObjetosFlotantes)
         {
             objeto.jugadorParado = false;
         }
 
-        // Si el raycast impacta un objeto, actualizar su estado
+        #region Logica Hundir Objetos
+
         if (Physics.Raycast(ray, out hit, distanciaRaycast, layerObjeto))
         {
             FlotacionObjetos objetoFlotante = hit.collider.GetComponent<FlotacionObjetos>();
@@ -58,9 +57,11 @@ public class MoverJugadorPorTambor : MonoBehaviour
             if (objetoFlotante != null)
             {
                 objetoFlotante.jugadorParado = true;
-                Debug.Log($"Jugador parado sobre: {hit.collider.name}");
+                if (mostrarDebug) { Debug.Log($"Jugador parado sobre: {hit.collider.name}"); }
             }
         }
+
+        #endregion
     }
 
     private void FixedUpdate()
@@ -70,16 +71,16 @@ public class MoverJugadorPorTambor : MonoBehaviour
             if (detectarRotacionTambor.girandoSentidoHorario)
             {
                 AplicarFuerzaTangencial(true);
-                DLog("Tambor girando en sentido horario.");
+                if (mostrarDebug) { Debug.Log("Tambor girando en sentido horario."); }
             }
             else if (detectarRotacionTambor.girandoSentidoContrario)
             {
                 AplicarFuerzaTangencial(false);
-                DLog("Tambor girando en sentido antihorario.");
+                if (mostrarDebug) { Debug.Log("Tambor girando en sentido antihorario."); }
             }
             else
             {
-                DLog("Tambor está quieto. No se aplica fuerza.");
+                if (mostrarDebug) { Debug.Log("Tambor está quieto. No se aplica fuerza."); }
             }
         }
     }
@@ -110,15 +111,8 @@ public class MoverJugadorPorTambor : MonoBehaviour
         Vector3 fuerzaTangencialAplicada = direccionTangencial * fuerzaTangencial * Mathf.Abs(detectarRotacionTambor.velocidadRotacionTambor);
 
         rigidJugador.AddForce(fuerzaTangencialAplicada, modoFuerza);
+                
 
-        DLog($"Fuerza tangencial aplicada: {fuerzaTangencialAplicada} (Modo: {modoFuerza})");
-    }
-
-    private void DLog(string texto)
-    {
-        if (mostrarDebug)
-        {
-            Debug.Log($"[MoverJugadorPorTambor]: {texto}");
-        }
+        if (mostrarDebug) { Debug.Log($"Fuerza tangencial aplicada: {fuerzaTangencialAplicada} (Modo: {modoFuerza})"); }
     }
 }

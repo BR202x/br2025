@@ -4,15 +4,16 @@ public class MoverObjetosTambor : MonoBehaviour
 {
     #region Variables
 
+    [Header("depuracion")]
     public bool mostrarDebug;
-    [Space]
-    private Rigidbody rigidJugador;
+
     [Header("Referencias")]
     public Transform tambor;
     public DetectarRotacionTambor detectarRotacionTambor;
 
     [Header("Configuración de Fuerzas")]
     public float fuerzaTangencial = 1f;
+    public float factorCentripeto = 0.5f; // Factor para ajustar la fuerza hacia el centro
     public ForceMode modoFuerza = ForceMode.Acceleration;
 
     [Header("Configuración de Colisiones")]
@@ -20,6 +21,7 @@ public class MoverObjetosTambor : MonoBehaviour
     public LayerMask layerObjetivo;
 
     private bool tocandoSuperficieValida;
+    private Rigidbody rigidJugador;
 
     #endregion
 
@@ -28,7 +30,7 @@ public class MoverObjetosTambor : MonoBehaviour
         rigidJugador = GetComponent<Rigidbody>();
         rigidJugador.useGravity = true;
 
-        DLog("Jugador inicializado y preparado para ser afectado por el tambor.");
+        if (mostrarDebug) { Debug.Log("Jugador inicializado y preparado para ser afectado por el tambor."); }
     }
 
     private void FixedUpdate()
@@ -38,23 +40,22 @@ public class MoverObjetosTambor : MonoBehaviour
             if (detectarRotacionTambor.girandoSentidoHorario)
             {
                 AplicarFuerzaTangencial(true);
-                DLog("Tambor girando en sentido horario.");
+                if (mostrarDebug) { Debug.Log("Tambor girando en sentido horario."); }
             }
             else if (detectarRotacionTambor.girandoSentidoContrario)
             {
                 AplicarFuerzaTangencial(false);
-                DLog("Tambor girando en sentido antihorario.");
+                if (mostrarDebug) { Debug.Log("Tambor girando en sentido antihorario."); }
             }
             else
             {
-                DLog("Tambor está quieto. No se aplica fuerza.");
+                if (mostrarDebug) { Debug.Log("Tambor está quieto. No se aplica fuerza."); }
             }
         }
     }
 
     private void OnCollisionStay(Collision collision)
     {
-        // Verificar si la capa del objeto colisionado es válida
         if (((1 << collision.gameObject.layer) & layerObjetivo) != 0)
         {
             tocandoSuperficieValida = true;
@@ -63,7 +64,6 @@ public class MoverObjetosTambor : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        // Al salir de la colisión, dejar de aplicar fuerza
         if (((1 << collision.gameObject.layer) & layerObjetivo) != 0)
         {
             tocandoSuperficieValida = false;
@@ -72,6 +72,7 @@ public class MoverObjetosTambor : MonoBehaviour
 
     private void AplicarFuerzaTangencial(bool sentidoHorario)
     {
+        // Fuerza Tangencial
         Vector3 posicionRelativa = transform.position - tambor.position;
         Vector3 direccionTangencial = Vector3.Cross(posicionRelativa.normalized, Vector3.up);
 
@@ -82,17 +83,18 @@ public class MoverObjetosTambor : MonoBehaviour
 
         Vector3 fuerzaTangencialAplicada = direccionTangencial * fuerzaTangencial * Mathf.Abs(detectarRotacionTambor.velocidadRotacionTambor);
 
-        rigidJugador.AddForce(fuerzaTangencialAplicada, modoFuerza);
+        // Fuerza Centrípeta
+        Vector3 direccionCentripeta = -posicionRelativa.normalized;
+        Vector3 fuerzaCentripetaAplicada = direccionCentripeta * factorCentripeto * posicionRelativa.magnitude;
 
-        DLog($"Fuerza tangencial aplicada: {fuerzaTangencialAplicada} (Modo: {modoFuerza})");
-    }
+        // Suma de fuerzas
+        Vector3 fuerzaTotal = fuerzaTangencialAplicada + fuerzaCentripetaAplicada;
 
+        rigidJugador.AddForce(fuerzaTotal, modoFuerza);
 
-    private void DLog(string texto)
-    {
         if (mostrarDebug)
         {
-            Debug.Log($"[MoverJugadorPorTambor]: {texto}");
+            Debug.Log($"Fuerza aplicada: Tangencial {fuerzaTangencialAplicada}, Centrípeta {fuerzaCentripetaAplicada}, Total {fuerzaTotal}.");
         }
     }
 }
