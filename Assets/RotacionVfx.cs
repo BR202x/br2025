@@ -4,7 +4,6 @@ using UnityEngine.VFX;
 
 public class RotacionVfx : MonoBehaviour
 {
-
     private void Update()
     {
         Quaternion rotacion = transform.rotation;

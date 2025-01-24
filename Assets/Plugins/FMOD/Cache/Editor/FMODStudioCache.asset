@@ -204,12 +204,8 @@ MonoBehaviour:
   Path: Assets/6. Sonidos/FMODproyect/Washing machine/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638732430830000000
+  lastModified: 638732555232878852
   FileSizes:
-  - Name: 
-    Value: 1282
-  - Name: 
-    Value: 1282
   - Name: 
     Value: 1282
   - Name: Assets
@@ -278,7 +274,7 @@ MonoBehaviour:
   - {fileID: 2369212452901380076}
   StringsBanks:
   - {fileID: -1611624470259994183}
-  cacheTime: 638732430830000000
+  cacheTime: 638732555232878852
   cacheVersion: 131622
 --- !u!114 &1088528219599370182
 MonoBehaviour:
@@ -376,7 +372,7 @@ MonoBehaviour:
   Path: Assets/6. Sonidos/FMODproyect/Washing machine/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638732430830000000
+  lastModified: 638732555232878852
   FileSizes:
   - Name: Desktop
     Value: 1732608

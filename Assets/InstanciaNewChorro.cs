@@ -2,22 +2,36 @@ using UnityEngine;
 
 public class InstanciaNewChorro : MonoBehaviour
 {
-    public LineRenderer lineRenderer;      // Referencia al Line Renderer
-    public GameObject objectPrefab;       // Prefab del objeto a instanciar
+    private LineRenderer lineRenderer;     // Referencia al Line Renderer
+    private GameObject instantiatedObject; // Referencia al objeto instanciado (prefab)
+    private GameObject reboteInstancia;    // Referencia a la instancia creada al colisionar con el escudo
     public Transform target;              // Referencia al Target (asignado desde el Inspector)
+
+    [Header("Objeto Shader")]
+    public GameObject objectPrefab;       // Prefab del objeto a instanciar    
+    public GameObject prefabRebote;       // Prefab que se instanciará al colisionar con el escudo
+    public KeyCode toggleKey = KeyCode.Space; // Tecla para alternar abrir/cerrar el sistema
+    [Header("Capas de Colision")]
     public LayerMask collisionLayers;     // Capas contra las que se detendrá el Raycast
+    public LayerMask escudoLayer;         // Capa específica del escudo
+    [Header("Velocidad de disparo")]
     public float extensionSpeed = 5f;     // Velocidad de extensión en Z
     public float maxDistance = 50f;       // Distancia máxima del Raycast
-    public float scaleSpeedConstant = 0.5f; // Constante para escalar X e Y
+    public float scaleSpeedConstant = 0.5f; // Velocidad de escalado al abrir (X y Z)
+    [Header("Velocidad Cerrado")]
+    public float reductionSpeedConstant = 1f; // Velocidad de reducción al cerrar (X y Z)
     public float rScale = 1f;             // Escala máxima en X y Z
 
-    private GameObject instantiatedObject; // Referencia al objeto instanciado
     private float currentDistance = 0f;    // Distancia actual de extensión
     private Vector3 currentScale;          // Escala actual del objeto instanciado
-    private bool wasObstructed = false;    // Estado previo del raycast
+    private bool isOpen = false;           // Estado del sistema (abierto o cerrado)
+    private Vector3 collisionPoint;        // Guarda el punto de colisión con el Escudo
 
     void Start()
     {
+        lineRenderer = GetComponent<LineRenderer>();
+        target = GameObject.Find("Valvula").GetComponent<SeguirTarget>().target;
+
         if (lineRenderer == null || objectPrefab == null)
         {
             Debug.LogError("Faltan referencias en el script.");
@@ -35,17 +49,21 @@ public class InstanciaNewChorro : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position); // Punto inicial
         lineRenderer.SetPosition(1, transform.position); // Punto final inicial
 
-        // Instanciar el objeto con su rotación original
-        instantiatedObject = Instantiate(objectPrefab, transform.position, Quaternion.identity);
+        isOpen = true;
 
-        // Inicializar las escalas en 0 (X, Y, Z)
-        currentScale = Vector3.zero;
-        instantiatedObject.transform.localScale = currentScale;
+        // Crear la instancia inicial del prefab
+        CreateInstance();
     }
 
     void Update()
     {
-        // Actualizar el punto inicial del Line Renderer
+        target = GameObject.Find("Valvula").GetComponent<SeguirTarget>().target;
+
+        if (Input.GetKeyDown(toggleKey))
+        {
+            isOpen = false;
+        }
+
         lineRenderer.SetPosition(0, transform.position);
 
         if (target == null)
@@ -54,75 +72,139 @@ public class InstanciaNewChorro : MonoBehaviour
             return;
         }
 
-        // Extender el Line Renderer y verificar colisiones progresivamente
-        ExtendLineRendererProgressively();
+        if (isOpen)
+        {
+            HandleOpenState(); // Abrir el sistema
+        }
+        else
+        {
+            HandleCloseState(); // Cerrar el sistema
+        }
     }
 
-    private void ExtendLineRendererProgressively()
+    private void HandleOpenState()
     {
-        // Dirección hacia el Target
+        if (instantiatedObject == null)
+        {
+            CreateInstance();
+        }
+
         Vector3 direction = (target.position - transform.position).normalized;
 
-        // Incrementar la distancia actual progresivamente según la velocidad
-        float step = extensionSpeed * Time.deltaTime;
-        currentDistance = Mathf.MoveTowards(currentDistance, maxDistance, step);
-
-        // Calcular el punto actual de la extensión
-        Vector3 currentPoint = transform.position + direction * currentDistance;
-
-        // Hacer un raycast hasta el punto actual de la extensión
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, direction, out hit, currentDistance, collisionLayers))
-        {
-            // Si hay colisión, detener el avance en el punto de impacto
-            currentPoint = hit.point;
-            currentDistance = Vector3.Distance(transform.position, hit.point);
+        bool isObstructed = Physics.Raycast(transform.position, direction, out hit, maxDistance, collisionLayers);
 
-            // Registrar que hubo una obstrucción
-            if (!wasObstructed)
+        if (isObstructed)
+        {
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Escudo"))
             {
-                Debug.Log($"Colisión detectada con: {hit.collider.name}. Punto de impacto: {hit.point}");
-                wasObstructed = true;
+                collisionPoint = hit.point;
+
+                currentDistance = Vector3.Distance(transform.position, hit.point);
+                lineRenderer.SetPosition(1, hit.point);
+
+                // Crear una instancia si no existe ya una
+                if (reboteInstancia == null)
+                {
+                    InstanciarEnColision(hit.point);
+                }
+            }
+            else
+            {
+                currentDistance = Vector3.Distance(transform.position, hit.point);
+                lineRenderer.SetPosition(1, hit.point);
+
+                // Si no estamos colisionando con el escudo, destruir la instancia de rebote
+                DestruirRebote();
             }
         }
         else
         {
-            // Si no hay colisión, continuar extendiéndose
-            if (wasObstructed)
-            {
-                Debug.Log("Camino despejado. Reanudando el movimiento gradual hacia el Target.");
-                wasObstructed = false;
-            }
+            float step = extensionSpeed * Time.deltaTime;
+            currentDistance = Mathf.MoveTowards(currentDistance, maxDistance, step);
+            Vector3 currentPoint = transform.position + direction * currentDistance;
+
+            lineRenderer.SetPosition(1, currentPoint);
+
+            // Si no hay colisión, destruir la instancia de rebote
+            DestruirRebote();
         }
 
-        // Actualizar el punto final del Line Renderer
-        lineRenderer.SetPosition(1, currentPoint);
-
-        // Actualizar la posición, rotación y escala del objeto instanciado
-        UpdateObjectTransform(direction, currentDistance);
+        UpdateObjectTransform(direction, currentDistance, true);
     }
 
-    private void UpdateObjectTransform(Vector3 direction, float distance)
+    private void InstanciarEnColision(Vector3 collisionPoint)
+    {
+        if (prefabRebote != null && reboteInstancia == null)
+        {
+            reboteInstancia = Instantiate(prefabRebote, collisionPoint, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogWarning("No se asignó un prefab para la instancia en colisión.");
+        }
+    }
+
+    private void DestruirRebote()
+    {
+        if (reboteInstancia != null)
+        {
+            Destroy(reboteInstancia);
+            reboteInstancia = null;
+            Debug.Log("Instancia de rebote destruida.");
+        }
+    }
+
+    private void HandleCloseState()
     {
         if (instantiatedObject == null) return;
 
-        // Ajustar la posición del objeto para que su base esté en la posición inicial del Line Renderer
-        instantiatedObject.transform.position = transform.position;
+        float step = extensionSpeed * Time.deltaTime;
+        currentDistance = Mathf.MoveTowards(currentDistance, 0f, step);
 
-        // Corregir la rotación: Asegúrate de que el eje Y apunta hacia la dirección
-        instantiatedObject.transform.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(90f, 0f, 0f);
+        Vector3 currentPoint = transform.position;
 
-        // Progresivamente ajustar la escala del objeto
-        currentScale.y = distance / 2f; // Escala en Y proporcional a la distancia
+        lineRenderer.SetPosition(1, transform.position + (currentPoint - transform.position).normalized * currentDistance);
 
-        // Incrementar X y Z hacia rScale usando Mathf.MoveTowards
-        float scaleStep = scaleSpeedConstant * Time.deltaTime;
-        currentScale.x = Mathf.MoveTowards(currentScale.x, rScale, scaleStep);
-        currentScale.z = Mathf.MoveTowards(currentScale.z, rScale, scaleStep);
+        float scaleStep = reductionSpeedConstant * Time.deltaTime;
+        currentScale.x = Mathf.MoveTowards(currentScale.x, 0f, scaleStep);
+        currentScale.z = Mathf.MoveTowards(currentScale.z, 0f, scaleStep);
 
-        // Aplicar la nueva escala al objeto
         instantiatedObject.transform.localScale = currentScale;
 
-        Debug.Log($"Escala actual: X={currentScale.x:F2}, Y={currentScale.y:F2}, Z={currentScale.z:F2}");
+        if (currentScale.x <= 0f && currentScale.z <= 0f)
+        {
+            Destroy(instantiatedObject);
+
+            instantiatedObject = null;
+
+            lineRenderer.SetPosition(1, transform.position);
+            currentDistance = 0f;
+
+            Destroy(gameObject);
+        }
+    }
+
+    private void UpdateObjectTransform(Vector3 direction, float distance, bool isExpanding)
+    {
+        if (instantiatedObject == null) return;
+
+        instantiatedObject.transform.position = transform.position;
+        instantiatedObject.transform.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(90f, 0f, 0f);
+
+        currentScale.y = distance / 2f;
+
+        float scaleStep = scaleSpeedConstant * Time.deltaTime;
+        currentScale.x = Mathf.MoveTowards(currentScale.x, isExpanding ? rScale : 0f, scaleStep);
+        currentScale.z = Mathf.MoveTowards(currentScale.z, isExpanding ? rScale : 0f, scaleStep);
+
+        instantiatedObject.transform.localScale = currentScale;
+    }
+
+    private void CreateInstance()
+    {
+        instantiatedObject = Instantiate(objectPrefab, transform.position, Quaternion.identity);
+        currentScale = Vector3.zero;
+        instantiatedObject.transform.localScale = currentScale;
     }
 }
