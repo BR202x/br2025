@@ -6,6 +6,7 @@ public class InstanciaNewChorro : MonoBehaviour
     private GameObject instantiatedObject; // Referencia al objeto instanciado (prefab)
     private GameObject reboteInstancia;    // Referencia a la instancia creada al colisionar con el escudo
     public Transform target;              // Referencia al Target (asignado desde el Inspector)
+    public bool estaTocandoLlenar;
 
     [Header("Objeto Shader")]
     public GameObject objectPrefab;       // Prefab del objeto a instanciar    
@@ -96,6 +97,16 @@ public class InstanciaNewChorro : MonoBehaviour
 
         if (isObstructed)
         {
+            // Log del objeto impactado y su capa
+            // Debug.Log($"Raycast impactó con el objeto: {hit.collider.gameObject.name}, en la capa: {LayerMask.LayerToName(hit.collider.gameObject.layer)}");
+
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("SuperficieTambor"))
+            {
+                Debug.Log("TOCANDO SUPERFICIE");
+                estaTocandoLlenar = true;
+            }
+
+
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Escudo"))
             {
                 collisionPoint = hit.point;
@@ -132,6 +143,7 @@ public class InstanciaNewChorro : MonoBehaviour
 
         UpdateObjectTransform(direction, currentDistance, true);
     }
+
 
     private void InstanciarEnColision(Vector3 collisionPoint)
     {

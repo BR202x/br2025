@@ -164,7 +164,7 @@ MonoBehaviour:
   target: {fileID: 0}
   objectPrefab: {fileID: 8910448724647475398, guid: c3bfb90b7b9a6ad49ad32d78b8f2b33b, type: 3}
   prefabRebote: {fileID: 1281019165633363552, guid: 753cf3191ff79ef4ebbffcd648ae4ee9, type: 3}
-  toggleKey: 32
+  toggleKey: 113
   collisionLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -172,7 +172,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   extensionSpeed: 30
-  maxDistance: 30
+  maxDistance: 60
   scaleSpeedConstant: 0.2
   reductionSpeedConstant: 1
   rScale: 0.2

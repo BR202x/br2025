@@ -4,22 +4,25 @@ public class SeguirEscudo : MonoBehaviour
 {
     [Header("Configuración")]
     public Transform objetivoEscudo;
-    public Transform objetivoRaton;    
+    public Transform objetivoRaton;
 
     // Unicamente para ubicar el plano de rebote en la posicion del escudo.
 
     private void Update()
     {
         if (objetivoEscudo != null)
-        {            
+        {
             transform.position = objetivoEscudo.position;
 
             if (objetivoRaton != null)
-            {                
+            {
                 Vector3 rotacionActual = transform.rotation.eulerAngles;
+
+                // Asignar rotación en Y desde el objetivo del ratón
                 rotacionActual.y = objetivoRaton.rotation.eulerAngles.y;
+
                 transform.rotation = Quaternion.Euler(rotacionActual);
             }
-        }        
+        }
     }
 }

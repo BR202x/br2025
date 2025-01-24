@@ -21,16 +21,14 @@ public class InicioLLenado : MonoBehaviour
     }
 
     void Update()
-    {        
-        GameObject streamObject = GameObject.Find("Stream1");
+    {   
+        InstanciaNewChorro chorro  = FindFirstObjectByType<InstanciaNewChorro>();
 
-        if (streamObject != null)
+        if (chorro != null)
         {
-            Stream streamComponent = streamObject.GetComponent<Stream>();
-            if (streamComponent != null)
-            {
-                estaLlenando = streamComponent.estaTocando;
-            }
+
+            estaLlenando = chorro.estaTocandoLlenar;
+
         }
         else
         {
