@@ -7,7 +7,7 @@
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Init FMOD stream thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x4000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 000001EEFB0F2D08 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 000002A73DF50698 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -16,8 +16,97 @@
 [LOG] Manager::init                            : done.
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
-[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 1701248
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 31360
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000A48B4FED78
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFEAF245B90
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFEAF245B50
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFEAF245C70
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFEAF245D30
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000002A70F830AB8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='SFX_Player_Jump_02', format=5, channels=1, frequency=48000, lengthbytes=3296, lengthpcm=65022, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.364990.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 1701248
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 31360
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000A48B4FED78
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFEAF245B90
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFEAF245B50
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFEAF245C70
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFEAF245D30
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000002A70F830AB8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='SFX_Player_Jump_05', format=5, channels=1, frequency=48000, lengthbytes=3168, lengthpcm=62400, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.366486.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 1701248
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 31360
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000A48B4FED78
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFEAF245B90
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFEAF245B50
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFEAF245C70
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFEAF245D30
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000002A70F830AB8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='SFX_Player_Jump_01', format=5, channels=1, frequency=48000, lengthbytes=4640, lengthpcm=72000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.458618.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 1701248
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 31360
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000A48B4FED78
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFEAF245B90
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFEAF245B50
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFEAF245C70
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFEAF245D30
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000002A70F830AB8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='SFX_Player_Jump_04', format=5, channels=1, frequency=48000, lengthbytes=3008, lengthpcm=61368, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.392639.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 1701248
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 31360
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000A48B4FED78
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFEAF245B90
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFEAF245B50
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFEAF245C70
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFEAF245D30
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000002A70F830AB8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='SFX_Player_Jump_03', format=5, channels=1, frequency=48000, lengthbytes=2688, lengthpcm=63239, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.373016.
+[LOG] SoundI::release                          :  (000002A6E4CDA4F8)
+[LOG] SoundI::release                          :     SFX_Player_Jump_01 (000002A60F6A93E8)
+[LOG] SoundI::release                          :  (000002A6E4CD4338)
+[LOG] SoundI::release                          :     SFX_Player_Jump_02 (000002A6A93133E8)
+[LOG] SoundI::release                          :  (000002A6E4CDB358)
+[LOG] SoundI::release                          :     SFX_Player_Jump_03 (000002A60F6A9728)
+[LOG] SoundI::release                          :  (000002A6E4CDD188)
+[LOG] SoundI::release                          :     SFX_Player_Jump_04 (000002A60F6A9DA8)
+[LOG] SoundI::release                          :  (000002A6E4CDDB98)
+[LOG] SoundI::release                          :     SFX_Player_Jump_05 (000002A60F6A9588)
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.
 [LOG] Thread::callback                         : FMOD Studio sample load thread finished.
 [LOG] LiveUpdate::release                      : 
