@@ -4,7 +4,7 @@ public class InstanciaNewChorro : MonoBehaviour
 {
     private LineRenderer lineRenderer;     // Referencia al Line Renderer
     private GameObject instantiatedObject; // Referencia al objeto instanciado (prefab)
-    private GameObject reboteInstancia;    // Referencia a la instancia creada al colisionar con el escudo
+    public GameObject reboteInstancia;    // Referencia a la instancia creada al colisionar con el escudo
     public Transform target;              // Referencia al Target (asignado desde el Inspector)
     public bool estaTocandoLlenar;
 
@@ -22,6 +22,8 @@ public class InstanciaNewChorro : MonoBehaviour
     [Header("Velocidad Cerrado")]
     public float reductionSpeedConstant = 1f; // Velocidad de reducción al cerrar (X y Z)
     public float rScale = 1f;             // Escala máxima en X y Z
+
+    public GameObject chorroReboteInst;
 
     private float currentDistance = 0f;    // Distancia actual de extensión
     private Vector3 currentScale;          // Escala actual del objeto instanciado
@@ -59,6 +61,7 @@ public class InstanciaNewChorro : MonoBehaviour
     void Update()
     {
         target = GameObject.Find("Valvula").GetComponent<SeguirTarget>().target;
+        chorroReboteInst = GameObject.Find("ChorroNew(Clone)");
 
         if (Input.GetKeyDown(toggleKey))
         {
@@ -97,15 +100,11 @@ public class InstanciaNewChorro : MonoBehaviour
 
         if (isObstructed)
         {
-            // Log del objeto impactado y su capa
-            // Debug.Log($"Raycast impactó con el objeto: {hit.collider.gameObject.name}, en la capa: {LayerMask.LayerToName(hit.collider.gameObject.layer)}");
-
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("SuperficieTambor"))
             {
                 Debug.Log("TOCANDO SUPERFICIE");
                 estaTocandoLlenar = true;
             }
-
 
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Escudo"))
             {
@@ -117,7 +116,7 @@ public class InstanciaNewChorro : MonoBehaviour
                 // Crear una instancia si no existe ya una
                 if (reboteInstancia == null)
                 {
-                    InstanciarEnColision(hit.point);
+                    InstanciarEnColision(hit);
                 }
             }
             else
@@ -144,12 +143,19 @@ public class InstanciaNewChorro : MonoBehaviour
         UpdateObjectTransform(direction, currentDistance, true);
     }
 
-
-    private void InstanciarEnColision(Vector3 collisionPoint)
+    private void InstanciarEnColision(RaycastHit hit)
     {
         if (prefabRebote != null && reboteInstancia == null)
         {
-            reboteInstancia = Instantiate(prefabRebote, collisionPoint, Quaternion.identity);
+            // Crear la instancia en la posición del punto de colisión
+            reboteInstancia = Instantiate(prefabRebote, hit.point, Quaternion.identity);
+
+            // Configurar como hijo del objeto colisionado
+            if (hit.collider != null)
+            {
+                reboteInstancia.transform.SetParent(hit.collider.transform);
+                reboteInstancia.transform.localPosition = hit.collider.transform.InverseTransformPoint(hit.point);
+            }
         }
         else
         {
@@ -162,6 +168,7 @@ public class InstanciaNewChorro : MonoBehaviour
         if (reboteInstancia != null)
         {
             Destroy(reboteInstancia);
+            Destroy(chorroReboteInst);
             reboteInstancia = null;
             Debug.Log("Instancia de rebote destruida.");
         }
@@ -213,7 +220,7 @@ public class InstanciaNewChorro : MonoBehaviour
         instantiatedObject.transform.localScale = currentScale;
     }
 
-    private void CreateInstance()
+    private void CreateInstance() // El objeto con Shader
     {
         instantiatedObject = Instantiate(objectPrefab, transform.position, Quaternion.identity);
         currentScale = Vector3.zero;
@@ -221,7 +228,7 @@ public class InstanciaNewChorro : MonoBehaviour
     }
 
     public void CerrarChorro()
-    { 
-        isOpen = false;    
+    {
+        isOpen = false;
     }
 }

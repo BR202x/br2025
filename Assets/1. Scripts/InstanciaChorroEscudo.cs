@@ -155,6 +155,11 @@ public class InstanciaChorroEscudo : MonoBehaviour
         Destroy(instantiatedObject.gameObject);
     }
 
+    public void DestruirRebote()
+    {
+        Destroy(instantiatedObject.gameObject);
+    }
+
     void OnEnable()
     {
         // Asignar la cámara principal si el objeto se activa y no tiene una cámara asignada

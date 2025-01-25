@@ -166,7 +166,7 @@ MonoBehaviour:
   collisionLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  objectPrefab: {fileID: 8910448724647475398, guid: c3bfb90b7b9a6ad49ad32d78b8f2b33b, type: 3}
+  objectPrefab: {fileID: 6980286742166032116, guid: e69431895fcfb254ab7c436e756ad1ec, type: 3}
   fixedScaleX: 0.2
   fixedScaleZ: 0.2
   mainCamera: {fileID: 0}

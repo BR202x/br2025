@@ -428,7 +428,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f833ddfcbc7986c41adc81a1c3cea278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musica: []
+  musica:
+  - nombreEvento: 
+    eventReference:
+      Guid:
+        Data1: 1831318961
+        Data2: 1322786515
+        Data3: 1310196115
+        Data4: 837281849
+      Path: event:/Music/W.M_Mus_Boss_Foam
   sfx: []
   ambiente: []
 --- !u!1 &1020100739

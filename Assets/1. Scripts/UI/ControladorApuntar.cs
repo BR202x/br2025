@@ -24,6 +24,11 @@ public class ControladorApuntar : MonoBehaviour
     [Header("Configuración del Temporizador")]
     public float tiempoParaOcultar = 5f;
 
+    [Header("Error Instancias")]
+    public GameObject chorroReboteInst;
+    public GameObject instLineRenderer;
+    public GameObject chorroIsnt;
+
     [Header("Cámara")]
     public GameObject camaraApuntar;
     public Camera camaraMain;
@@ -44,6 +49,20 @@ public class ControladorApuntar : MonoBehaviour
 
     private void Update()
     {
+        #region MACHETAZO - Revisar.
+
+        chorroIsnt = GameObject.Find("Chorro de agua(Clone)");
+        chorroReboteInst = GameObject.Find("ChorroNew(Clone)");
+        instLineRenderer = GameObject.Find("InstanciaChorroEscudo(Clone)");
+
+        if (chorroIsnt == null)
+        {
+            Destroy(chorroReboteInst);
+            Destroy(instLineRenderer);
+        }
+
+        #endregion
+
         if (camaraApuntar.gameObject.activeSelf)
         {
             escudoRebote.SetActive(true);
@@ -77,12 +96,16 @@ public class ControladorApuntar : MonoBehaviour
                     valvula.ActivarPuntero();                    
                 }
             }
-
-
-
         }
         else
         {
+
+            if (chorroReboteInst != null) // Con esto... Machete
+            {
+                Destroy(chorroReboteInst);
+                Destroy(instLineRenderer);            
+            }
+
             escudoRebote.SetActive(false);
 
             if (ocultarInfoCoroutine == null)

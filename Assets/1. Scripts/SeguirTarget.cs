@@ -41,8 +41,9 @@ public class SeguirTarget : MonoBehaviour
     }
     public void DestruirChorro()
     {
-        if (chorro != null)
-        {
+
+        if (chorro != null)        {
+
             chorro.CerrarChorro();         
         }    
     }
