@@ -21,6 +21,8 @@ public class ChorroTargetController : MonoBehaviour
     [Header("Estado 1: Movimiento Aleatorio y Disparo")]
     public float tiempoEntreDisparosEstado1 = 4f;
     public float tiempoDisparoQuietoEstado1 = 3f;
+    public InstanciaNewChorro chorro;
+    public bool estado1 = false;
 
     private float originalFollowDuration = 10f;
     private float originalIdleAfterFollowDuration = 6f;
@@ -71,6 +73,30 @@ public class ChorroTargetController : MonoBehaviour
 
     private void Update()
     {
+        // Buscar la instancia del objeto chorro
+        chorro = FindFirstObjectByType<InstanciaNewChorro>();
+
+        // Si el chorro existe, manejar su lógica
+        if (chorro != null)
+        {
+            float chorroInicial = chorro.rScale;
+            // Si estado1 está activo, asignar un nuevo valor a rScale
+            if (estado1)
+            {
+                chorro.rScale = 0.5f;
+            }
+            else
+            {
+                // Dejar el valor original o realizar otra acción
+                chorro.rScale = chorroInicial; // Esto mantiene el valor actual
+            }
+        }
+        else
+        {
+            Debug.Log("No se encontró el objeto chorro en la escena.");
+        }
+
+        // Lógica Del Slider para mantener la los tiempos del estado 2 proporcionales y Testear
         ActualizarValoresEscalados();
 
         if (estadoSeleccionado != estadoActual)
@@ -111,11 +137,15 @@ public class ChorroTargetController : MonoBehaviour
 
     private void StartSinEstado()
     {
+        StopAllCoroutinesForState();
+        estado1 = false;
         if (mostrarLog) { Debug.Log("Estado 0 iniciado: Sin Corutinas"); }
     }
 
     private void StartEstado1()
     {
+        estado1 = true;
+
         moverCorrutina = StartCoroutine(MoverAleatoriamente());
         disparoCorrutina = StartCoroutine(Disparo1());
         if (mostrarLog) { Debug.Log("Estado 1 iniciado: Movimiento aleatorio y disparo."); }
@@ -123,6 +153,7 @@ public class ChorroTargetController : MonoBehaviour
 
     private void StartEstado2()
     {
+        estado1 = false;
         seguirPlayerCorrutina = StartCoroutine(SeguirPlayer());
         disparoCorrutina = StartCoroutine(Disparo2());
         if (mostrarLog) { Debug.Log("Estado 2 iniciado: Seguir al jugador y disparo."); }
@@ -226,6 +257,11 @@ public class ChorroTargetController : MonoBehaviour
             seguirTarget.DestruirChorro();
             if (mostrarLog) { Debug.Log("Estado 2: Deteniendo disparo..."); }
         }
+    }
+
+    public void SetEstadoChorro(int estado)
+    { 
+        
     }
 
     private Transform GetRandomTarget()

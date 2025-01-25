@@ -13,8 +13,7 @@ public class InstanciaNewChorro : MonoBehaviour
     public GameObject prefabRebote;       // Prefab que se instanciará al colisionar con el escudo
     public KeyCode toggleKey = KeyCode.Space; // Tecla para alternar abrir/cerrar el sistema
     [Header("Capas de Colision")]
-    public LayerMask collisionLayers;     // Capas contra las que se detendrá el Raycast
-    public LayerMask escudoLayer;         // Capa específica del escudo
+    public LayerMask collisionLayers;     // Capas contra las que se detendrá el Raycast    
     [Header("Velocidad de disparo")]
     public float extensionSpeed = 5f;     // Velocidad de extensión en Z
     public float maxDistance = 50f;       // Distancia máxima del Raycast
@@ -88,6 +87,9 @@ public class InstanciaNewChorro : MonoBehaviour
 
     private void HandleOpenState()
     {
+        // Mantener el valor original de extensionSpeed
+        float currentExtensionSpeed = extensionSpeed;
+
         if (instantiatedObject == null)
         {
             CreateInstance();
@@ -100,61 +102,100 @@ public class InstanciaNewChorro : MonoBehaviour
 
         if (isObstructed)
         {
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("SuperficieTambor"))
-            {
-                Debug.Log("TOCANDO SUPERFICIE");
-                estaTocandoLlenar = true;
-            }
+            float distanciaDelChorro = Vector3.Distance(lineRenderer.GetPosition(1), hit.point);
 
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Escudo"))
             {
-                collisionPoint = hit.point;
+                // Incrementar la velocidad 100 veces para el caso de colisión con Escudo
+                currentExtensionSpeed *= 100f;
 
-                currentDistance = Vector3.Distance(transform.position, hit.point);
-                lineRenderer.SetPosition(1, hit.point);
+                if (distanciaDelChorro < 0.05)
+                {
+                    Debug.Log("Prueba Tocar Escudo");
+                }
+                // Mover progresivamente hacia el punto de colisión con Escudo
+                float step = currentExtensionSpeed * Time.deltaTime;
+                currentDistance = Mathf.MoveTowards(currentDistance, Vector3.Distance(transform.position, hit.point), step);
+                Vector3 currentPoint = transform.position + (hit.point - transform.position).normalized * currentDistance;
 
-                // Crear una instancia si no existe ya una
+                lineRenderer.SetPosition(1, currentPoint);
+
+                // Crear una instancia de rebote si no existe
                 if (reboteInstancia == null)
                 {
                     InstanciarEnColision(hit);
                 }
             }
+            else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("SuperficieTambor") ||
+                hit.collider.gameObject.layer == LayerMask.NameToLayer("Flotante")) // Verificar la capa Tambor
+            {
+                // Usar la velocidad normal para capas que no son Escudo
+                currentExtensionSpeed = extensionSpeed;
+
+                if (distanciaDelChorro <= 0.5)
+                {
+                    Debug.Log("Prueba Tocar Tambor");
+                    estaTocandoLlenar = true;
+                }
+                else
+                {
+                    estaTocandoLlenar = false;
+                }
+                
+                float step = currentExtensionSpeed * Time.deltaTime;
+                currentDistance = Mathf.MoveTowards(currentDistance, Vector3.Distance(transform.position, hit.point), step);
+                Vector3 currentPoint = transform.position + (hit.point - transform.position).normalized * currentDistance;
+                lineRenderer.SetPosition(1, currentPoint);
+            }
             else
             {
-                currentDistance = Vector3.Distance(transform.position, hit.point);
-                lineRenderer.SetPosition(1, hit.point);
+                // Usar la velocidad normal para capas que no son Escudo
+                currentExtensionSpeed = extensionSpeed;
 
-                // Si no estamos colisionando con el escudo, destruir la instancia de rebote
+                // Mover progresivamente hacia el punto de colisión
+                float step = currentExtensionSpeed * Time.deltaTime;
+                currentDistance = Mathf.MoveTowards(currentDistance, Vector3.Distance(transform.position, hit.point), step);
+                Vector3 currentPoint = transform.position + (hit.point - transform.position).normalized * currentDistance;
+
+                lineRenderer.SetPosition(1, currentPoint);
+
+                // Destruir cualquier instancia de rebote existente
                 DestruirRebote();
             }
         }
         else
         {
-            float step = extensionSpeed * Time.deltaTime;
+            // Si no hay colisión, usar la velocidad normal
+            currentExtensionSpeed = extensionSpeed;
+
+            // Avanzar progresivamente hacia la distancia máxima
+            float step = currentExtensionSpeed * Time.deltaTime;
             currentDistance = Mathf.MoveTowards(currentDistance, maxDistance, step);
             Vector3 currentPoint = transform.position + direction * currentDistance;
 
             lineRenderer.SetPosition(1, currentPoint);
 
-            // Si no hay colisión, destruir la instancia de rebote
+            // Destruir cualquier instancia de rebote existente
             DestruirRebote();
         }
 
+        // Actualizar la posición y escala del objeto instanciado
         UpdateObjectTransform(direction, currentDistance, true);
     }
+
+
 
     private void InstanciarEnColision(RaycastHit hit)
     {
         if (prefabRebote != null && reboteInstancia == null)
         {
-            // Crear la instancia en la posición del punto de colisión
-            reboteInstancia = Instantiate(prefabRebote, hit.point, Quaternion.identity);
-
             // Configurar como hijo del objeto colisionado
             if (hit.collider != null)
             {
+                reboteInstancia = Instantiate(prefabRebote, hit.transform.position, Quaternion.identity);
                 reboteInstancia.transform.SetParent(hit.collider.transform);
-                reboteInstancia.transform.localPosition = hit.collider.transform.InverseTransformPoint(hit.point);
+                //reboteInstancia.transform.localPosition = hit.collider.transform.InverseTransformPoint(hit.point);
+                reboteInstancia.transform.localPosition = Vector3.zero;
             }
         }
         else

@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b48c9f3e9b9e7144bbd03c00d1efd7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reboteInstancia: {fileID: 0}
   target: {fileID: 0}
   estaTocandoLlenar: 0
   objectPrefab: {fileID: 8910448724647475398, guid: c3bfb90b7b9a6ad49ad32d78b8f2b33b, type: 3}
@@ -171,9 +172,10 @@ MonoBehaviour:
     m_Bits: 4294967295
   escudoLayer:
     serializedVersion: 2
-    m_Bits: 3072
-  extensionSpeed: 30
-  maxDistance: 60
+    m_Bits: 1024
+  extensionSpeed: 40
+  maxDistance: 100
   scaleSpeedConstant: 0.2
   reductionSpeedConstant: 1
   rScale: 0.2
+  chorroReboteInst: {fileID: 0}

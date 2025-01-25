@@ -839,7 +839,7 @@ GameObject:
   - component: {fileID: 86628002}
   - component: {fileID: 86628001}
   - component: {fileID: 86628000}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: ObjetoRopa (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3051,7 +3051,7 @@ GameObject:
   - component: {fileID: 371294854}
   - component: {fileID: 371294853}
   - component: {fileID: 371294852}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: ObjetoRopa (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3232,7 +3232,7 @@ GameObject:
   - component: {fileID: 374251148}
   - component: {fileID: 374251147}
   - component: {fileID: 374251146}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: ObjetoRopa (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10002,9 +10002,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fb7ed834942b0643ac6172230194296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mostrarLog: 0
   estadoSeleccionado: 0
   abrirChorro: 0
-  escalaDeTiempos: 1.5
   objetivosChorro:
   - {fileID: 1427968556}
   - {fileID: 617424832}
@@ -10014,8 +10014,11 @@ MonoBehaviour:
   - {fileID: 237925892}
   targetChorro: {fileID: 115055719}
   moveSpeed: 5
-  tiempoEntreDisparosEstado1: 4
-  tiempoDisparoQuietoEstado1: 3
+  tiempoEntreDisparosEstado1: 3
+  tiempoDisparoQuietoEstado1: 20
+  chorro: {fileID: 0}
+  estado1: 0
+  escalaDeTiempos: 1.5
   player: {fileID: 5044850328922134624}
   followPlayerSpeed: 5.5
   followDuration: 10
@@ -11821,8 +11824,8 @@ Transform:
   m_GameObject: {fileID: 1562781678}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 4.2528, y: 6.0225, z: 2.257693}
-  m_LocalScale: {x: 0.044212706, y: 1, z: 0.0837576}
+  m_LocalPosition: {x: 4.2547, y: 5.9613, z: 2.257693}
+  m_LocalScale: {x: 0.054173145, y: 1, z: 0.121884696}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1962905601}
@@ -12598,7 +12601,7 @@ GameObject:
   - component: {fileID: 1659723811}
   - component: {fileID: 1659723810}
   - component: {fileID: 1659723809}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: ObjetoRopa (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14243,7 +14246,7 @@ GameObject:
   - component: {fileID: 1811098212}
   - component: {fileID: 1811098211}
   m_Layer: 6
-  m_Name: Cylinder
+  m_Name: ColliderCentro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16010,7 +16013,7 @@ MonoBehaviour:
   estaLlenando: 0
   empezarLlenado: 0
   llenadoManager: {fileID: 2049726165}
-  tiempoRetraso: 3
+  tiempoRetraso: 2
 --- !u!1 &2056600359
 GameObject:
   m_ObjectHideFlags: 0
@@ -16768,7 +16771,7 @@ GameObject:
   - component: {fileID: 2096205641}
   - component: {fileID: 2096205640}
   - component: {fileID: 2096205639}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: ObjetoRopa (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
