@@ -2,62 +2,68 @@ using UnityEngine;
 
 public class InstanciaNewChorro : MonoBehaviour
 {
-    private LineRenderer lineRenderer;     // Referencia al Line Renderer
-    private GameObject instantiatedObject; // Referencia al objeto instanciado (prefab)
-    public GameObject reboteInstancia;    // Referencia a la instancia creada al colisionar con el escudo
-    public Transform target;              // Referencia al Target (asignado desde el Inspector)
+    #region Variables
+
+    [Header("depuracion")]
+    public bool mostrarLog = false;
+
+    private LineRenderer lineRenderer;
+    private GameObject instantiatedObject;
+    private GameObject reboteInstancia;
+    public GameObject prefabRebote;
+    public Transform target;
     public bool estaTocandoLlenar;
 
     [Header("Objeto Shader")]
-    public GameObject objectPrefab;       // Prefab del objeto a instanciar    
-    public GameObject prefabRebote;       // Prefab que se instanciará al colisionar con el escudo
-    public KeyCode toggleKey = KeyCode.Space; // Tecla para alternar abrir/cerrar el sistema
+    public GameObject objectPrefab;
+    public KeyCode toggleKey = KeyCode.Space;
+
     [Header("Capas de Colision")]
-    public LayerMask collisionLayers;     // Capas contra las que se detendrá el Raycast    
+    public LayerMask collisionLayers;
+
     [Header("Velocidad de disparo")]
-    public float extensionSpeed = 5f;     // Velocidad de extensión en Z
-    public float maxDistance = 50f;       // Distancia máxima del Raycast
-    public float scaleSpeedConstant = 0.5f; // Velocidad de escalado al abrir (X y Z)
+    public float extensionSpeed = 5f;
+    public float maxDistance = 50f;
+    public float scaleSpeedConstant = 0.5f;
+
     [Header("Velocidad Cerrado")]
-    public float reductionSpeedConstant = 1f; // Velocidad de reducción al cerrar (X y Z)
-    public float rScale = 1f;             // Escala máxima en X y Z
+    public float reductionSpeedConstant = 1f;
+    public float rScale = 1f;
 
-    public GameObject chorroReboteInst;
+    private GameObject chorroReboteInst;
+    private float currentDistance = 0f;
+    private Vector3 currentScale;
+    private bool isOpen = false;
+    private Vector3 collisionPoint;
 
-    private float currentDistance = 0f;    // Distancia actual de extensión
-    private Vector3 currentScale;          // Escala actual del objeto instanciado
-    private bool isOpen = false;           // Estado del sistema (abierto o cerrado)
-    private Vector3 collisionPoint;        // Guarda el punto de colisión con el Escudo
+    #endregion
 
-    void Start()
+    private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
         target = GameObject.Find("Valvula").GetComponent<SeguirTarget>().target;
 
         if (lineRenderer == null || objectPrefab == null)
         {
-            Debug.LogError("Faltan referencias en el script.");
+            if (mostrarLog) { Debug.LogError("Faltan referencias en el script."); }
             return;
         }
 
         if (target == null)
         {
-            Debug.LogError("El Target no está asignado. Por favor, asigna un objeto desde el inspector.");
+            if (mostrarLog) { Debug.LogError("El Target no esta asignado. Por favor, asigna un objeto desde el inspector."); }
             return;
         }
 
-        // Inicializar el Line Renderer
         lineRenderer.positionCount = 2;
-        lineRenderer.SetPosition(0, transform.position); // Punto inicial
-        lineRenderer.SetPosition(1, transform.position); // Punto final inicial
+        lineRenderer.SetPosition(0, transform.position);
+        lineRenderer.SetPosition(1, transform.position);
 
         isOpen = true;
-
-        // Crear la instancia inicial del prefab
         CreateInstance();
     }
 
-    void Update()
+    private void Update()
     {
         target = GameObject.Find("Valvula").GetComponent<SeguirTarget>().target;
         chorroReboteInst = GameObject.Find("ChorroNew(Clone)");
@@ -71,23 +77,22 @@ public class InstanciaNewChorro : MonoBehaviour
 
         if (target == null)
         {
-            Debug.LogWarning("El Target no está asignado. El Raycast no se puede calcular.");
+            if (mostrarLog) { Debug.LogWarning("El Target no esta asignado. El Raycast no se puede calcular."); }
             return;
         }
 
         if (isOpen)
         {
-            HandleOpenState(); // Abrir el sistema
+            HandleOpenState();
         }
         else
         {
-            HandleCloseState(); // Cerrar el sistema
+            HandleCloseState();
         }
     }
 
     private void HandleOpenState()
     {
-        // Mantener el valor original de extensionSpeed
         float currentExtensionSpeed = extensionSpeed;
 
         if (instantiatedObject == null)
@@ -96,7 +101,6 @@ public class InstanciaNewChorro : MonoBehaviour
         }
 
         Vector3 direction = (target.position - transform.position).normalized;
-
         RaycastHit hit;
         bool isObstructed = Physics.Raycast(transform.position, direction, out hit, maxDistance, collisionLayers);
 
@@ -106,42 +110,39 @@ public class InstanciaNewChorro : MonoBehaviour
 
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Escudo"))
             {
-                // Incrementar la velocidad 100 veces para el caso de colisión con Escudo
                 currentExtensionSpeed *= 100f;
 
                 if (distanciaDelChorro < 0.05)
                 {
-                    Debug.Log("Prueba Tocar Escudo");
+                    if (mostrarLog) { Debug.Log("Prueba Tocar Escudo"); }
                 }
-                // Mover progresivamente hacia el punto de colisión con Escudo
+
                 float step = currentExtensionSpeed * Time.deltaTime;
                 currentDistance = Mathf.MoveTowards(currentDistance, Vector3.Distance(transform.position, hit.point), step);
                 Vector3 currentPoint = transform.position + (hit.point - transform.position).normalized * currentDistance;
 
                 lineRenderer.SetPosition(1, currentPoint);
 
-                // Crear una instancia de rebote si no existe
                 if (reboteInstancia == null)
                 {
                     InstanciarEnColision(hit);
                 }
             }
             else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("SuperficieTambor") ||
-                hit.collider.gameObject.layer == LayerMask.NameToLayer("Flotante")) // Verificar la capa Tambor
+                     hit.collider.gameObject.layer == LayerMask.NameToLayer("Flotante"))
             {
-                // Usar la velocidad normal para capas que no son Escudo
                 currentExtensionSpeed = extensionSpeed;
 
                 if (distanciaDelChorro <= 0.5)
                 {
-                    Debug.Log("Prueba Tocar Tambor");
+                    if (mostrarLog) { Debug.Log("Prueba Tocar Tambor"); }
                     estaTocandoLlenar = true;
                 }
                 else
                 {
                     estaTocandoLlenar = false;
                 }
-                
+
                 float step = currentExtensionSpeed * Time.deltaTime;
                 currentDistance = Mathf.MoveTowards(currentDistance, Vector3.Distance(transform.position, hit.point), step);
                 Vector3 currentPoint = transform.position + (hit.point - transform.position).normalized * currentDistance;
@@ -149,58 +150,45 @@ public class InstanciaNewChorro : MonoBehaviour
             }
             else
             {
-                // Usar la velocidad normal para capas que no son Escudo
                 currentExtensionSpeed = extensionSpeed;
 
-                // Mover progresivamente hacia el punto de colisión
                 float step = currentExtensionSpeed * Time.deltaTime;
                 currentDistance = Mathf.MoveTowards(currentDistance, Vector3.Distance(transform.position, hit.point), step);
                 Vector3 currentPoint = transform.position + (hit.point - transform.position).normalized * currentDistance;
 
                 lineRenderer.SetPosition(1, currentPoint);
-
-                // Destruir cualquier instancia de rebote existente
                 DestruirRebote();
             }
         }
         else
         {
-            // Si no hay colisión, usar la velocidad normal
             currentExtensionSpeed = extensionSpeed;
 
-            // Avanzar progresivamente hacia la distancia máxima
             float step = currentExtensionSpeed * Time.deltaTime;
             currentDistance = Mathf.MoveTowards(currentDistance, maxDistance, step);
             Vector3 currentPoint = transform.position + direction * currentDistance;
 
             lineRenderer.SetPosition(1, currentPoint);
-
-            // Destruir cualquier instancia de rebote existente
             DestruirRebote();
         }
 
-        // Actualizar la posición y escala del objeto instanciado
         UpdateObjectTransform(direction, currentDistance, true);
     }
-
-
 
     private void InstanciarEnColision(RaycastHit hit)
     {
         if (prefabRebote != null && reboteInstancia == null)
         {
-            // Configurar como hijo del objeto colisionado
             if (hit.collider != null)
             {
                 reboteInstancia = Instantiate(prefabRebote, hit.transform.position, Quaternion.identity);
                 reboteInstancia.transform.SetParent(hit.collider.transform);
-                //reboteInstancia.transform.localPosition = hit.collider.transform.InverseTransformPoint(hit.point);
                 reboteInstancia.transform.localPosition = Vector3.zero;
             }
         }
         else
         {
-            Debug.LogWarning("No se asignó un prefab para la instancia en colisión.");
+            if (mostrarLog) { Debug.LogWarning("No se asigno un prefab para la instancia en colision."); }
         }
     }
 
@@ -211,7 +199,8 @@ public class InstanciaNewChorro : MonoBehaviour
             Destroy(reboteInstancia);
             Destroy(chorroReboteInst);
             reboteInstancia = null;
-            Debug.Log("Instancia de rebote destruida.");
+
+            if (mostrarLog) { Debug.Log("Instancia de rebote destruida."); }
         }
     }
 
@@ -261,7 +250,7 @@ public class InstanciaNewChorro : MonoBehaviour
         instantiatedObject.transform.localScale = currentScale;
     }
 
-    private void CreateInstance() // El objeto con Shader
+    private void CreateInstance()
     {
         instantiatedObject = Instantiate(objectPrefab, transform.position, Quaternion.identity);
         currentScale = Vector3.zero;

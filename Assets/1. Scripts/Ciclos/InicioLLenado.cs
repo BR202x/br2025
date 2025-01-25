@@ -19,6 +19,7 @@ public class InicioLLenado : MonoBehaviour
     public float tiempoRetraso = 2f;
 
     private Coroutine llenadoCoroutine; // Referencia a la corutina de llenado
+    private Coroutine detenerLlenado;
 
     #endregion
 
@@ -57,9 +58,9 @@ public class InicioLLenado : MonoBehaviour
                 llenadoCoroutine = null;
             }
 
+            detenerLlenado = StartCoroutine(DesactivarLlenado());
             // Reiniciar los estados
-            empezarLlenado = false;
-            llenadoManager.llenandoTambor = false;
+
         }
 
         if (mostrarDebug)
@@ -84,6 +85,21 @@ public class InicioLLenado : MonoBehaviour
 
         llenadoCoroutine = null; // Resetear la referencia de la corutina
     }
+
+    private IEnumerator DesactivarLlenado()
+    {
+        yield return new WaitForSeconds(tiempoRetraso);
+
+        if (!estaLlenando)
+        {
+            empezarLlenado = false;
+            llenadoManager.llenandoTambor = false;
+        }
+
+        detenerLlenado = null;
+
+    }
+
 
     private void MostrarDebug(string mensaje)
     {
