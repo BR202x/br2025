@@ -2178,6 +2178,7 @@ GameObject:
   - component: {fileID: 611855874}
   - component: {fileID: 611855873}
   - component: {fileID: 611855872}
+  - component: {fileID: 611855875}
   m_Layer: 5
   m_Name: Boton_CONTROLES
   m_TagString: Untagged
@@ -2299,6 +2300,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 611855870}
   m_CullTransparentMesh: 1
+--- !u!114 &611855875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611855870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b391a7d7249b4c0c859666200ab9955, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  PlayOnAwake: 0
 --- !u!1 &612226758
 GameObject:
   m_ObjectHideFlags: 0
