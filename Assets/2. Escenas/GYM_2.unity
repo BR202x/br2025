@@ -10002,6 +10002,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fb7ed834942b0643ac6172230194296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  estadoSeleccionado: 0
+  abrirChorro: 0
+  escalaDeTiempos: 1.5
   objetivosChorro:
   - {fileID: 1427968556}
   - {fileID: 617424832}
@@ -10011,8 +10014,8 @@ MonoBehaviour:
   - {fileID: 237925892}
   targetChorro: {fileID: 115055719}
   moveSpeed: 5
-  tiempoEntreAperturas: 8
-  duracionApertura: 30
+  tiempoEntreDisparosEstado1: 4
+  tiempoDisparoQuietoEstado1: 3
   player: {fileID: 5044850328922134624}
   followPlayerSpeed: 5.5
   followDuration: 10

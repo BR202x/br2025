@@ -388,10 +388,10 @@ MonoBehaviour:
   m_Name: FMODStudioSettings
   m_EditorClassIdentifier: 
   switchSettingsMigration: 1
-  HasSourceProject: 0
+  HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: Assets/6. Sonidos/FMODproyect/Washing machine/W.M.fspro
-  sourceBankPath: Assets/6. Sonidos/FMODproyect/Washing machine
+  sourceProjectPath: Assets/wm/wm.fspro
+  sourceBankPath: Assets/wm/Build
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
@@ -426,9 +426,9 @@ MonoBehaviour:
   EnableErrorCallback: 0
   SharedLibraryUpdateStage: 0
   SharedLibraryTimeSinceStart: 0
-  CurrentVersion: 131622
+  CurrentVersion: 131621
   HideSetupWizard: 1
-  LastEventReferenceScanVersion: 131622
+  LastEventReferenceScanVersion: 131621
   Platforms:
   - {fileID: -8653594093601360880}
   - {fileID: -4263411855398276933}

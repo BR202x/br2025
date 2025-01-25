@@ -4,187 +4,200 @@ using UnityEngine;
 
 public class ChorroTargetController : MonoBehaviour
 {
+    #region Variables
+
+    [Header("depuracion")]
+    public bool mostrarLog = false;
+
+    [Header("Configuracion de Estados")]
+    public Estado estadoSeleccionado; // Dropdown en el Inspector para seleccionar el estado
+    public bool abrirChorro = false;
+
     [Header("Comportamiento por Defecto")]
     public List<Transform> objetivosChorro = new List<Transform>();
-    public Transform targetChorro; // El objeto que se moverá
-    public float moveSpeed = 2f; // Velocidad de movimiento hacia los objetivos
-    private Transform currentTarget; // El objetivo actual al que se está moviendo
+    public Transform targetChorro;
+    public float moveSpeed = 2f;
 
-    [Header("Configuración del Chorro")]
-    public float tiempoEntreAperturas = 5f; // X segundos entre activaciones
-    public float duracionApertura = 2f; // Y segundos de duración en estado "abrirChorro"
-    private bool abrirChorro = false; // Controla si el chorro está activo o no
+    [Header("Estado 1: Movimiento Aleatorio y Disparo")]
+    public float tiempoEntreDisparosEstado1 = 4f;
+    public float tiempoDisparoQuietoEstado1 = 3f;
 
-    [Header("Comportamiento Seguir al Jugador")]
-    public Transform player; // Referencia al jugador
-    public float followPlayerSpeed = 3f; // Velocidad de seguimiento al jugador
-    public float followDuration = 5f; // Duración del seguimiento configurable desde el Inspector
-    public float idleAfterFollowDuration = 2f; // Tiempo que el objeto se queda quieto tras seguir al jugador
+    private float originalFollowDuration = 10f;
+    private float originalIdleAfterFollowDuration = 6f;
+    private float originalTiempoEntreDisparos = 6f;
+    private float originalTiempoDisparoQuieto = 10f;
 
-    [Header("Disparo Independiente")]
-    public float tiempoEntreDisparos = 3f; // Tiempo entre cada disparo
-    public float tiempoDisparoQuieto = 2f; // Tiempo que se queda quieto mientras dispara
+    [Header("Estado 2: Seguir al Jugador y Disparo")]
+    [Range(0f, 3f)]
+    public float escalaDeTiempos = 1f;
+    public Transform player;
+    public float followPlayerSpeed = 5.5f;
+
+    public float followDuration;
+    public float idleAfterFollowDuration;
+    public float tiempoEntreDisparos;
+    public float tiempoDisparoQuieto;
 
     private SeguirTarget seguirTarget;
 
-    // Referencias a las corrutinas activas
     private Coroutine moverCorrutina;
-    private Coroutine chorroCorrutina;
-    private Coroutine seguirPlayerCorrutina;
     private Coroutine disparoCorrutina;
+    private Coroutine seguirPlayerCorrutina;
 
-    void Start()
+    private Estado estadoActual = Estado.SinEstado;
+
+    public enum Estado
     {
+        SinEstado,
+        Estado1,
+        Estado2
+    }
+
+    #endregion
+
+    private void Start()
+    {
+        ActualizarValoresEscalados();
+
         seguirTarget = GameObject.Find("Valvula").GetComponent<SeguirTarget>();
 
-        // Comienza seleccionando un objetivo aleatorio de la lista
-        if (objetivosChorro.Count > 0)
+        if (objetivosChorro.Count == 0 && mostrarLog)
         {
-            currentTarget = GetRandomTarget();
-        }
-        else
-        {
-            Debug.LogWarning("La lista objetivosChorro está vacía. Agrega objetos para mover el target.");
+            Debug.LogWarning("La lista objetivosChorro esta vacia. Agrega objetos para mover el target.");
         }
 
-        // Puedes elegir iniciar alguna de las corrutinas directamente al inicio si lo deseas
-        StartFollowPlayerBehavior();
-        StartDisparoBehavior();
+        CambiarEstado(estadoSeleccionado);
     }
 
-    // --- Métodos para iniciar/ detener diferentes comportamientos ---
+    private void Update()
+    {
+        ActualizarValoresEscalados();
 
-    // Inicia las corrutinas por defecto (mover aleatoriamente y controlar el chorro)
-    public void StartDefaultBehavior()
+        if (estadoSeleccionado != estadoActual)
+        {
+            CambiarEstado(estadoSeleccionado);
+        }
+    }
+
+    private void ActualizarValoresEscalados()
+    {
+        followDuration = originalFollowDuration * escalaDeTiempos;
+        idleAfterFollowDuration = originalIdleAfterFollowDuration * escalaDeTiempos;
+        tiempoEntreDisparos = originalTiempoEntreDisparos * escalaDeTiempos;
+        tiempoDisparoQuieto = originalTiempoDisparoQuieto * escalaDeTiempos;
+    }
+
+    private void CambiarEstado(Estado nuevoEstado)
+    {
+        StopAllCoroutinesForState();
+        estadoActual = nuevoEstado;
+
+        switch (estadoActual)
+        {
+            case Estado.SinEstado:
+                StartSinEstado();
+                break;
+            case Estado.Estado1:
+                StartEstado1();
+                break;
+            case Estado.Estado2:
+                StartEstado2();
+                break;
+            default:
+                if (mostrarLog) { Debug.LogWarning("Estado desconocido: " + estadoActual); }
+                break;
+        }
+    }
+
+    private void StartSinEstado()
+    {
+        if (mostrarLog) { Debug.Log("Estado 0 iniciado: Sin Corutinas"); }
+    }
+
+    private void StartEstado1()
     {
         moverCorrutina = StartCoroutine(MoverAleatoriamente());
-        chorroCorrutina = StartCoroutine(ControlarChorro());
+        disparoCorrutina = StartCoroutine(Disparo1());
+        if (mostrarLog) { Debug.Log("Estado 1 iniciado: Movimiento aleatorio y disparo."); }
     }
 
-    // Detiene las corrutinas por defecto
-    public void StopDefaultBehavior()
+    private void StartEstado2()
+    {
+        seguirPlayerCorrutina = StartCoroutine(SeguirPlayer());
+        disparoCorrutina = StartCoroutine(Disparo2());
+        if (mostrarLog) { Debug.Log("Estado 2 iniciado: Seguir al jugador y disparo."); }
+    }
+
+    private void StopAllCoroutinesForState()
     {
         if (moverCorrutina != null)
         {
             StopCoroutine(moverCorrutina);
             moverCorrutina = null;
         }
-
-        if (chorroCorrutina != null)
+        if (disparoCorrutina != null)
         {
-            StopCoroutine(chorroCorrutina);
-            chorroCorrutina = null;
+            StopCoroutine(disparoCorrutina);
+            disparoCorrutina = null;
         }
-
-        Debug.Log("Comportamiento por defecto detenido.");
-    }
-
-    // Inicia el comportamiento de seguir al jugador
-    public void StartFollowPlayerBehavior()
-    {
-        seguirPlayerCorrutina = StartCoroutine(SeguirPlayer());
-    }
-
-    // Detiene el comportamiento de seguir al jugador
-    public void StopFollowPlayerBehavior()
-    {
         if (seguirPlayerCorrutina != null)
         {
             StopCoroutine(seguirPlayerCorrutina);
             seguirPlayerCorrutina = null;
         }
 
-        Debug.Log("Comportamiento de seguir al jugador detenido.");
+        if (mostrarLog) { Debug.Log("Todas las corrutinas asociadas al estado actual han sido detenidas."); }
     }
 
-    // Inicia el comportamiento de disparo independiente
-    public void StartDisparoBehavior()
-    {
-        disparoCorrutina = StartCoroutine(Disparar());
-    }
-
-    // Detiene el comportamiento de disparo independiente
-    public void StopDisparoBehavior()
-    {
-        if (disparoCorrutina != null)
-        {
-            StopCoroutine(disparoCorrutina);
-            disparoCorrutina = null;
-        }
-
-        Debug.Log("Comportamiento de disparo detenido.");
-    }
-
-    // --- Corrutinas ---
-
-    // Corrutina: Movimiento aleatorio continuo
     private IEnumerator MoverAleatoriamente()
     {
         while (true)
         {
-            if (currentTarget != null)
+            if (objetivosChorro.Count > 0)
             {
-                // Mover el objeto hacia el objetivo actual
-                targetChorro.position = Vector3.MoveTowards(
-                    targetChorro.position,
-                    currentTarget.position,
-                    moveSpeed * Time.deltaTime
-                );
-
-                // Si alcanza el objetivo, selecciona uno nuevo
-                if (Vector3.Distance(targetChorro.position, currentTarget.position) < 0.1f)
+                Transform currentTarget = GetRandomTarget();
+                while (Vector3.Distance(targetChorro.position, currentTarget.position) > 0.1f)
                 {
-                    currentTarget = GetRandomTarget();
+                    targetChorro.position = Vector3.MoveTowards(
+                        targetChorro.position,
+                        currentTarget.position,
+                        moveSpeed * Time.deltaTime
+                    );
+                    yield return null;
                 }
             }
-
-            // Esperar hasta el próximo frame
             yield return null;
         }
     }
 
-    private IEnumerator ControlarChorro()
+    private IEnumerator Disparo1()
     {
         while (true)
         {
-            // Espera X segundos antes de abrir el chorro
-            yield return new WaitForSeconds(tiempoEntreAperturas);
+            yield return new WaitForSeconds(tiempoEntreDisparosEstado1);
 
-            // Abrir el chorro
             abrirChorro = true;
             seguirTarget.CrearChorro();
-            Debug.Log("Chorro abierto.");
+            if (mostrarLog) { Debug.Log("Estado 1: Disparando..."); }
 
-            // Mantén el chorro abierto durante Y segundos
-            yield return new WaitForSeconds(duracionApertura);
+            yield return new WaitForSeconds(tiempoDisparoQuietoEstado1);
 
-            // Cerrar el chorro
             abrirChorro = false;
             seguirTarget.DestruirChorro();
-            Debug.Log("Chorro cerrado.");
+            if (mostrarLog) { Debug.Log("Estado 1: Deteniendo disparo..."); }
         }
     }
 
-
-    // Corrutina: Seguir al jugador
     private IEnumerator SeguirPlayer()
     {
         while (true)
         {
-            // Fase 1: Seguir al jugador durante el tiempo configurado en el Inspector
             float timer = 0f;
-
             while (timer < followDuration)
             {
-                Vector3 targetPosition = new Vector3(
-                    player.position.x,
-                    player.position.y, // Offset en Y
-                    player.position.z
-                );
-
                 targetChorro.position = Vector3.MoveTowards(
                     targetChorro.position,
-                    targetPosition,
+                    new Vector3(player.position.x, player.position.y, player.position.z),
                     followPlayerSpeed * Time.deltaTime
                 );
 
@@ -192,46 +205,32 @@ public class ChorroTargetController : MonoBehaviour
                 yield return null;
             }
 
-            // Fase 2: Quedarse quieto durante el tiempo configurado en el Inspector
-            Debug.Log("Quieto después de seguir al jugador.");
+            if (mostrarLog) { Debug.Log("Estado 2: Quieto despues de seguir al jugador."); }
             yield return new WaitForSeconds(idleAfterFollowDuration);
         }
     }
 
-    // Corrutina: Disparo independiente
-    private IEnumerator Disparar()
+    private IEnumerator Disparo2()
     {
         while (true)
         {
-            // Esperar hasta el próximo disparo
             yield return new WaitForSeconds(tiempoEntreDisparos);
 
-            // Abrir el chorro y disparar
             abrirChorro = true;
             seguirTarget.CrearChorro();
-            Debug.Log("Disparando...");
+            if (mostrarLog) { Debug.Log("Estado 2: Disparando..."); }
 
-            // Mantener el disparo durante el tiempo configurado
             yield return new WaitForSeconds(tiempoDisparoQuieto);
 
-            // Cerrar el chorro
             abrirChorro = false;
             seguirTarget.DestruirChorro();
-            Debug.Log("Deteniendo disparo...");
+            if (mostrarLog) { Debug.Log("Estado 2: Deteniendo disparo..."); }
         }
     }
 
-    // --- Utilidad ---
-
     private Transform GetRandomTarget()
     {
-        if (objetivosChorro.Count == 0)
-        {
-            Debug.LogWarning("La lista objetivosChorro está vacía. No hay objetivos para seleccionar.");
-            return null;
-        }
-
-        int randomIndex = Random.Range(0, objetivosChorro.Count);
-        return objetivosChorro[randomIndex];
+        if (objetivosChorro.Count == 0) return null;
+        return objetivosChorro[Random.Range(0, objetivosChorro.Count)];
     }
 }

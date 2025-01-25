@@ -432,11 +432,11 @@ MonoBehaviour:
   - nombreEvento: 
     eventReference:
       Guid:
-        Data1: 1831318961
-        Data2: 1322786515
-        Data3: 1310196115
-        Data4: 837281849
-      Path: event:/Music/W.M_Mus_Boss_Foam
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
   sfx: []
   ambiente: []
 --- !u!1 &1020100739

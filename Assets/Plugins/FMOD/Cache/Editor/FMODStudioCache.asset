@@ -1,32 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-9099613618508387547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Walk/Parameter 1
-  m_EditorClassIdentifier: 
-  Name: Parameter 1
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 3989173902
-    data2: 56315247
-  Type: 2
-  IsGlobal: 0
-  Labels:
-  - Metal
-  - Clothes
-  Exists: 1
---- !u!114 &-8878639207604985858
+--- !u!114 &-8759452314024493681
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -36,44 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Player/Walk
+  m_Name: event:/Player/PlayerEffort
   m_EditorClassIdentifier: 
-  Path: event:/SFX/Player/Walk
+  Path: event:/Player/PlayerEffort
   Guid:
-    Data1: -1661146868
-    Data2: 1205753740
-    Data3: -1094239351
-    Data4: 40471709
+    Data1: 631695933
+    Data2: 1132917524
+    Data3: -2087694918
+    Data4: 795672698
   Banks:
-  - {fileID: 2369212452901380076}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters:
-  - {fileID: -9099613618508387547}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-5171737938396323038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Player/Effort
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Player/Effort
-  Guid:
-    Data1: 452054137
-    Data2: 1222143192
-    Data3: -19512954
-    Data4: 1542855021
-  Banks:
-  - {fileID: 2369212452901380076}
+  - {fileID: 5213428122516410032}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -81,7 +27,115 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-5154730901430619598
+--- !u!114 &-6886544209832820315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/PlayerRoll
+  m_EditorClassIdentifier: 
+  Path: event:/Player/PlayerRoll
+  Guid:
+    Data1: -734129197
+    Data2: 1305844297
+    Data3: -1216300353
+    Data4: -1934181046
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-5631307883753491237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/PlayerJumpWetClothes
+  m_EditorClassIdentifier: 
+  Path: event:/Player/PlayerJumpWetClothes
+  Guid:
+    Data1: -2003351489
+    Data2: 1157253836
+    Data3: -1789873739
+    Data4: 1199220042
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-5303313005409624588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/PlayerStepsMetal
+  m_EditorClassIdentifier: 
+  Path: event:/Player/PlayerStepsMetal
+  Guid:
+    Data1: -2123841853
+    Data2: 1084965184
+    Data3: 2117157778
+    Data4: 1098497821
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-5116039203324616176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/PlayerStepClothes
+  m_EditorClassIdentifier: 
+  Path: event:/Player/PlayerStepClothes
+  Guid:
+    Data1: -108846484
+    Data2: 1291145006
+    Data3: -1725266792
+    Data4: 1049051574
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4766002022769701955
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,20 +149,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/Music/W.M_Mus_Boss_Foam
   Guid:
-    Data1: 1831318961
-    Data2: 1322786515
-    Data3: 1310196115
-    Data4: 837281849
+    Data1: -401243426
+    Data2: 1313276521
+    Data3: -374723416
+    Data4: -194766815
   Banks:
-  - {fileID: 2369212452901380076}
+  - {fileID: 5213428122516410032}
   IsStream: 1
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
   Length: 61071
---- !u!114 &-4514932525113479649
+--- !u!114 &-3528080717073434809
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,78 +172,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Tools/Shield off
+  m_Name: event:/Enemy/Enemy_Chorro_open
   m_EditorClassIdentifier: 
-  Path: event:/SFX/Tools/Shield off
+  Path: event:/Enemy/Enemy_Chorro_open
   Guid:
-    Data1: -1734388405
-    Data2: 1313353062
-    Data3: 1066817932
-    Data4: -327760691
+    Data1: -1693948660
+    Data2: 1129697138
+    Data3: -1133825653
+    Data4: -251554714
   Banks:
-  - {fileID: 2369212452901380076}
+  - {fileID: 5213428122516410032}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-4041379046965276786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Player/Roll
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Player/Roll
-  Guid:
-    Data1: -27644000
-    Data2: 1178478669
-    Data3: 1505311909
-    Data4: 1125066496
-  Banks:
-  - {fileID: 2369212452901380076}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-2728924498821095144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Tools/Sword
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Tools/Sword
-  Guid:
-    Data1: -1803093847
-    Data2: 1161947607
-    Data3: 625512870
-    Data4: -1141962079
-  Banks:
-  - {fileID: 2369212452901380076}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-1611624470259994183
+--- !u!114 &-3367407833877153125
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -201,47 +201,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
   m_Name: bank:/Master.strings.bank
   m_EditorClassIdentifier: 
-  Path: Assets/6. Sonidos/FMODproyect/Washing machine/Desktop/Master.strings.bank
+  Path: Assets/wm/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638732555232878852
+  lastModified: 638734118960128148
   FileSizes:
-  - Name: 
-    Value: 1282
-  - Name: Assets
-    Value: 1282
   - Name: Desktop
-    Value: 1282
-  - Name: Metadata
-    Value: 1282
+    Value: 1540
   Exists: 1
---- !u!114 &-1409016678773549816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Tools/Shield throw
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Tools/Shield throw
-  Guid:
-    Data1: 1022803992
-    Data2: 1177417111
-    Data3: 710306976
-    Data4: 618999075
-  Banks:
-  - {fileID: 2369212452901380076}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,28 +222,169 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: -1611624470259994183}
-  - {fileID: 2369212452901380076}
+  - {fileID: -3367407833877153125}
+  - {fileID: 5213428122516410032}
   EditorEvents:
-  - {fileID: 2264103366927805112}
-  - {fileID: -8878639207604985858}
-  - {fileID: -1409016678773549816}
-  - {fileID: 1088528219599370182}
-  - {fileID: -4514932525113479649}
-  - {fileID: -5171737938396323038}
-  - {fileID: 2933552078898313963}
-  - {fileID: -4041379046965276786}
-  - {fileID: -2728924498821095144}
-  - {fileID: -5154730901430619598}
-  - {fileID: 1889228762838688401}
+  - {fileID: 4570562223128339092}
+  - {fileID: -4766002022769701955}
+  - {fileID: -3528080717073434809}
+  - {fileID: 6248455087141378193}
+  - {fileID: -8759452314024493681}
+  - {fileID: -5631307883753491237}
+  - {fileID: 5994122041191835034}
+  - {fileID: 2645196241965513569}
+  - {fileID: 5650629332328644770}
+  - {fileID: 1118162502893926037}
+  - {fileID: -5116039203324616176}
+  - {fileID: 892307892394682721}
+  - {fileID: 8437700935388069324}
+  - {fileID: 1667135961892025350}
+  - {fileID: 3764005003310765859}
+  - {fileID: -5303313005409624588}
+  - {fileID: -6886544209832820315}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 2369212452901380076}
+  - {fileID: 5213428122516410032}
   StringsBanks:
-  - {fileID: -1611624470259994183}
-  cacheTime: 638732555232878852
-  cacheVersion: 131622
---- !u!114 &1088528219599370182
+  - {fileID: -3367407833877153125}
+  cacheTime: 638734118960128148
+  cacheVersion: 131621
+--- !u!114 &892307892394682721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/PlayerStepWetClothes
+  m_EditorClassIdentifier: 
+  Path: event:/Player/PlayerStepWetClothes
+  Guid:
+    Data1: 1956207734
+    Data2: 1268109793
+    Data3: -991768948
+    Data4: -331561657
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &1118162502893926037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/PlayerJumpMetal
+  m_EditorClassIdentifier: 
+  Path: event:/Player/PlayerJumpMetal
+  Guid:
+    Data1: -2053754785
+    Data2: 1317490069
+    Data3: -2047774071
+    Data4: -843454311
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &1667135961892025350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tools/PlayerShieldOff
+  m_EditorClassIdentifier: 
+  Path: event:/Tools/PlayerShieldOff
+  Guid:
+    Data1: 681863339
+    Data2: 1275147202
+    Data3: -55231103
+    Data4: -2041697554
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &2645196241965513569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/SFX_Enemy_Chorro
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/SFX_Enemy_Chorro
+  Guid:
+    Data1: -1613065144
+    Data2: 1222507089
+    Data3: 1755044245
+    Data4: -204918714
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 14841
+--- !u!114 &3764005003310765859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tools/PlayerShieldOn
+  m_EditorClassIdentifier: 
+  Path: event:/Tools/PlayerShieldOn
+  Guid:
+    Data1: 1672545456
+    Data2: 1092162349
+    Data3: -34119534
+    Data4: 1562347796
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &4570562223128339092
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -290,74 +398,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/Music/W.M_Mus_Menu
   Guid:
-    Data1: 783047982
-    Data2: 1288710750
-    Data3: -22959484
-    Data4: 643128801
+    Data1: 979491903
+    Data2: 1078837304
+    Data3: -2098805630
+    Data4: 758037839
   Banks:
-  - {fileID: 2369212452901380076}
+  - {fileID: 5213428122516410032}
   IsStream: 1
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
   Length: 46285
---- !u!114 &1889228762838688401
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Tools/Shield on
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Tools/Shield on
-  Guid:
-    Data1: -874869280
-    Data2: 1135559565
-    Data3: -1144147810
-    Data4: -1344436874
-  Banks:
-  - {fileID: 2369212452901380076}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &2264103366927805112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Player/Hurt
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Player/Hurt
-  Guid:
-    Data1: -697937662
-    Data2: 1089179639
-    Data3: 30714754
-    Data4: 1914402195
-  Banks:
-  - {fileID: 2369212452901380076}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &2369212452901380076
+--- !u!114 &5213428122516410032
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -369,15 +423,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
   m_Name: bank:/Master.bank
   m_EditorClassIdentifier: 
-  Path: Assets/6. Sonidos/FMODproyect/Washing machine/Desktop/Master.bank
+  Path: Assets/wm/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638732555232878852
+  lastModified: 638734118960108116
   FileSizes:
   - Name: Desktop
-    Value: 1732608
+    Value: 2079616
   Exists: 1
---- !u!114 &2933552078898313963
+--- !u!114 &5650629332328644770
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -387,16 +441,97 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Player/Jump
+  m_Name: event:/Tools/PlayerSword
   m_EditorClassIdentifier: 
-  Path: event:/SFX/Player/Jump
+  Path: event:/Tools/PlayerSword
   Guid:
-    Data1: -1342625376
-    Data2: 1233657584
-    Data3: 145762969
-    Data4: 363915570
+    Data1: 699578458
+    Data2: 1169560599
+    Data3: 1770202520
+    Data4: 1534546147
   Banks:
-  - {fileID: 2369212452901380076}
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5994122041191835034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/PlayerHurt
+  m_EditorClassIdentifier: 
+  Path: event:/Player/PlayerHurt
+  Guid:
+    Data1: 2132210499
+    Data2: 1201288112
+    Data3: 553008792
+    Data4: -1626079819
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &6248455087141378193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tools/PlayerShieldThrow
+  m_EditorClassIdentifier: 
+  Path: event:/Tools/PlayerShieldThrow
+  Guid:
+    Data1: -1268081618
+    Data2: 1146747320
+    Data3: -1734810483
+    Data4: 1948882290
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &8437700935388069324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/PlayerJumpWater
+  m_EditorClassIdentifier: 
+  Path: event:/Player/PlayerJumpWater
+  Guid:
+    Data1: 315682422
+    Data2: 1092808218
+    Data3: -1376716623
+    Data4: -24549443
+  Banks:
+  - {fileID: 5213428122516410032}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1

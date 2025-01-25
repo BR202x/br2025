@@ -5137,10 +5137,10 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 783047982
-      Data2: 1288710750
-      Data3: -22959484
-      Data4: 643128801
+      Data1: 979491903
+      Data2: 1078837304
+      Data3: -2098805630
+      Data4: 758037839
     Path: event:/Music/W.M_Mus_Menu
   Event: 
   EventPlayTrigger: 1
