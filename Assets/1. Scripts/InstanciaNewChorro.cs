@@ -219,4 +219,9 @@ public class InstanciaNewChorro : MonoBehaviour
         currentScale = Vector3.zero;
         instantiatedObject.transform.localScale = currentScale;
     }
+
+    public void CerrarChorro()
+    { 
+        isOpen = false;    
+    }
 }

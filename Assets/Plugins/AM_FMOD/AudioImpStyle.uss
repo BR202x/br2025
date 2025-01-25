@@ -1,0 +1,60 @@
+/* Estilo general para los botones */
+.button {
+    background-color: #FFAAAA;
+    border-radius: 5px;
+    padding: 10px;
+    -unity-text-align: middle-center;
+}
+
+/* Etiquetas generales */
+.label {
+    color: #333333;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+/* Estilo para los elementos de la lista general */
+.evento-item {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-width: 1px;
+    border-color: rgba(1, 1, 1, 0.8);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Estilo para la categoría Música */
+.evento-item-musica {
+    background-color: rgba(150, 20, 80, 0.2); /* Naranja suave */
+    border-color: rgba(150, 20, 80, 0.4);
+    border-width: 2px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Estilo para la categoría SFX */
+.evento-item-sfx {
+    background-color: rgba(30, 100, 90, 0.4); /* Verde suave */
+    border-color: rgba(30, 100, 90, 0.8);
+    border-width: 2px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Estilo para la categoría Ambiente */
+.evento-item-ambiente {
+    
+    background-color: rgba(70, 130, 180, 0.4); /* Azul suave */
+    border-color: rgba(70, 130, 180, 1);
+    border-width: 2px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Espaciado interno para los campos dinámicos */
+.dynamic-fields-container {
+    margin-top: 5px;
+}
