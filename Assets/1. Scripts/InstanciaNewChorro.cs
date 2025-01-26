@@ -14,6 +14,11 @@ public class InstanciaNewChorro : MonoBehaviour
     public Transform target;
     public bool estaTocandoLlenar;
 
+    [Header("Colision")]
+    public bool tocandoJugador;
+    public bool tocandoEscudo;
+    public bool tocandoTambor;
+
     [Header("Objeto Shader")]
     public GameObject objectPrefab;
     public KeyCode toggleKey = KeyCode.Space;
@@ -29,6 +34,9 @@ public class InstanciaNewChorro : MonoBehaviour
     [Header("Velocidad Cerrado")]
     public float reductionSpeedConstant = 1f;
     public float rScale = 1f;
+
+    [Header("Empuje Jugador")]
+    public float fuerzaEmpujeJugador;
 
     private GameObject chorroReboteInst;
     private float currentDistance = 0f;
@@ -106,74 +114,116 @@ public class InstanciaNewChorro : MonoBehaviour
 
         if (isObstructed)
         {
-            float distanciaDelChorro = Vector3.Distance(lineRenderer.GetPosition(1), hit.point);
+            float distanciaDelChorro = Vector3.Distance(lineRenderer.GetPosition(1), hit.point);            
 
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Escudo"))
+            int hitLayer = hit.collider.gameObject.layer;
+            string hitName = hit.collider.gameObject.name;
+
+            if (distanciaDelChorro < 0.1f)
             {
-                currentExtensionSpeed *= 100f;
-
-                if (distanciaDelChorro < 0.1f)
+                // Manejo de cada caso
+                if ((hitLayer == LayerMask.NameToLayer("SuperficieTambor") ||
+                    hitLayer == LayerMask.NameToLayer("Flotante") ||
+                    hitLayer == LayerMask.NameToLayer("Agua")) && (distanciaDelChorro < 0.1f && distanciaDelChorro >= 0))
                 {
-                    if (mostrarLog) { Debug.Log("Prueba Tocar Escudo"); }
+                    HandleFlotanteSuperficie();
                 }
-
-                float step = currentExtensionSpeed * Time.deltaTime;
-                currentDistance = Mathf.MoveTowards(currentDistance, Vector3.Distance(transform.position, hit.point), step);
-                Vector3 currentPoint = transform.position + (hit.point - transform.position).normalized * currentDistance;
-
-                lineRenderer.SetPosition(1, currentPoint);
-
-                if (reboteInstancia == null)
+                else if (hitLayer == LayerMask.NameToLayer("Escudo"))
                 {
-                    InstanciarEnColision(hit);
+                    HandleEscudo(currentExtensionSpeed, hit);
+                    
                 }
-            }
-            else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("SuperficieTambor") ||
-                     hit.collider.gameObject.layer == LayerMask.NameToLayer("Flotante"))
-            {
-                currentExtensionSpeed = extensionSpeed;
-
-                if (distanciaDelChorro <= 0.1f)
+                else if (hitName == "Player")
                 {
-                    if (mostrarLog) { Debug.Log("Prueba Llenando"); }
-                    estaTocandoLlenar = true;
-                }
-                else
-                {
+                    HandlePlayer(hit.collider.gameObject, direction);
                     estaTocandoLlenar = false;
                 }
-
-                float step = currentExtensionSpeed * Time.deltaTime;
-                currentDistance = Mathf.MoveTowards(currentDistance, Vector3.Distance(transform.position, hit.point), step);
-                Vector3 currentPoint = transform.position + (hit.point - transform.position).normalized * currentDistance;
-                lineRenderer.SetPosition(1, currentPoint);
             }
-            else
+
+            if (distanciaDelChorro < 0.1f && hitLayer != LayerMask.NameToLayer("Escudo"))
             {
-                currentExtensionSpeed = extensionSpeed;
-
-                float step = currentExtensionSpeed * Time.deltaTime;
-                currentDistance = Mathf.MoveTowards(currentDistance, Vector3.Distance(transform.position, hit.point), step);
-                Vector3 currentPoint = transform.position + (hit.point - transform.position).normalized * currentDistance;
-
-                lineRenderer.SetPosition(1, currentPoint);
                 DestruirRebote();
             }
+
+                MoverChorroHacia(currentExtensionSpeed, hit.point);
         }
         else
         {
-            currentExtensionSpeed = extensionSpeed;
-
-            float step = currentExtensionSpeed * Time.deltaTime;
-            currentDistance = Mathf.MoveTowards(currentDistance, maxDistance, step);
-            Vector3 currentPoint = transform.position + direction * currentDistance;
-
-            lineRenderer.SetPosition(1, currentPoint);
-            DestruirRebote();
+            HandleNoColision(direction, currentExtensionSpeed);
         }
 
         UpdateObjectTransform(direction, currentDistance, true);
     }
+
+    private void HandleFlotanteSuperficie()
+    {        
+        estaTocandoLlenar = true;
+        if (mostrarLog) { Debug.Log("[InstanciaChorro]: Llenando Tambor - Tocando Superficie/Flotante/Agua");}
+    }
+
+    private void HandleEscudo(float currentExtensionSpeed, RaycastHit hit)
+    {
+        estaTocandoLlenar = false;
+        currentExtensionSpeed *= 100f;
+
+        if (mostrarLog) { Debug.Log("[InstanciaChorro]: Tocando Escudo"); }
+
+        if (reboteInstancia == null)
+        {
+            InstanciarEnColision(hit);
+        }
+    }
+
+    private void HandlePlayer(GameObject player, Vector3 direction)
+    {
+        estaTocandoLlenar = false;
+        if (mostrarLog) { Debug.Log("[InstanciaChorro]: Tocando Jugador"); }
+                
+        MoverJugador(player, direction);
+    }
+
+    private void HandleNoColision(Vector3 direction, float currentExtensionSpeed)
+    {
+        estaTocandoLlenar = false;
+        DestruirRebote();
+        MoverChorroHacia(currentExtensionSpeed, transform.position + direction * maxDistance);               
+    }
+
+
+
+    private void MoverJugador(GameObject player, Vector3 direction)
+    {        
+        Rigidbody playerRb = player.GetComponent<Rigidbody>();
+
+        if (playerRb == null)
+        {
+            if (mostrarLog) { Debug.LogWarning("El jugador no tiene un Rigidbody."); }
+            return;
+        }
+
+        // Ignorar el componente Y de la dirección y normalizar
+        direction.y = 0f;
+        direction = direction.normalized;
+
+        // Aplicar fuerza al jugador en la dirección del chorro        
+        playerRb.AddForce(direction * fuerzaEmpujeJugador, ForceMode.Impulse);
+
+        if (mostrarLog)
+        {
+            Debug.Log($"Jugador empujado en dirección: {direction}, con fuerza: {fuerzaEmpujeJugador}");
+        }
+    }
+
+
+    private void MoverChorroHacia(float currentExtensionSpeed, Vector3 targetPoint)
+    {
+        float step = currentExtensionSpeed * Time.deltaTime;
+        currentDistance = Mathf.MoveTowards(currentDistance, Vector3.Distance(transform.position, targetPoint), step);
+        Vector3 currentPoint = transform.position + (targetPoint - transform.position).normalized * currentDistance;
+
+        lineRenderer.SetPosition(1, currentPoint);
+    }
+
 
     private void InstanciarEnColision(RaycastHit hit)
     {
@@ -256,6 +306,8 @@ public class InstanciaNewChorro : MonoBehaviour
         currentScale = Vector3.zero;
         instantiatedObject.transform.localScale = currentScale;
     }
+
+ 
 
     public void CerrarChorro()
     {

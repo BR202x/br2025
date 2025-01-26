@@ -90,11 +90,7 @@ public class ChorroTargetController : MonoBehaviour
                 // Dejar el valor original o realizar otra acción
                 chorro.rScale = chorroInicial; // Esto mantiene el valor actual
             }
-        }
-        else
-        {
-            Debug.Log("No se encontró el objeto chorro en la escena.");
-        }
+        }        
 
         // Lógica Del Slider para mantener la los tiempos del estado 2 proporcionales y Testear
         ActualizarValoresEscalados();
@@ -228,7 +224,7 @@ public class ChorroTargetController : MonoBehaviour
             {
                 targetChorro.position = Vector3.MoveTowards(
                     targetChorro.position,
-                    new Vector3(player.position.x, player.position.y, player.position.z),
+                    new Vector3(player.position.x + 1, player.position.y, player.position.z),
                     followPlayerSpeed * Time.deltaTime
                 );
 

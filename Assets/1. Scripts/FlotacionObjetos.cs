@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
@@ -23,13 +24,19 @@ public class FlotacionObjetos : MonoBehaviour
     private bool dentroDelAgua;
     private bool moviendoHaciaArriba;
     private bool estaEnInicial = true;
-    private bool estaEnFinal = false;
+    public bool estaEnFinal = false;
     private bool reiniciando = false;
     public bool jugadorParado = false;
 
-    private float tiempoEnAgua;
-    private float tiempoReinicio;
-    private float tiempoHundirse;
+    [Header("Configuración de Hundimiento")]
+    public float limiteHundirse = 5f; // Tiempo de cuenta regresiva antes de reiniciar tiempoHundirse
+    public float contadorHundimiento = 0f; // Contador independiente para la cuenta regresiva
+    public float fuerzaEmpuje = 1;
+    public bool isOnTop = false;
+
+    public float tiempoEnAgua;
+    public float tiempoReinicio;
+    public float tiempoHundirse;
 
     private InicioLLenado inicioLlenado;
     private MoverJugadorPorTambor moverJugadorPorTambor;
@@ -49,6 +56,32 @@ public class FlotacionObjetos : MonoBehaviour
         if (Mathf.Abs(transform.position.y - objetoAgua.position.y) > 0.1f)
         {
             estaEnFinal = false;
+        }
+        
+        if (jugadorParado && estaEnFinal && !isOnTop) // Si el jugador está parado y aún no se ha ejecutado el efecto
+        {
+            StartCoroutine(SimularMovimientoHaciaAbajo()); // Ejecutar el movimiento hacia abajo
+            isOnTop = true; // Marcar que el efecto ya se ejecutó
+        }
+
+        // Cuando el jugador deja de estar parado, reseteamos el flag
+        if (!jugadorParado)
+        {
+            isOnTop = false; // Permitir que el efecto se vuelva a ejecutar en el futuro
+        }
+
+        if (estaEnFinal && contadorHundimiento > 0f && tiempoHundirse >= 3 && !jugadorParado)
+        {
+            contadorHundimiento -= Time.deltaTime;
+
+            // Si el contador llega a 0, reiniciar tiempoHundirse
+            if (contadorHundimiento <= 0f)
+            {
+                contadorHundimiento = 0f; // Asegurarse de que no sea negativo
+                tiempoHundirse = 0f;                
+
+                if (mostrarDebug) { Debug.Log("Contador completado, tiempoHundirse reiniciado."); }
+            }
         }
 
         if (dentroDelAgua && inicioLlenado.estaLlenando && !jugadorParado)
@@ -133,6 +166,12 @@ public class FlotacionObjetos : MonoBehaviour
         {
             if (mostrarDebug) { Debug.Log("Objeto está alineado con la posición del agua."); }
             estaEnFinal = true;
+
+            // Iniciar el contador solo si está en 0
+            if (contadorHundimiento == 0f)
+            {
+                contadorHundimiento = limiteHundirse;
+            }
         }
     }
 
@@ -190,5 +229,31 @@ public class FlotacionObjetos : MonoBehaviour
             dentroDelAgua = true;
             if (mostrarDebug) { Debug.Log("Dentro del agua, verificando tiempo."); }
         }
+    }
+
+    private IEnumerator SimularMovimientoHaciaAbajo()
+    {
+        estaEnFinal = true;
+
+        Vector3 posicionInicial = transform.position;     
+        Vector3 posicionHaciaAbajo = new Vector3(posicionInicial.x, posicionInicial.y - 0.1f, posicionInicial.z);
+                
+        float tiempo = 0f;
+        while (tiempo < 0.2f) // Baja en 0.2 segundos
+        {
+            tiempo += Time.deltaTime;
+            transform.position = Vector3.Lerp(posicionInicial, posicionHaciaAbajo, tiempo / 0.2f);
+            yield return null;
+        }
+                
+        tiempo = 0f;
+        while (tiempo < 0.2f) // Sube en 0.2 segundos
+        {
+            tiempo += Time.deltaTime;
+            transform.position = Vector3.Lerp(posicionHaciaAbajo, posicionInicial, tiempo / 0.2f);
+            yield return null;
+        }
+
+        estaEnFinal = true;
     }
 }

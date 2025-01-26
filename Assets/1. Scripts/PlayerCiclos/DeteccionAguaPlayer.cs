@@ -22,7 +22,7 @@ public class DeteccionAguaPlayer : MonoBehaviour
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, radioEsfera, capaAgua);
 
-        if (hits.Length > 0)
+        if (hits.Length > 0 )
         {
             if (!playerCabezaAgua)
             {
