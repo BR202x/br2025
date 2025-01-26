@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DeteccionAguaPlayer : MonoBehaviour
+public class DeteccionAguaPies : MonoBehaviour
 {
     #region Variables
 
@@ -13,8 +13,8 @@ public class DeteccionAguaPlayer : MonoBehaviour
 
     [Tooltip("Capa del objeto NivelAgua, para detectar cuando el jugador este sumergido")]
     public LayerMask capaAgua;
-        
-    public bool playerCabezaAgua;
+
+    public bool playerPiesAgua;
 
     #endregion
 
@@ -24,25 +24,25 @@ public class DeteccionAguaPlayer : MonoBehaviour
 
         if (hits.Length > 0)
         {
-            if (!playerCabezaAgua)
+            if (!playerPiesAgua)
             {
-                playerCabezaAgua = true;
-                if (mostrarDebug) { Debug.Log("[CabezaAgua]: Player esta tocando agua con cabeza."); }
+                playerPiesAgua = true;
+                if (mostrarDebug) { Debug.Log("[PiesAgua]: Player esta tocando agua con pies."); }
             }
         }
         else
         {
-            if (playerCabezaAgua)
+            if (playerPiesAgua)
             {
-                playerCabezaAgua = false;
-                if (mostrarDebug) { Debug.Log("[CabezaAgua]: Player ya no esta tocando agua con cabeza."); }
+                playerPiesAgua = false;
+                if (mostrarDebug) { Debug.Log("[PiesAgua]: Player ya no esta tocando agua con pies."); }
             }
         }
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = playerCabezaAgua ? Color.green : Color.cyan;
+        Gizmos.color = playerPiesAgua ? Color.green : Color.cyan;
         Gizmos.DrawWireSphere(transform.position, radioEsfera);
     }
 }

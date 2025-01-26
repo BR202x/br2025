@@ -1886,7 +1886,7 @@ GameObject:
   - component: {fileID: 149208443}
   - component: {fileID: 149208442}
   - component: {fileID: 149208441}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: NivelAgua_
   m_TagString: Agua
   m_Icon: {fileID: 0}
@@ -4980,6 +4980,7 @@ GameObject:
   - component: {fileID: 623716303}
   - component: {fileID: 623716302}
   - component: {fileID: 623716301}
+  - component: {fileID: 623716304}
   m_Layer: 0
   m_Name: Objeto_DeteccionNivelAgua
   m_TagString: Untagged
@@ -4995,14 +4996,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 623716299}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1262727808}
   - {fileID: 1101195017}
-  m_Father: {fileID: 2049726164}
+  - {fileID: 1262727808}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &623716301
 MonoBehaviour:
@@ -5017,7 +5018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jugador: {fileID: 5044850328922134624}
-  offSetY: 0
+  offSetY: 0.7
 --- !u!23 &623716302
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5071,6 +5072,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 623716299}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &623716304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623716299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbfd1aaeb73adea468d9ec6eb70dcdc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 0}
+  deteccionAguaPies: {fileID: 1262727810}
+  velocidadAgua: 3
 --- !u!1 &631529597
 GameObject:
   m_ObjectHideFlags: 0
@@ -8637,6 +8653,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1101195017}
   - component: {fileID: 1101195018}
+  - component: {fileID: 1101195019}
   m_Layer: 0
   m_Name: OV_DeteccionCabezaAgua
   m_TagString: Untagged
@@ -8653,7 +8670,7 @@ Transform:
   m_GameObject: {fileID: 1101195016}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.685, z: 0}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8674,12 +8691,30 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.1, y: 0.1, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1101195019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1101195016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4fac76f0f6ee70408d5022f70f2c1d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mostrarDebug: 1
+  radioEsfera: 0.1
+  capaAgua:
+    serializedVersion: 2
+    m_Bits: 128
+  playerCabezaAgua: 0
 --- !u!1 &1128121464
 GameObject:
   m_ObjectHideFlags: 0
@@ -9731,6 +9766,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1262727808}
   - component: {fileID: 1262727809}
+  - component: {fileID: 1262727810}
   m_Layer: 0
   m_Name: OV_DeteccionPiesAgua
   m_TagString: Untagged
@@ -9747,7 +9783,7 @@ Transform:
   m_GameObject: {fileID: 1262727807}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.518, z: 0}
+  m_LocalPosition: {x: 0, y: -0.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9768,12 +9804,30 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.1, y: 0.1, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1262727810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262727807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 735fe9568dadbc84cb985a466a33edd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mostrarDebug: 1
+  radioEsfera: 0.1
+  capaAgua:
+    serializedVersion: 2
+    m_Bits: 128
+  playerPiesAgua: 0
 --- !u!1 &1308512564
 GameObject:
   m_ObjectHideFlags: 0
@@ -10056,6 +10110,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 149208440}
     m_Modifications:
+    - target: {fileID: 1059619558899213294, guid: 00d7798cbba7c71468818038fe4562ca, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3786705838816477513, guid: 00d7798cbba7c71468818038fe4562ca, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -10117,8 +10175,16 @@ PrefabInstance:
       value: Agua Lavadora
       objectReference: {fileID: 0}
     - target: {fileID: 3865085436368476579, guid: 00d7798cbba7c71468818038fe4562ca, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3865085436368476579, guid: 00d7798cbba7c71468818038fe4562ca, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7985565226924747643, guid: 00d7798cbba7c71468818038fe4562ca, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11104,37 +11170,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 142.5}
   m_SizeDelta: {x: 400, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1425909214
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1425909215}
-  m_Layer: 0
-  m_Name: Valvulas_Ataque
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1425909215
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1425909214}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1682750957}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1427968555
 GameObject:
   m_ObjectHideFlags: 0
@@ -13133,8 +13168,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1425909215}
+  m_Children: []
   m_Father: {fileID: 927284713}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1682750958
@@ -13203,6 +13237,7 @@ MonoBehaviour:
   estaEnAgua: 0
   sliderOxigeno: {fileID: 517551191}
   tiempoOxigeno: 5
+  deteccionCabezaAgua: {fileID: 0}
   tiempoParaReducirVida: 3
   panelVida: {fileID: 203207730}
   prefabVida: {fileID: 7838986197056239846, guid: 6acb2748b4a94be47bb171eea595ad86, type: 3}
@@ -16126,7 +16161,6 @@ Transform:
   - {fileID: 1355556691}
   - {fileID: 86835232}
   - {fileID: 1415726250}
-  - {fileID: 623716300}
   m_Father: {fileID: 392993906}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2049726165
@@ -16162,7 +16196,7 @@ MonoBehaviour:
   estaLlenando: 0
   empezarLlenado: 0
   llenadoManager: {fileID: 2049726165}
-  tiempoRetraso: 2
+  tiempoRetraso: 1
 --- !u!1 &2056600359
 GameObject:
   m_ObjectHideFlags: 0
@@ -18072,7 +18106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2593023799023124786, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: field of view
-      value: 44.25
+      value: 60.000004
       objectReference: {fileID: 0}
     - target: {fileID: 4212152140026027835, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: m_Follow
@@ -18100,15 +18134,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7553006285069151591, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.2930424
+      value: -0.34683728
       objectReference: {fileID: 0}
     - target: {fileID: 7553006285069151591, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.029999733
+      value: -0.46000004
       objectReference: {fileID: 0}
     - target: {fileID: 7553006285069151591, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.84659696
+      value: -1.2260113
       objectReference: {fileID: 0}
     - target: {fileID: 7553006285069151591, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -19367,7 +19401,7 @@ MonoBehaviour:
   crossAir: {fileID: 1772932191}
   colliderMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8179
   spawnProjectile: {fileID: 4578721036235287622}
   projectile: {fileID: 9173893886150888719, guid: e8ed312cf86d4dc4dbb6a110de9891a9, type: 3}
   shotShield: 0
@@ -20299,7 +20333,7 @@ MonoBehaviour:
     m_Bits: 64
   layerObjeto:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 256
 --- !u!4 &7539681352801163253
 Transform:
   m_ObjectHideFlags: 0
@@ -20723,3 +20757,4 @@ SceneRoots:
   - {fileID: 1918764147}
   - {fileID: 2147305373}
   - {fileID: 780943793}
+  - {fileID: 623716300}

@@ -207,7 +207,6 @@ public class PlayerMovement : MonoBehaviour
         {
             isAiming = true;
             moveSpeed = moveShieldSpeed;
-
         }
 
     }

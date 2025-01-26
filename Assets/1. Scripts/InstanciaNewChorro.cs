@@ -112,7 +112,7 @@ public class InstanciaNewChorro : MonoBehaviour
             {
                 currentExtensionSpeed *= 100f;
 
-                if (distanciaDelChorro < 0.05)
+                if (distanciaDelChorro < 0.1f)
                 {
                     if (mostrarLog) { Debug.Log("Prueba Tocar Escudo"); }
                 }
@@ -133,9 +133,9 @@ public class InstanciaNewChorro : MonoBehaviour
             {
                 currentExtensionSpeed = extensionSpeed;
 
-                if (distanciaDelChorro <= 0.5)
+                if (distanciaDelChorro <= 0.1f)
                 {
-                    if (mostrarLog) { Debug.Log("Prueba Tocar Tambor"); }
+                    if (mostrarLog) { Debug.Log("Prueba Llenando"); }
                     estaTocandoLlenar = true;
                 }
                 else
