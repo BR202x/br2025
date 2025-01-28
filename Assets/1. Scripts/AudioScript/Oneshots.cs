@@ -23,6 +23,7 @@ public EventReference JumpWetCloth;
 public EventReference JumpMetal;
 public EventReference ChorroOn;
 public EventReference CallChorro;
+public EventReference Botones;
 
     public EventReference Event; // Aqui toca cambiarlo, cambia 'string' por 'EventReference'
     public bool PlayOnAwake;
