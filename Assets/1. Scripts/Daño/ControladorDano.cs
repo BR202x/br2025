@@ -21,6 +21,7 @@ public class ControladorDano : MonoBehaviour
     public bool estaEnAgua = false;
     public Slider sliderOxigeno;
     public float tiempoOxigeno = 5f;
+    public DeteccionAguaPlayer deteccionCabezaAgua;
 
     [Header("Dano por oxígeno bajo")]
     public float tiempoParaReducirVida = 3f;
@@ -36,6 +37,8 @@ public class ControladorDano : MonoBehaviour
 
     void Start()
     {        
+        deteccionCabezaAgua = GameObject.Find("OV_DeteccionCabezaAgua").GetComponent<DeteccionAguaPlayer>();
+
         vidaActual = vida;
         GenerarVidas();
         sliderOxigeno.maxValue = 1;
@@ -61,6 +64,8 @@ public class ControladorDano : MonoBehaviour
             if (mostrarDebug) Debug.Log("[ControladorDano] Input O: Cambiando estado de agua.");
             estaEnAgua = !estaEnAgua;
         }
+
+        estaEnAgua = deteccionCabezaAgua.playerCabezaAgua;
 
         if (estaEnAgua)
         {

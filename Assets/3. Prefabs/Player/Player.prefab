@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 5459505899177291288}
   - component: {fileID: 1450820386153687722}
   - component: {fileID: 4487791018078851993}
+  - component: {fileID: 3567804026227412547}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -416,6 +417,26 @@ MonoBehaviour:
   needleHand: {fileID: 4761404602437291425}
   needleBack: {fileID: 1961171540836098295}
   timeToSheathNeedle: 3
+--- !u!114 &3567804026227412547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3641702658990954354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b391a7d7249b4c0c859666200ab9955, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event:
+    Guid:
+      Data1: 699578458
+      Data2: 1169560599
+      Data3: 1770202520
+      Data4: 1534546147
+    Path: event:/Tools/PlayerSword
+  PlayOnAwake: 0
 --- !u!1 &4521914719308447866
 GameObject:
   m_ObjectHideFlags: 0

@@ -58,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Testing y debug")]
     [SerializeField] TMP_Text currentStateText;
 
+public Oneshots Sound;
+
 
 
 
@@ -68,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
         model = transform.GetChild(0);
         rb = GetComponent<Rigidbody>();
         controllerCam = GetComponent<CameraController>();
+        Sound = GetComponent<Oneshots>();
 
     }
     void Start()
@@ -207,7 +210,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isAiming = true;
             moveSpeed = moveShieldSpeed;
-
+            Sound.PlayOneShot(Sound.Defense,gameObject);
         }
 
     }
@@ -215,6 +218,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isAiming = false;
         moveSpeed = moveNormalSpeed;
+        Sound.PlayOneShot(Sound.Defense,gameObject);
 
 
     }

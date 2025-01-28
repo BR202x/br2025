@@ -2,52 +2,47 @@ using UnityEngine;
 
 public class DeteccionAguaPlayer : MonoBehaviour
 {
-#region Variables
+    #region Variables
 
-    public bool mostrarDebug; // Controla si se mostrarán los mensajes de depuración en la consola
-    [Space]
-    public bool playerTocandoAgua;    
+    [Header("depuracion")]
+    public bool mostrarDebug;
+
     [Header("Valores de Deteccion")]
-        [Tooltip("Radio de la Esfera, volumen para detectar el Agua")]
+    [Tooltip("Radio de la esfera, volumen para detectar el agua")]
     public float radioEsfera = 0.5f;
-        [Tooltip("Capa del objeto NivelAgua, para detectar cuando el Jugador este sumergido")]
+
+    [Tooltip("Capa del objeto NivelAgua, para detectar cuando el jugador este sumergido")]
     public LayerMask capaAgua;
+        
+    public bool playerCabezaAgua;
 
-#endregion
+    #endregion
 
-    void Update()
-    {        
-        Collider[] hits = Physics.OverlapSphere(transform.position, radioEsfera, capaAgua); // 2do intento de Raycast - Esfera
-                
-        if (hits.Length > 0)
+    private void Update()
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position, radioEsfera, capaAgua);
+
+        if (hits.Length > 0 )
         {
-            if (!playerTocandoAgua)
+            if (!playerCabezaAgua)
             {
-                playerTocandoAgua = true;
-                DLog("Player está tocando agua.");
+                playerCabezaAgua = true;
+                if (mostrarDebug) { Debug.Log("[CabezaAgua]: Player esta tocando agua con cabeza."); }
             }
         }
         else
         {
-            if (playerTocandoAgua)
+            if (playerCabezaAgua)
             {
-                playerTocandoAgua = false;
-                DLog("Player ya no está tocando agua.");
+                playerCabezaAgua = false;
+                if (mostrarDebug) { Debug.Log("[CabezaAgua]: Player ya no esta tocando agua con cabeza."); }
             }
         }
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = playerTocandoAgua ? Color.green : Color.cyan;
+        Gizmos.color = playerCabezaAgua ? Color.green : Color.cyan;
         Gizmos.DrawWireSphere(transform.position, radioEsfera);
-    }
-
-    private void DLog(string mensaje)
-    {
-        if (mostrarDebug)
-        {
-            Debug.Log($"[DeteccionAguaPlayer]: {mensaje}");
-        }
     }
 }

@@ -12,6 +12,8 @@ public class MoverJugadorPorTambor : MonoBehaviour
 
     [Header("Referencias")]
     public Transform tambor;
+    public Vector3 inicioRay;
+    public float offsetY;
     public DetectarRotacionTambor detectarRotacionTambor;
 
     [Header("Configuracion de Fuerzas")]
@@ -20,7 +22,7 @@ public class MoverJugadorPorTambor : MonoBehaviour
 
     [Header("Configuracion del Raycast")]
     public float distanciaRaycast = 1f;
-    public LayerMask layerObjetivo;
+    public LayerMask layerSuperficie;
     public LayerMask layerObjeto;
 
     private List<FlotacionObjetos> listaObjetosFlotantes;
@@ -40,7 +42,9 @@ public class MoverJugadorPorTambor : MonoBehaviour
 
     private void Update()
     {
-        Ray ray = new Ray(transform.position, Vector3.down);
+        inicioRay = new Vector3(transform.position.x, transform.position.y + offsetY, transform.position.z);
+
+        Ray ray = new Ray(inicioRay, Vector3.down);
         RaycastHit hit;
 
         foreach (var objeto in listaObjetosFlotantes)
@@ -59,6 +63,11 @@ public class MoverJugadorPorTambor : MonoBehaviour
                 objetoFlotante.jugadorParado = true;
                 if (mostrarDebug) { Debug.Log($"Jugador parado sobre: {hit.collider.name}"); }
             }
+        }
+
+        if (mostrarDebug)
+        {
+            Debug.DrawRay(inicioRay, Vector3.down * distanciaRaycast, Color.green);
         }
 
         #endregion
@@ -88,11 +97,11 @@ public class MoverJugadorPorTambor : MonoBehaviour
     private bool TocandoSuperficieValida()
     {
         Ray ray = new Ray(transform.position, Vector3.down);
-        bool resultado = Physics.Raycast(ray, out RaycastHit hit, distanciaRaycast, layerObjetivo);
+        bool resultado = Physics.Raycast(ray, out RaycastHit hit, distanciaRaycast, layerSuperficie);
 
         if (mostrarDebug)
         {
-            Debug.DrawRay(transform.position, Vector3.down * distanciaRaycast, resultado ? Color.green : Color.red);
+           //  Debug.DrawRay(transform.position, Vector3.down * distanciaRaycast, resultado ? Color.green : Color.red);
         }
 
         return resultado;
@@ -115,4 +124,5 @@ public class MoverJugadorPorTambor : MonoBehaviour
 
         if (mostrarDebug) { Debug.Log($"Fuerza tangencial aplicada: {fuerzaTangencialAplicada} (Modo: {modoFuerza})"); }
     }
+
 }
