@@ -1,13 +1,16 @@
 using System.Collections;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
 public class FlotacionObjetos : MonoBehaviour
 {
-    [Header("depuracion")]
+    [Header("Depuración")]
     public bool mostrarDebug;
 
     #region Variables
+
+    [Header("Configuración del Agua")]
+    public float posicionAgua;
+    public bool remplazoLlenado;
 
     [Header("Configuración de Movimiento")]
     public Transform objetoAgua;
@@ -29,8 +32,8 @@ public class FlotacionObjetos : MonoBehaviour
     public bool jugadorParado = false;
 
     [Header("Configuración de Hundimiento")]
-    public float limiteHundirse = 5f; // Tiempo de cuenta regresiva antes de reiniciar tiempoHundirse
-    public float contadorHundimiento = 0f; // Contador independiente para la cuenta regresiva
+    public float limiteHundirse = 5f;
+    public float contadorHundimiento = 0f;
     public float fuerzaEmpuje = 1;
     public bool isOnTop = false;
 
@@ -38,7 +41,7 @@ public class FlotacionObjetos : MonoBehaviour
     public float tiempoReinicio;
     public float tiempoHundirse;
 
-    private InicioLLenado inicioLlenado;
+    private LlenadoManager llenadoManager;
     private MoverJugadorPorTambor moverJugadorPorTambor;
     private Rigidbody rbObjeto;
 
@@ -47,44 +50,40 @@ public class FlotacionObjetos : MonoBehaviour
     private void Start()
     {
         rbObjeto = GetComponent<Rigidbody>();
-        inicioLlenado = GameObject.Find("LlenadoDeAguaManager").GetComponent<InicioLLenado>();
+        llenadoManager = GameObject.Find("LlenadoDeAguaManager").GetComponent<LlenadoManager>();
         moverJugadorPorTambor = GameObject.Find("Player").GetComponent<MoverJugadorPorTambor>();
     }
 
     private void Update()
     {
-        if (Mathf.Abs(transform.position.y - objetoAgua.position.y) > 0.1f)
+        posicionAgua = Mathf.Abs(posInicial.position.y - objetoAgua.position.y);
+        remplazoLlenado = llenadoManager.llenandoTambor;
+
+        if (jugadorParado && estaEnFinal && !isOnTop)
         {
-            estaEnFinal = false;
-        }
-        
-        if (jugadorParado && estaEnFinal && !isOnTop) // Si el jugador está parado y aún no se ha ejecutado el efecto
-        {
-            StartCoroutine(SimularMovimientoHaciaAbajo()); // Ejecutar el movimiento hacia abajo
-            isOnTop = true; // Marcar que el efecto ya se ejecutó
+            StartCoroutine(SimularMovimientoHaciaAbajo());
+            isOnTop = true;
         }
 
-        // Cuando el jugador deja de estar parado, reseteamos el flag
         if (!jugadorParado)
         {
-            isOnTop = false; // Permitir que el efecto se vuelva a ejecutar en el futuro
+            isOnTop = false;
         }
 
         if (estaEnFinal && contadorHundimiento > 0f && tiempoHundirse >= 3 && !jugadorParado)
         {
             contadorHundimiento -= Time.deltaTime;
 
-            // Si el contador llega a 0, reiniciar tiempoHundirse
             if (contadorHundimiento <= 0f)
             {
-                contadorHundimiento = 0f; // Asegurarse de que no sea negativo
-                tiempoHundirse = 0f;                
+                contadorHundimiento = 0f;
+                tiempoHundirse = 0f;
 
-                if (mostrarDebug) { Debug.Log("Contador completado, tiempoHundirse reiniciado."); }
+                if (mostrarDebug) Debug.Log("Contador completado, tiempoHundirse reiniciado.");
             }
         }
 
-        if (dentroDelAgua && inicioLlenado.estaLlenando && !jugadorParado)
+        if (dentroDelAgua && remplazoLlenado && !jugadorParado)
         {
             if (moviendoHaciaArriba)
             {
@@ -102,22 +101,22 @@ public class FlotacionObjetos : MonoBehaviour
                 moviendoHaciaArriba = true;
                 estaEnInicial = false;
 
-                if (mostrarDebug) { Debug.Log("Tiempo cumplido, iniciando movimiento para seguir al agua."); }
+                if (mostrarDebug) Debug.Log("Tiempo cumplido, iniciando movimiento para seguir al agua.");
             }
         }
-        else if (!inicioLlenado.estaLlenando && dentroDelAgua && !estaEnInicial)
+        else if (!remplazoLlenado && dentroDelAgua && !estaEnInicial)
         {
             MoverHaciaPosInicial();
         }
 
-        if (inicioLlenado.estaLlenando && dentroDelAgua && !estaEnInicial && jugadorParado && !estaEnFinal)
+        if (remplazoLlenado && dentroDelAgua && !estaEnInicial && jugadorParado && !estaEnFinal)
         {
             moviendoHaciaArriba = false;
             reiniciando = true;
             MoverHaciaPosInicialPeso();
         }
 
-        if (inicioLlenado.estaLlenando && dentroDelAgua && !estaEnInicial && jugadorParado && estaEnFinal)
+        if (remplazoLlenado && dentroDelAgua && !estaEnInicial && jugadorParado && estaEnFinal)
         {
             if (tiempoHundirse <= tiempoEsperaHundirse)
             {
@@ -132,12 +131,12 @@ public class FlotacionObjetos : MonoBehaviour
             }
         }
 
-        if (inicioLlenado.estaLlenando && dentroDelAgua && !estaEnInicial && !jugadorParado && !moviendoHaciaArriba)
+        if (remplazoLlenado && dentroDelAgua && !estaEnInicial && !jugadorParado && !moviendoHaciaArriba)
         {
             moviendoHaciaArriba = true;
         }
 
-        if (!jugadorParado && inicioLlenado.estaLlenando && dentroDelAgua && !moviendoHaciaArriba && estaEnInicial)
+        if (!jugadorParado && remplazoLlenado && dentroDelAgua && !moviendoHaciaArriba && estaEnInicial)
         {
             if (tiempoReinicio <= tiempoEsperaReinicio)
             {
@@ -164,10 +163,9 @@ public class FlotacionObjetos : MonoBehaviour
 
         if (Mathf.Abs(transform.position.y - objetoAgua.position.y) < 0.15f)
         {
-            if (mostrarDebug) { Debug.Log("Objeto está alineado con la posición del agua."); }
+            if (mostrarDebug) Debug.Log("Objeto está alineado con la posición del agua.");
             estaEnFinal = true;
 
-            // Iniciar el contador solo si está en 0
             if (contadorHundimiento == 0f)
             {
                 contadorHundimiento = limiteHundirse;
@@ -188,9 +186,10 @@ public class FlotacionObjetos : MonoBehaviour
             rbObjeto.isKinematic = false;
             estaEnInicial = true;
             dentroDelAgua = false;
+            remplazoLlenado = false;
             tiempoHundirse = 0;
 
-            if (mostrarDebug) { Debug.Log("Objeto volvió a la posición inicial."); }
+            if (mostrarDebug) Debug.Log("Objeto volvió a la posición inicial.");
         }
     }
 
@@ -207,8 +206,9 @@ public class FlotacionObjetos : MonoBehaviour
             rbObjeto.isKinematic = false;
             estaEnInicial = true;
             dentroDelAgua = false;
+            remplazoLlenado = false;
 
-            if (mostrarDebug) { Debug.Log("Objeto volvió a la posición inicial."); }
+            if (mostrarDebug) Debug.Log("Objeto volvió a la posición inicial.");
         }
     }
 
@@ -217,7 +217,7 @@ public class FlotacionObjetos : MonoBehaviour
         if (other.CompareTag("Agua") && !dentroDelAgua)
         {
             tiempoEnAgua = 0f;
-            if (mostrarDebug) { Debug.Log("Entrando en el agua, iniciando temporizador."); }
+            if (mostrarDebug) Debug.Log("Entrando en el agua, iniciando temporizador.");
             dentroDelAgua = true;
         }
     }
@@ -227,7 +227,7 @@ public class FlotacionObjetos : MonoBehaviour
         if (other.CompareTag("Agua"))
         {
             dentroDelAgua = true;
-            if (mostrarDebug) { Debug.Log("Dentro del agua, verificando tiempo."); }
+            if (mostrarDebug) Debug.Log("Dentro del agua, verificando tiempo.");
         }
     }
 
@@ -235,19 +235,19 @@ public class FlotacionObjetos : MonoBehaviour
     {
         estaEnFinal = true;
 
-        Vector3 posicionInicial = transform.position;     
+        Vector3 posicionInicial = transform.position;
         Vector3 posicionHaciaAbajo = new Vector3(posicionInicial.x, posicionInicial.y - 0.1f, posicionInicial.z);
-                
+
         float tiempo = 0f;
-        while (tiempo < 0.2f) // Baja en 0.2 segundos
+        while (tiempo < 0.2f)
         {
             tiempo += Time.deltaTime;
             transform.position = Vector3.Lerp(posicionInicial, posicionHaciaAbajo, tiempo / 0.2f);
             yield return null;
         }
-                
+
         tiempo = 0f;
-        while (tiempo < 0.2f) // Sube en 0.2 segundos
+        while (tiempo < 0.2f)
         {
             tiempo += Time.deltaTime;
             transform.position = Vector3.Lerp(posicionHaciaAbajo, posicionInicial, tiempo / 0.2f);

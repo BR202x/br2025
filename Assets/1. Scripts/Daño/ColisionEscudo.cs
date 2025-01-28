@@ -5,10 +5,11 @@ public class ColisionEscudo : MonoBehaviour
     #region Variables
 
     [Header("depuracion")]
-    public bool mostrarLog = false;
+    public bool mostrarLog = true;
 
     [Header("Configuracion")]
     private bool dano = false;
+    public ChorroTargetController chorroTargetController;
     private ControladorUIEnemigo controladorUI;
     private ActivacionPanelTargets panelVidaEnemigos;
 
@@ -17,16 +18,17 @@ public class ColisionEscudo : MonoBehaviour
     private void OnEnable()
     {
         panelVidaEnemigos = GameObject.Find("Panel_VidaEnemigos").GetComponent<ActivacionPanelTargets>();
+        chorroTargetController = GameObject.Find("Chorro_Manager").GetComponent<ChorroTargetController>();
     }
 
     private void Start()
     {
-        // Inicializacion si es necesaria en el futuro
+          
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (mostrarLog) { Debug.Log($"El Shield entro en contacto con: {other.gameObject.name}"); }
+        if (mostrarLog) { Debug.Log($"[ColisionEscudo] Nombre: {other.gameObject.name} Tag: {other.gameObject.tag} Layer: {other.gameObject.layer}"); }
 
         if (other.CompareTag("Enemigo") && !dano)
         {
@@ -45,12 +47,8 @@ public class ColisionEscudo : MonoBehaviour
 
         if (other.CompareTag("Valvula"))
         {
-            PourDetector accionValvula = other.GetComponent<PourDetector>();
-
-            if (accionValvula != null)
-            {
-                accionValvula.EndPour();
-            }
+            Debug.Log("Valvula CAÑON");            
+            chorroTargetController.EmpezarEstado3();
         }
     }
 }

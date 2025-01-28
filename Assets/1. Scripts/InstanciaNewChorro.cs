@@ -305,9 +305,7 @@ public class InstanciaNewChorro : MonoBehaviour
         instantiatedObject = Instantiate(objectPrefab, transform.position, Quaternion.identity);
         currentScale = Vector3.zero;
         instantiatedObject.transform.localScale = currentScale;
-    }
-
- 
+    } 
 
     public void CerrarChorro()
     {

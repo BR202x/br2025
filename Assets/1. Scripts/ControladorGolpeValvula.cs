@@ -24,6 +24,7 @@ public class ControladorGolpeValvula : MonoBehaviour
 
     public void RecibirDano()
     {
+        /*
         if (vidaActual > 0)
         {
             vidaActual--;
@@ -41,6 +42,7 @@ public class ControladorGolpeValvula : MonoBehaviour
         {
             if (mostrarLog) { Debug.Log($"[ControladorGolpeValvula] {valvulaNumero} se cerro."); }
         }
+        */
     }
 
     public void ActivarPuntero()

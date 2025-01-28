@@ -53,7 +53,11 @@ public class ChorroTargetController : MonoBehaviour
     public float velocidadAturdimiento = 2f;
     public bool estaEstado3;
     private Coroutine aturdimientoCorrutina; 
-    public List<Transform> objetosAturdimiento = new List<Transform>(); 
+    public List<Transform> objetosAturdimiento = new List<Transform>();
+
+    private Color originalBaseColor;
+    private Dictionary<Material, Color> originalColors = new Dictionary<Material, Color>();
+    private Coroutine colorChangeCoroutine;
 
     private Estado estadoActual = Estado.SinEstado;
 
@@ -83,6 +87,19 @@ public class ChorroTargetController : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            EmpezarEstado1();
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            EmpezarEstado2();
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            EmpezarEstado3();
+        }
+
         // Buscar la instancia del objeto chorro
         chorro = FindFirstObjectByType<InstanciaNewChorro>();
 
@@ -119,11 +136,10 @@ public class ChorroTargetController : MonoBehaviour
                     aturdimientoCorrutina = null; // Limpiar referencia
                 }
 
-                // Cambiar al estado "SinEstado"
-                CambiarEstado(Estado.SinEstado);
-
-                // Reiniciar el tiempo
+                
+                CambiarEstado(Estado.SinEstado);         
                 tiempoAturdimiento = 0;
+                
             }
         }
 
@@ -144,7 +160,7 @@ public class ChorroTargetController : MonoBehaviour
         tiempoDisparoQuieto = originalTiempoDisparoQuieto * escalaDeTiempos;
     }
 
-    private void CambiarEstado(Estado nuevoEstado)
+    public void CambiarEstado(Estado nuevoEstado)
     {
         StopAllCoroutinesForState();
         estadoActual = nuevoEstado;
@@ -172,43 +188,60 @@ public class ChorroTargetController : MonoBehaviour
         }
     }
 
-    private void StartSinEstado()
+    public void StartSinEstado()
     {
+        seguirTarget.DestruirChorro();
         StopAllCoroutinesForState();
         estado1 = false;
         if (mostrarLog) { Debug.Log("Estado 0 iniciado: Sin Corutinas"); }
     }
 
-    private void StartEstado1()
+    public void StartEstado1()
     {
         estado1 = true;
-        
-
+        StopAllCoroutinesForState();
         moverCorrutina = StartCoroutine(MoverAleatoriamente());
         disparoCorrutina = StartCoroutine(Disparo1());
         if (mostrarLog) { Debug.Log("Estado 1 iniciado: Movimiento aleatorio y disparo."); }
     }
 
-    private void StartEstado2()
-    {
-        
+    public void StartEstado2()
+    {        
         estado1 = false;
+        StopAllCoroutinesForState();
         seguirPlayerCorrutina = StartCoroutine(SeguirPlayer());
         disparoCorrutina = StartCoroutine(Disparo2());
         if (mostrarLog) { Debug.Log("Estado 2 iniciado: Seguir al jugador y disparo."); }
     }
 
-    private void StartEstado3()
-    {
+    public void StartEstado3()
+    {        
         estado1 = false;
         estaEstado3 = true; // Activar la lógica del estado 3
         tiempoAturdimiento = 0f; // Reiniciar el tiempo transcurrido
 
-        if (objetosAturdimiento.Count == 0 || objetivosChorro.Count == 0)
+        Renderer valvulaRenderer = valvulaPrefab.GetComponentInChildren<Renderer>();
+        if (valvulaRenderer != null)
         {
-            Debug.LogWarning("No se puede iniciar el estado 3: faltan objetos en las listas.");
-            estaEstado3 = false;
-            return;
+            // Limpiar la lista de colores originales
+            originalColors.Clear();
+
+            // Iterar por todos los materiales del objeto
+            foreach (Material material in valvulaRenderer.materials)
+            {
+                // Guardar el color original si el material tiene propiedades relevantes
+                if (material.HasProperty("_BaseColor"))
+                {
+                    originalColors[material] = material.GetColor("_BaseColor");
+                }
+                else if (material.HasProperty("_Color"))
+                {
+                    originalColors[material] = material.GetColor("_Color");
+                }
+            }
+
+            // Iniciar cambio de color
+            colorChangeCoroutine = StartCoroutine(CambiarColorIntermitente(valvulaRenderer.materials));
         }
 
         // Iniciar la corrutina de aturdimiento
@@ -219,40 +252,47 @@ public class ChorroTargetController : MonoBehaviour
             Debug.Log("Estado 3 iniciado: Aturdimiento.");
         }
     }
-
     private void StopAllCoroutinesForState()
     {
         seguirTarget.DestruirChorro();
 
-        if (moverCorrutina != null)
+        Renderer valvulaRenderer = valvulaPrefab.GetComponentInChildren<Renderer>();
+
+        foreach (Material material in valvulaRenderer.materials)
         {
-            StopCoroutine(moverCorrutina);
-            moverCorrutina = null;
-        }
-        if (disparoCorrutina != null)
-        {
-            StopCoroutine(disparoCorrutina);
-            disparoCorrutina = null;
-        }
-        if (seguirPlayerCorrutina != null)
-        {
-            StopCoroutine(seguirPlayerCorrutina);
-            seguirPlayerCorrutina = null;
-        }
-        if (aturdimientoCorrutina != null)
-        {
-            StopCoroutine(aturdimientoCorrutina);
-            aturdimientoCorrutina = null;
+            if (originalColors.ContainsKey(material))
+            {
+                if (material.HasProperty("_BaseColor"))
+                {
+                    material.SetColor("_BaseColor", originalColors[material]);
+                }
+                else if (material.HasProperty("_Color"))
+                {
+                    material.SetColor("_Color", originalColors[material]);
+                }
+            }
         }
 
-        if (mostrarLog)
-        {
-            Debug.Log("Todas las corrutinas asociadas al estado actual han sido detenidas.");
-        }
+        // Detener todas las corrutinas
+        if (colorChangeCoroutine != null) StopCoroutine(colorChangeCoroutine);
+        if (moverCorrutina != null) StopCoroutine(moverCorrutina);
+        if (disparoCorrutina != null) StopCoroutine(disparoCorrutina);
+        if (seguirPlayerCorrutina != null) StopCoroutine(seguirPlayerCorrutina);
+        if (aturdimientoCorrutina != null) StopCoroutine(aturdimientoCorrutina);
+
+        colorChangeCoroutine = null;
+        moverCorrutina = null;
+        disparoCorrutina = null;
+        seguirPlayerCorrutina = null;
+        aturdimientoCorrutina = null;
+
+        if (mostrarLog) Debug.Log("Todas las corrutinas asociadas al estado actual han sido detenidas.");
     }
 
     private IEnumerator MoverAleatoriamente()
     {
+        targetChorro.position = Vector3.MoveTowards(targetChorro.position, Vector3.zero, 50 * Time.deltaTime);
+
         while (true)
         {
             if (objetivosChorro.Count > 0)
@@ -332,30 +372,29 @@ public class ChorroTargetController : MonoBehaviour
 
     private IEnumerator RotacionesValvula()
     {
-        // Mientras esté activo el estado de aturdimiento
         while (true)
         {
-            // Obtener un punto de destino aleatorio
             Transform currentTarget = GetRandomTargetStun();
+
+            /* Comprobacion - 
             if (currentTarget == null)
             {
                 Debug.LogWarning("No se encontró un objetivo válido en objetivosChorro.");
-                yield break; // Terminar la corrutina si no hay objetivos
+                yield break; 
             }
+            */
 
-            // Variables para el movimiento
             Vector3 posicionDestino = currentTarget.position;
 
-            // Mover targetChorro hacia el objetivo
             while (Vector3.Distance(targetChorro.position, posicionDestino) > 0.1f)
             {
                 targetChorro.position = Vector3.MoveTowards(
                     targetChorro.position,
                     posicionDestino,
-                    velocidadAturdimiento * Time.deltaTime // Movimiento a velocidad constante
+                    velocidadAturdimiento * Time.deltaTime
                 );
 
-                yield return null; // Esperar al siguiente frame
+                yield return null;
             }
 
             if (mostrarLog)
@@ -363,12 +402,57 @@ public class ChorroTargetController : MonoBehaviour
                 Debug.Log($"Movimiento completado hacia {currentTarget.name}.");
             }
 
-            // Pausa breve entre movimientos (opcional)
-            yield return new WaitForSeconds(0.00002f);
+            yield return new WaitForSeconds(0.00002f); // Pausa entre frames. "Fluidez"
         }
     }
 
+    private IEnumerator CambiarColorIntermitente(Material[] materials)
+    {
+        float elapsedTime = 0f;
+        bool toggleColor = false;
 
+        while (estaEstado3)
+        {
+            elapsedTime += Time.deltaTime;
+
+            // Alternar colores en todos los materiales
+            foreach (Material material in materials)
+            {
+                if (originalColors.ContainsKey(material))
+                {
+                    Color targetColor = toggleColor ? Color.red : originalColors[material];
+
+                    if (material.HasProperty("_BaseColor"))
+                    {
+                        material.SetColor("_BaseColor", targetColor);
+                    }
+                    else if (material.HasProperty("_Color"))
+                    {
+                        material.SetColor("_Color", targetColor);
+                    }
+                }
+            }
+
+            toggleColor = !toggleColor;
+            yield return new WaitForSeconds(0.002f); // Pausa entre frames. "Fluidez"
+        }
+
+        // Restaurar colores originales
+        foreach (Material material in materials)
+        {
+            if (originalColors.ContainsKey(material))
+            {
+                if (material.HasProperty("_BaseColor"))
+                {
+                    material.SetColor("_BaseColor", originalColors[material]);
+                }
+                else if (material.HasProperty("_Color"))
+                {
+                    material.SetColor("_Color", originalColors[material]);
+                }
+            }
+        }
+    }
 
 
     private Transform GetRandomTarget()
@@ -381,5 +465,26 @@ public class ChorroTargetController : MonoBehaviour
     {
         if (objetosAturdimiento.Count == 0) return null;
         return objetosAturdimiento[Random.Range(0, objetosAturdimiento.Count)];
+    }
+
+    public void EmpezarEstado0()
+    {
+        CambiarEstado(Estado.SinEstado);
+    }
+
+    public void EmpezarEstado1()
+    {
+        CambiarEstado(Estado.Estado1);
+    }
+
+    public void EmpezarEstado2()
+    {
+        CambiarEstado(Estado.Estado2);
+    }
+
+    public void EmpezarEstado3()
+    {
+        Debug.Log("ESTADO3");
+        CambiarEstado(Estado.Estado3);
     }
 }

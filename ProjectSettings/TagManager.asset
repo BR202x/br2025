@@ -24,7 +24,7 @@ TagManager:
   - Render on top
   - duck
   - Player
-  - 
+  - Cuchillas
   - 
   - 
   - 
@@ -45,5 +45,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Target
+    uniqueID: 2798961761
+    locked: 0
   m_RenderingLayers:
   - Default
+  - Target
