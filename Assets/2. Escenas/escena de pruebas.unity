@@ -1899,8 +1899,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1116440878198064544, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2341689611126111148}
   m_SourcePrefab: {fileID: 100100000, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
+--- !u!1 &2341689611126111147 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1116440878198064544, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
+  m_PrefabInstance: {fileID: 2341689611126111146}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2341689611126111148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2341689611126111147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nonRigidbodyVelocity: 0
+  attenuationObject: {fileID: 0}
 --- !u!1001 &3249936346053766405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1909,6 +1931,86 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3567804026227412547, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
+      propertyPath: Event.Path
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567804026227412547, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
+      propertyPath: Attack.Path
+      value: event:/Tools/PlayerSword
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567804026227412547, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
+      propertyPath: Defense.Path
+      value: event:/Tools/PlayerShieldOff
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567804026227412547, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
+      propertyPath: UnDefense.Path
+      value: event:/Tools/PlayerShieldOff
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567804026227412547, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
+      propertyPath: Event.Guid.Data1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567804026227412547, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
+      propertyPath: Event.Guid.Data2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567804026227412547, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
+      propertyPath: Event.Guid.Data3
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567804026227412547, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
+      propertyPath: Event.Guid.Data4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567804026227412547, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
+      propertyPath: Attack.Guid.Data1
+      value: 699578458
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567804026227412547, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
+      propertyPath: Attack.Guid.Data2
+      value: 1169560599
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567804026227412547, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
+      propertyPath: Attack.Guid.Data3
+      value: 1770202520
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567804026227412547, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
+      propertyPath: Attack.Guid.Data4
+      value: 1534546147
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567804026227412547, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
+      propertyPath: Defense.Guid.Data1
+      value: 681863339
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567804026227412547, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
+      propertyPath: Defense.Guid.Data2
+      value: 1275147202
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567804026227412547, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
+      propertyPath: Defense.Guid.Data3
+      value: -55231103
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567804026227412547, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
+      propertyPath: Defense.Guid.Data4
+      value: -2041697554
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567804026227412547, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
+      propertyPath: UnDefense.Guid.Data1
+      value: 681863339
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567804026227412547, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
+      propertyPath: UnDefense.Guid.Data2
+      value: 1275147202
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567804026227412547, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
+      propertyPath: UnDefense.Guid.Data3
+      value: -55231103
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567804026227412547, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
+      propertyPath: UnDefense.Guid.Data4
+      value: -2041697554
+      objectReference: {fileID: 0}
     - target: {fileID: 3607069641679662031, guid: be520017e9898e748960bc3dfaaeb326, type: 3}
       propertyPath: m_Layer
       value: 0

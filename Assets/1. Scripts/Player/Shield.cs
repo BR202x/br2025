@@ -17,6 +17,8 @@ public class Shield : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         cameraShake = GetComponent<CinemachineImpulseSource>();
+        
+
     }
     public void Configure(Transform player)
     {
