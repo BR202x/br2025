@@ -8,6 +8,8 @@ TagManager:
   - PisoTambor
   - Valvula
   - Agua
+  - Ropa
+  - Metal
   layers:
   - Default
   - TransparentFX
