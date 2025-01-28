@@ -8,10 +8,16 @@ public class ChorroTargetController : MonoBehaviour
 
     [Header("Depuración")]
     public bool mostrarLog = false;
+    public bool test = true;
 
     [Header("Configuración de Estados")]
     public Estado estadoSeleccionado; // Dropdown en el Inspector para seleccionar el estado
     public bool abrirChorro = false;
+    public RotacionSuperficieController superficieController;
+
+    [Header("Estado0: Sin Estados")]
+    public float velocidadRetorno;
+    public ControladorGolpeValvula golpesValvula;
 
     [Header("Comportamiento por Defecto")]
     public List<Transform> objetivosChorro = new List<Transform>();
@@ -75,7 +81,9 @@ public class ChorroTargetController : MonoBehaviour
     {
         ActualizarValoresEscalados();
 
+        golpesValvula = GameObject.Find("Valvula").GetComponent<ControladorGolpeValvula>();
         seguirTarget = GameObject.Find("Valvula").GetComponent<SeguirTarget>();
+        superficieController = GameObject.Find("RotacionManager").GetComponent<RotacionSuperficieController>();
 
         if (objetivosChorro.Count == 0 && mostrarLog)
         {
@@ -190,15 +198,20 @@ public class ChorroTargetController : MonoBehaviour
 
     public void StartSinEstado()
     {
+        superficieController.IniciarSinRotacion();
         seguirTarget.DestruirChorro();
         StopAllCoroutinesForState();
+
         estado1 = false;
+
+        if (!test) { StartCoroutine(CambiarEstados()); }
         if (mostrarLog) { Debug.Log("Estado 0 iniciado: Sin Corutinas"); }
     }
 
     public void StartEstado1()
     {
         estado1 = true;
+        superficieController.IniciarCicloEnjuague();
         StopAllCoroutinesForState();
         moverCorrutina = StartCoroutine(MoverAleatoriamente());
         disparoCorrutina = StartCoroutine(Disparo1());
@@ -208,6 +221,7 @@ public class ChorroTargetController : MonoBehaviour
     public void StartEstado2()
     {        
         estado1 = false;
+        superficieController.IniciarCicloLavado();
         StopAllCoroutinesForState();
         seguirPlayerCorrutina = StartCoroutine(SeguirPlayer());
         disparoCorrutina = StartCoroutine(Disparo2());
@@ -254,7 +268,6 @@ public class ChorroTargetController : MonoBehaviour
     }
     private void StopAllCoroutinesForState()
     {
-        seguirTarget.DestruirChorro();
 
         Renderer valvulaRenderer = valvulaPrefab.GetComponentInChildren<Renderer>();
 
@@ -337,9 +350,9 @@ public class ChorroTargetController : MonoBehaviour
             float timer = 0f;
             while (timer < followDuration)
             {
-                targetChorro.position = Vector3.MoveTowards(
+                targetChorro.position = Vector3.Lerp(
                     targetChorro.position,
-                    new Vector3(player.position.x + 1, player.position.y, player.position.z),
+                    new Vector3(player.position.x + 0.5f, player.position.y, player.position.z),
                     followPlayerSpeed * Time.deltaTime
                 );
 
@@ -482,9 +495,43 @@ public class ChorroTargetController : MonoBehaviour
         CambiarEstado(Estado.Estado2);
     }
 
-    public void EmpezarEstado3()
+    public void EmpezarEstado3() // Aturdimiento
     {
         Debug.Log("ESTADO3");
         CambiarEstado(Estado.Estado3);
     }
+
+    private IEnumerator CambiarEstados()
+    {        
+        if (test)
+        {
+            yield break;
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        while (Vector3.Distance(targetChorro.position, Vector3.zero) > 0.01f)
+        {
+            targetChorro.position = Vector3.Lerp(targetChorro.position, Vector3.zero, velocidadRetorno * Time.deltaTime);
+            yield return null; // Espera al siguiente frame
+        }
+
+        yield return new WaitForSeconds(0.2f);
+
+        if (!golpesValvula.fase2 && !test)
+        {
+            EmpezarEstado1();
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(0.2f);
+
+        if (golpesValvula.fase2 && !test)
+        {
+            EmpezarEstado2();
+            yield return null;
+        }
+    }
+
+
 }

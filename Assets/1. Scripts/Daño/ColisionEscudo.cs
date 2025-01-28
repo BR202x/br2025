@@ -45,10 +45,12 @@ public class ColisionEscudo : MonoBehaviour
             }
         }
 
-        if (other.CompareTag("Valvula"))
+        if (other.CompareTag("Valvula") && !dano)
         {
-            Debug.Log("Valvula CAÑON");            
+            ControladorGolpeValvula contadorGolpes = other.GetComponent<ControladorGolpeValvula>();                        
             chorroTargetController.EmpezarEstado3();
+            contadorGolpes.RecibirDano();
+            dano = true;
         }
     }
 }

@@ -2570,6 +2570,8 @@ MonoBehaviour:
   mostrarLog: 1
   vida: 2
   vidaActual: 0
+  fase2: 0
+  fase3: 0
   valvulaNumero: Valvula3
   canvasPuntero: {fileID: 1895604233}
 --- !u!114 &220311831
@@ -4390,6 +4392,8 @@ MonoBehaviour:
   mostrarLog: 1
   vida: 2
   vidaActual: 0
+  fase2: 0
+  fase3: 0
   valvulaNumero: Valvula1
   canvasPuntero: {fileID: 221855679}
 --- !u!1 &423701927
@@ -10436,6 +10440,8 @@ MonoBehaviour:
   mostrarLog: 1
   vida: 2
   vidaActual: 0
+  fase2: 0
+  fase3: 0
   valvulaNumero: Valvula2
   canvasPuntero: {fileID: 576974405}
 --- !u!114 &1258637079
@@ -10979,8 +10985,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mostrarLog: 0
+  test: 0
   estadoSeleccionado: 0
   abrirChorro: 0
+  superficieController: {fileID: 0}
+  velocidadRetorno: 10
+  golpesValvula: {fileID: 0}
   objetivosChorro:
   - {fileID: 1427968556}
   - {fileID: 617424832}
@@ -10989,14 +10999,14 @@ MonoBehaviour:
   - {fileID: 2128738334}
   - {fileID: 237925892}
   targetChorro: {fileID: 115055719}
-  moveSpeed: 5
+  moveSpeed: 8
   tiempoEntreDisparosEstado1: 3
   tiempoDisparoQuietoEstado1: 20
   chorro: {fileID: 0}
   estado1: 0
-  escalaDeTiempos: 1.5
+  escalaDeTiempos: 1
   player: {fileID: 5044850328922134624}
-  followPlayerSpeed: 5.5
+  followPlayerSpeed: 3
   followDuration: 10
   idleAfterFollowDuration: 6
   tiempoEntreDisparos: 6
@@ -12123,7 +12133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   superficieTambor: {fileID: 966597289}
   velocidadTest: 10
-  velocidadNormal: 36
+  velocidadNormal: 30
   factorVelocidadReducida: 0.5
   duracionRotacionNormal: 1.5
   duracionRotacionReducida: 2.5
@@ -18960,7 +18970,7 @@ Transform:
   m_GameObject: {fileID: 2147305371}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.78, y: 23.11, z: 0}
+  m_LocalPosition: {x: -18.37, y: 23.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18994,8 +19004,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mostrarLog: 1
-  vida: 2
+  vida: 0
   vidaActual: 0
+  fase2: 0
+  fase3: 0
   valvulaNumero: "Ca\xF1onAgua"
   canvasPuntero: {fileID: 221855679}
 --- !u!135 &2147305376

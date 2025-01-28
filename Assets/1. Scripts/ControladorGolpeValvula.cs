@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class ControladorGolpeValvula : MonoBehaviour
@@ -7,9 +8,11 @@ public class ControladorGolpeValvula : MonoBehaviour
 
     #region Variables
 
-    [Header("Variables Vida")]
-    public int vida = 2;
+    [Header("Variables Valvula")]
+    public int vida = 0;
     public int vidaActual;
+    public bool fase2 = false;
+    public bool fase3 = false;
 
     [Header("Información Valvula")]
     public string valvulaNumero;
@@ -24,25 +27,25 @@ public class ControladorGolpeValvula : MonoBehaviour
 
     public void RecibirDano()
     {
-        /*
-        if (vidaActual > 0)
+        if (vidaActual <= 4)
         {
-            vidaActual--;
+            vidaActual++;            
 
-            if (mostrarLog) { Debug.Log($"[ControladorGolpeValvula] {valvulaNumero} recibió golpe, quedan: {vidaActual}/{vida}"); }
-
-            if (vidaActual <= 0)
+            if (vidaActual == 2 && !fase2)
             {
-                if (mostrarLog) { Debug.Log($"[ControladorGolpeValvula] {valvulaNumero} se cerro."); }
+                fase2 = true;
+                if (mostrarLog) { Debug.Log($"[ControladorGolpeValvula]: cambio de fase {fase2}"); }
+            }
 
-                //gameObject.SetActive(false);
+            if (vidaActual == 4 && fase2 && !fase3)
+            {
+                fase3 = true;
+                if (mostrarLog) { Debug.Log($"[ControladorGolpeValvula]: cambio de fase {fase3}"); }
             }
         }
-        else
-        {
-            if (mostrarLog) { Debug.Log($"[ControladorGolpeValvula] {valvulaNumero} se cerro."); }
-        }
-        */
+
+
+
     }
 
     public void ActivarPuntero()

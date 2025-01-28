@@ -58,6 +58,12 @@ public class RotacionSuperficieController : MonoBehaviour
 
     #region Ciclos de Lavadora
 
+
+    public void IniciarSinRotacion()
+    { 
+        StopAllCoroutines(); 
+    }
+
     public void IniciarCicloLavado()
     {
         DetenerCiclo(); // Asegura que no haya superposición
