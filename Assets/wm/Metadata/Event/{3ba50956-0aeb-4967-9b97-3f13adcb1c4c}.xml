@@ -144,6 +144,9 @@
 		<property name="start">
 			<value>2</value>
 		</property>
+		<property name="volume">
+			<value>-7.5</value>
+		</property>
 		<relationship name="sounds">
 			<destination>{73c48abd-313f-4321-974b-0ff86c244f13}</destination>
 			<destination>{38b227ea-1140-49d9-af06-b4a5ace8ae82}</destination>
