@@ -36,14 +36,16 @@ public class SeguirTarget : MonoBehaviour
     {
         if (refInstancia == null)
         {
+            AudioImp.Instance.Reproducir("ChorroStart");
             refInstancia = Instantiate(objectoPrefab, salidaChorro.transform.position, Quaternion.identity);
         }
     }
     public void DestruirChorro()
     {
 
-        if (chorro != null)        {
-
+        if (chorro != null)
+        {
+            AudioImp.Instance.Reproducir("ChorroStop");
             chorro.CerrarChorro();         
         }    
     }

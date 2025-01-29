@@ -50,88 +50,8 @@ MonoBehaviour:
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-5631307883753491237
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/PlayerJumpWetClothes
-  m_EditorClassIdentifier: 
-  Path: event:/Player/PlayerJumpWetClothes
-  Guid:
-    Data1: -2003351489
-    Data2: 1157253836
-    Data3: -1789873739
-    Data4: 1199220042
-  Banks:
-  - {fileID: 5213428122516410032}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-5303313005409624588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/PlayerStepsMetal
-  m_EditorClassIdentifier: 
-  Path: event:/Player/PlayerStepsMetal
-  Guid:
-    Data1: -2123841853
-    Data2: 1084965184
-    Data3: 2117157778
-    Data4: 1098497821
-  Banks:
-  - {fileID: 5213428122516410032}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-5116039203324616176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/PlayerStepClothes
-  m_EditorClassIdentifier: 
-  Path: event:/Player/PlayerStepClothes
-  Guid:
-    Data1: -108846484
-    Data2: 1291145006
-    Data3: -1725266792
-    Data4: 1049051574
-  Banks:
-  - {fileID: 5213428122516410032}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
+  Parameters:
+  - {fileID: -3736538676611932096}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
@@ -162,6 +82,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 61071
+--- !u!114 &-3736538676611932096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PlayerRoll/Parameter 1
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 3989173902
+    data2: 56315247
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Metal
+  - Clothes
+  - Water
+  - WetClothes
+  Exists: 1
 --- !u!114 &-3528080717073434809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,11 +152,67 @@ MonoBehaviour:
   Path: Assets/wm/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638734130431516193
+  lastModified: 638737609975428406
   FileSizes:
   - Name: Desktop
-    Value: 1586
+    Value: 1548
   Exists: 1
+--- !u!114 &-1583811128345819128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/PlayerSteps
+  m_EditorClassIdentifier: 
+  Path: event:/Player/PlayerSteps
+  Guid:
+    Data1: 1000671574
+    Data2: 1231489771
+    Data3: 322934683
+    Data4: 1276955565
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 3529870895364095644}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-928438148322026481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/PlayerJump
+  m_EditorClassIdentifier: 
+  Path: event:/Player/PlayerJump
+  Guid:
+    Data1: -1585201531
+    Data2: 1154618612
+    Data3: -1888562016
+    Data4: -2099368980
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 3666844257499762262}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-720493630715580088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,80 +261,22 @@ MonoBehaviour:
   - {fileID: -3528080717073434809}
   - {fileID: 6248455087141378193}
   - {fileID: -8759452314024493681}
-  - {fileID: -5631307883753491237}
   - {fileID: 5994122041191835034}
   - {fileID: 2645196241965513569}
   - {fileID: 5650629332328644770}
-  - {fileID: 1118162502893926037}
-  - {fileID: -5116039203324616176}
-  - {fileID: 892307892394682721}
-  - {fileID: 8437700935388069324}
   - {fileID: 1667135961892025350}
   - {fileID: 3764005003310765859}
-  - {fileID: -5303313005409624588}
   - {fileID: -6886544209832820315}
   - {fileID: -720493630715580088}
+  - {fileID: -1583811128345819128}
+  - {fileID: -928438148322026481}
   EditorParameters: []
   MasterBanks:
   - {fileID: 5213428122516410032}
   StringsBanks:
   - {fileID: -3367407833877153125}
-  cacheTime: 638734130431516193
+  cacheTime: 638737609975428406
   cacheVersion: 131621
---- !u!114 &892307892394682721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/PlayerStepWetClothes
-  m_EditorClassIdentifier: 
-  Path: event:/Player/PlayerStepWetClothes
-  Guid:
-    Data1: 1956207734
-    Data2: 1268109793
-    Data3: -991768948
-    Data4: -331561657
-  Banks:
-  - {fileID: 5213428122516410032}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &1118162502893926037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/PlayerJumpMetal
-  m_EditorClassIdentifier: 
-  Path: event:/Player/PlayerJumpMetal
-  Guid:
-    Data1: -2053754785
-    Data2: 1317490069
-    Data3: -2047774071
-    Data4: -843454311
-  Banks:
-  - {fileID: 5213428122516410032}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &1667135961892025350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,6 +331,62 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 14841
+--- !u!114 &3529870895364095644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PlayerSteps/Parameter 1
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 3989173902
+    data2: 56315247
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Metal
+  - Clothes
+  - Water
+  - WetClothes
+  Exists: 1
+--- !u!114 &3666844257499762262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PlayerJump/Parameter 1
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 3989173902
+    data2: 56315247
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Metal
+  - Clothes
+  - Water
+  - WetClothes
+  Exists: 1
 --- !u!114 &3764005003310765859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,10 +456,10 @@ MonoBehaviour:
   Path: Assets/wm/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638734130431485319
+  lastModified: 638737609975390842
   FileSizes:
   - Name: Desktop
-    Value: 2087232
+    Value: 2133344
   Exists: 1
 --- !u!114 &5650629332328644770
 MonoBehaviour:
@@ -483,8 +485,8 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 1
   Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
+  MinDistance: 30
+  MaxDistance: 200
   Length: 0
 --- !u!114 &5994122041191835034
 MonoBehaviour:
@@ -531,33 +533,6 @@ MonoBehaviour:
     Data2: 1146747320
     Data3: -1734810483
     Data4: 1948882290
-  Banks:
-  - {fileID: 5213428122516410032}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &8437700935388069324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/PlayerJumpWater
-  m_EditorClassIdentifier: 
-  Path: event:/Player/PlayerJumpWater
-  Guid:
-    Data1: 315682422
-    Data2: 1092808218
-    Data3: -1376716623
-    Data4: -24549443
   Banks:
   - {fileID: 5213428122516410032}
   IsStream: 0

@@ -12,6 +12,8 @@ public class FMODEvents : MonoBehaviour
         public EventReference eventReference;
     }
 
+    private bool mostrarDebug;
+
     [SerializeField] private List<FMODEvent> musica = new List<FMODEvent>();
     [SerializeField] private List<FMODEvent> sfx = new List<FMODEvent>();
     [SerializeField] private List<FMODEvent> ambiente = new List<FMODEvent>();
@@ -23,11 +25,11 @@ public class FMODEvents : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            Debug.Log("FMODEvents Test de Iicio en el inspecto.");
+            if(mostrarDebug) Debug.Log("FMODEvents Test de Iicio en el inspecto.");
         }
         else
         {
-            Debug.LogWarning("FMODEvents inicializado.");
+            if (mostrarDebug) Debug.LogWarning("FMODEvents inicializado.");
             Destroy(gameObject);
         }
     }
@@ -44,7 +46,7 @@ public class FMODEvents : MonoBehaviour
                     instance = FindFirstObjectByType<FMODEvents>();
                     if (instance != null)
                     {
-                        Debug.Log("FMODEvents inicializado Edición.");
+                        // Debug.Log("FMODEvents inicializado Edición.");
                         instance.RecargarEventosEnEditor();
                     }
                 }
@@ -58,7 +60,7 @@ public class FMODEvents : MonoBehaviour
         if (sfx == null) sfx = new List<FMODEvent>();
         if (ambiente == null) ambiente = new List<FMODEvent>();
 
-        Debug.Log($"Eventos recargados: {musica.Count} música, {sfx.Count} SFX, {ambiente.Count} ambiente.");
+        if (mostrarDebug) Debug.Log($"Eventos recargados: {musica.Count} música, {sfx.Count} SFX, {ambiente.Count} ambiente.");
     }
 
     public static Dictionary<string, List<string>> ObtenerConfiguracionMetodos()

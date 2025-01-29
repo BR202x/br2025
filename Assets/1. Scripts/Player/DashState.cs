@@ -41,7 +41,5 @@ public class DashState : IPlayerState
         {
             player.ChangeState(player.stateIdle);
         }
-
-
     }
 }

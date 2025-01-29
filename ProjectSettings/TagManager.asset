@@ -8,6 +8,9 @@ TagManager:
   - PisoTambor
   - Valvula
   - Agua
+  - Ropa
+  - Metal
+  - RopaMojada
   layers:
   - Default
   - TransparentFX

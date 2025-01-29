@@ -10,7 +10,7 @@ public class TestAudio : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            AudioImp.Instance.Reproducir("Test1");
+            AudioImp.Instance.Reproducir("PlayerSword");
                        
         }
 

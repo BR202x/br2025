@@ -256,27 +256,25 @@ public class AudioManager : MonoBehaviour
 
     public void PlayOneShot(EventReference sound, GameObject posicion = null)
     {
-        Vector3 finalPos;
+        Vector3 finalPos = posicion != null
+            ? posicion.transform.position
+            : (jugador != null
+                ? jugador.transform.position
+                : Vector3.zero);
 
-        if (posicion != null)
+        // Debug.Log($"PlayOneShot sound: {sound.Path}, position: {finalPos}");
+
+        if (!string.IsNullOrEmpty(sound.Path))
         {
-            // Usar la posición del GameObject proporcionado
-            finalPos = posicion.transform.position;
-        }
-        else if (jugador != null)
-        {
-            // Usar la posición del jugador
-            finalPos = jugador.transform.position;
+            RuntimeManager.PlayOneShot(sound, finalPos);
         }
         else
         {
-            // Usar Vector3.zero como último recurso
-            finalPos = Vector3.zero;
-            Debug.LogWarning("No se especificó una posición y 'jugador' no está asignado. Usando Vector3.zero.");
+            Debug.LogWarning("Sound event reference is invalid.");
         }
-
-        RuntimeManager.PlayOneShot(sound, finalPos);
     }
+
+
 
 
     #endregion
