@@ -22,6 +22,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Camisa_JEFESOTE
+    second: {fileID: 2100000, guid: 4c0557cb16ef64e4aac89879fee1457d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 2ea4020746f867a48b4f66c34ab73965, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Material.001
     second: {fileID: 2100000, guid: 54f437b93d332e748b7f6cf29328a4bf, type: 2}
   - first:

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0681c8a8dac53c54e88d5f8e4c58b1fc
+guid: 803e5bea8e3758043a051c0df5b095cd
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,13 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: PATO
-    second: {fileID: 2100000, guid: 293f23b20b331bb4d87f7fc71478714e, type: 2}
+      name: Mano
+    second: {fileID: 2100000, guid: b455a83415bf50d478102a9c0b20a02f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Pato.002
-    second: {fileID: 2100000, guid: bd2ea62d95b260c43a35b16024da829b, type: 2}
+      name: guante
+    second: {fileID: 2100000, guid: 7443d51211fc4644482b045f941054a3, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
