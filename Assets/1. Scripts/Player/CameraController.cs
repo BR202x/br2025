@@ -6,7 +6,6 @@ using UnityEngine.Windows;
 
 public class CameraController : MonoBehaviour
 {
-
     [Header("Propiedades de camara")]
     [SerializeField] GameObject followTransform;
     [SerializeField, Range(0.1f, 1f)] float sensivity;
@@ -27,7 +26,6 @@ public class CameraController : MonoBehaviour
     private Vector3 mouseWorldPosition;
     private CinemachineImpulseSource cameraShake;
 
-
     private void Awake()
     {
         input = GetComponent<InputReader>();
@@ -42,16 +40,16 @@ public class CameraController : MonoBehaviour
     private void Update()
     {
         CameraAimHandler();
-
     }
 
     private void ThrowShield(object sender, EventArgs e)
     {
         if (!player.IsShield()) { return; }
-
-        
+                
         if(!shotShield)
-        {
+        {            
+            AudioImp.Instance.Reproducir("ShieldThrow");
+
             player.ChangeAnimation("Throw");
             cameraShake.GenerateImpulse();
             shotShield = true;

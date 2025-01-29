@@ -210,7 +210,8 @@ public Oneshots Sound;
         {
             isAiming = true;
             moveSpeed = moveShieldSpeed;
-            Sound.PlayOneShot(Sound.Defense,gameObject);
+            //Sound.PlayOneShot(Sound.Defense,gameObject);
+            AudioImp.Instance.Reproducir("ShieldOn");
         }
 
     }
@@ -218,9 +219,8 @@ public Oneshots Sound;
     {
         isAiming = false;
         moveSpeed = moveNormalSpeed;
-        Sound.PlayOneShot(Sound.Defense,gameObject);
-
-
+        // Sound.PlayOneShot(Sound.Defense,gameObject);
+        AudioImp.Instance.Reproducir("ShieldOff");
     }
 
     private void OnDrawGizmos()

@@ -13,6 +13,8 @@ public class DashState : IPlayerState
 
     public void StartState(PlayerMovement player)
     {
+        Debug.Log("HAciendo Rollo");
+
         timer = 0;
         Vector3 forward = Camera.main.transform.forward;
         Vector3 right = Camera.main.transform.right;
@@ -41,7 +43,5 @@ public class DashState : IPlayerState
         {
             player.ChangeState(player.stateIdle);
         }
-
-
     }
 }

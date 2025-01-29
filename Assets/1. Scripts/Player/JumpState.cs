@@ -55,11 +55,10 @@ public class JumpState : IPlayerState
        if(player.rb.linearVelocity.y < 0 &&!player.GetIsGround())
         {
             //esta cayendo
+            Debug.Log("Cayendo");
+
             player.ChangeState(player.stateFall);
         }
-        
-
-        
     }
 
 

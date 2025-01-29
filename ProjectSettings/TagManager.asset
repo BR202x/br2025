@@ -10,6 +10,7 @@ TagManager:
   - Agua
   - Ropa
   - Metal
+  - RopaMojada
   layers:
   - Default
   - TransparentFX

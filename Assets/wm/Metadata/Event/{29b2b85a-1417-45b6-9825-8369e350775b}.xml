@@ -5,7 +5,7 @@
 			<value>PlayerSword</value>
 		</property>
 		<property name="outputFormat">
-			<value>2</value>
+			<value>0</value>
 		</property>
 		<relationship name="folder">
 			<destination>{5d36d625-faf3-4a85-b05b-751bb39a3445}</destination>
@@ -56,10 +56,17 @@
 			<destination>{6b620aa1-1988-4cbc-a7ab-e5ef9c95f61c}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{30cfe73f-e63a-4446-b440-2fc2bdae230c}</destination>
+			<destination>{746e5ef4-15a9-47ba-b6d6-f1ebb0cd1880}</destination>
 		</relationship>
 	</object>
-	<object class="EventAutomatableProperties" id="{1a63a581-58af-42ac-9945-6af17e53b668}" />
+	<object class="EventAutomatableProperties" id="{1a63a581-58af-42ac-9945-6af17e53b668}">
+		<property name="minimumDistance">
+			<value>30</value>
+		</property>
+		<property name="maximumDistance">
+			<value>200</value>
+		</property>
+	</object>
 	<object class="MarkerTrack" id="{6dce1e29-30e9-4397-9af7-eee5016413f8}" />
 	<object class="Timeline" id="{270aa181-f7ab-421d-b927-4682046e8a45}">
 		<property name="isProxyEnabled">
@@ -96,7 +103,7 @@
 	<object class="MixerBusEffectChain" id="{234ca3ab-cb10-40d3-aca6-c3e14c517a26}">
 		<relationship name="effects">
 			<destination>{1a5fd9a0-7cef-4a7f-baca-81185628e882}</destination>
-			<destination>{8dccdadc-401b-4f8a-b7f4-ab04bab6efb1}</destination>
+			<destination>{e066b0e9-27d9-4433-b32c-a973c06a2e7d}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{7bfb5acf-e590-479e-92e7-62f2a6f48945}" />
@@ -114,7 +121,17 @@
 	</object>
 	<object class="MixerBusFader" id="{be8f636f-002e-4da1-9ac9-fba2649d69e5}" />
 	<object class="MixerBusFader" id="{1a5fd9a0-7cef-4a7f-baca-81185628e882}" />
-	<object class="SpatialiserEffect" id="{8dccdadc-401b-4f8a-b7f4-ab04bab6efb1}" />
+	<object class="ObjectSpatialiserEffect" id="{e066b0e9-27d9-4433-b32c-a973c06a2e7d}">
+		<property name="distanceRolloffType">
+			<value>1</value>
+		</property>
+		<property name="minimumDistance">
+			<value>15</value>
+		</property>
+		<property name="maximumDistance">
+			<value>450</value>
+		</property>
+	</object>
 	<object class="SingleSound" id="{f6f58051-1ed6-41af-b583-2dfde5392dd3}">
 		<relationship name="audioFile">
 			<destination>{8f59efa6-6f46-4d32-9758-c4af4b403751}</destination>
