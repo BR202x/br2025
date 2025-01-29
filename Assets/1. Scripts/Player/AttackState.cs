@@ -53,7 +53,7 @@ public class AttackState : IPlayerState
             player.slashAttack.Play();
 
             AudioImp.Instance.Reproducir("PlayerSword");
-            //player.Sound.PlayOneShot(player.Sound.Attack,player.gameObject);
+            AudioImp.Instance.Reproducir("PlayerEffort");            
         }
         else
         {
@@ -61,9 +61,7 @@ public class AttackState : IPlayerState
             player.slashAttack2.Play();
 
             AudioImp.Instance.Reproducir("PlayerSword");
-            // player.Sound.PlayOneShot(player.Sound.Attack,player.gameObject);
-
-
+            AudioImp.Instance.Reproducir("PlayerEffort");
 
         }
 

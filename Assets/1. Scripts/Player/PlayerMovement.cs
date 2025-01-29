@@ -170,6 +170,9 @@ public Oneshots Sound;
         Invoke(nameof(EnableDash), dashCooldown);
         if (currentState == stateWalk)
         {
+            AccionesMateriales.Instance.ReproducirDash();
+            AudioImp.Instance.Reproducir("PlayerEffort");
+
             ChangeState(stateDash);
         }
     }
@@ -184,6 +187,9 @@ public Oneshots Sound;
         {
             if (GetIsGround())
             {
+                AccionesMateriales.Instance.ReproducirSalto();
+                AudioImp.Instance.Reproducir("PlayerEffort");
+
                 ChangeState(stateJump);
             }
         }
@@ -210,8 +216,9 @@ public Oneshots Sound;
         {
             isAiming = true;
             moveSpeed = moveShieldSpeed;
-            //Sound.PlayOneShot(Sound.Defense,gameObject);
+            
             AudioImp.Instance.Reproducir("ShieldOn");
+            AudioImp.Instance.Reproducir("PlayerEffort");
         }
 
     }
@@ -219,7 +226,7 @@ public Oneshots Sound;
     {
         isAiming = false;
         moveSpeed = moveNormalSpeed;
-        // Sound.PlayOneShot(Sound.Defense,gameObject);
+        
         AudioImp.Instance.Reproducir("ShieldOff");
     }
 
@@ -230,7 +237,6 @@ public Oneshots Sound;
         foreach(Transform t in checkGrounds)
         {
             Gizmos.DrawRay(t.position, Vector3.down * raySize);
-
         }
     }
 

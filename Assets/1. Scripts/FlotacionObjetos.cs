@@ -1,12 +1,14 @@
 using System.Collections;
 using UnityEngine;
-
+// ULTIMO CAMBIO : Esta Final no cambiaba. Condicion al llegar al inicio.
 public class FlotacionObjetos : MonoBehaviour
 {
     [Header("Depuración")]
     public bool mostrarDebug;
 
     #region Variables
+
+    public int estadoMaterial;
 
     [Header("Configuración del Agua")]
     public float posicionAgua;
@@ -58,6 +60,15 @@ public class FlotacionObjetos : MonoBehaviour
     {
         posicionAgua = Mathf.Abs(posInicial.position.y - objetoAgua.position.y);
         remplazoLlenado = llenadoManager.llenandoTambor;
+
+        if (dentroDelAgua && !estaEnInicial)
+        {
+            estadoMaterial = 1; //ropaMojada
+        }
+        else 
+        {
+            estadoMaterial = 0; //ropa
+        }
 
         if (jugadorParado && estaEnFinal && !isOnTop)
         {
@@ -188,6 +199,7 @@ public class FlotacionObjetos : MonoBehaviour
             dentroDelAgua = false;
             remplazoLlenado = false;
             tiempoHundirse = 0;
+            estaEnFinal = false;
 
             if (mostrarDebug) Debug.Log("Objeto volvió a la posición inicial.");
         }
@@ -207,6 +219,7 @@ public class FlotacionObjetos : MonoBehaviour
             estaEnInicial = true;
             dentroDelAgua = false;
             remplazoLlenado = false;
+            estaEnFinal = false;
 
             if (mostrarDebug) Debug.Log("Objeto volvió a la posición inicial.");
         }

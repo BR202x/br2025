@@ -49,6 +49,7 @@ public class CameraController : MonoBehaviour
         if(!shotShield)
         {            
             AudioImp.Instance.Reproducir("ShieldThrow");
+            AudioImp.Instance.Reproducir("PlayerEffort");
 
             player.ChangeAnimation("Throw");
             cameraShake.GenerateImpulse();

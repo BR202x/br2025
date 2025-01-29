@@ -221,7 +221,7 @@ public class ChorroTargetController : MonoBehaviour
     public void StartEstado2()
     {        
         estado1 = false;
-        superficieController.IniciarCicloLavado();
+        superficieController.IniciarCicloEnjuague();
         StopAllCoroutinesForState();
         seguirPlayerCorrutina = StartCoroutine(SeguirPlayer());
         disparoCorrutina = StartCoroutine(Disparo2());

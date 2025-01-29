@@ -23,6 +23,8 @@ public class AudioImp : MonoBehaviour
     public List<Evento> Ambiente = new List<Evento>();
 
     public static List<string> TiposEvento = new List<string> { "Música", "SFX", "Ambiente" };
+    private bool mostrarLog = false;
+
     private void Awake()
     {        
         if (Instance == null)
@@ -31,7 +33,7 @@ public class AudioImp : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Ya existe una instancia de AudioImp. Destruyendo el objeto duplicado.");
+            if (mostrarLog) Debug.LogWarning("Ya existe una instancia de AudioImp. Destruyendo el objeto duplicado.");
             Destroy(gameObject);
             return;
         }
@@ -66,7 +68,7 @@ public class AudioImp : MonoBehaviour
 
         if (evento == null)
         {
-            Debug.LogWarning($"No se encontró un evento con el nombre: {nombreElegido}");
+            if (mostrarLog) Debug.LogWarning($"No se encontró un evento con el nombre: {nombreElegido}");
             return;
         }
 
@@ -75,7 +77,7 @@ public class AudioImp : MonoBehaviour
         GameObject eventoTransform = evento.gameobject; // Transform configurado (puede ser null)
         bool decisionReprodicir = evento.start;
 
-        Debug.Log($"Reproduciendo '{nombreElegido}' usando el método '{metodoSeleccionado}' con evento '{nombreEventoFMOD}'.");
+        if (mostrarLog) Debug.Log($"Reproduciendo '{nombreElegido}' usando el método '{metodoSeleccionado}' con evento '{nombreEventoFMOD}'.");
                 
         switch (metodoSeleccionado)
         {
