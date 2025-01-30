@@ -3,13 +3,20 @@ using FMODUnity;
 using UnityEngine;
 using System.Collections.Generic;
 
+// EDITADO: 29/01/2025 - 18:50
 public class CaminarDeteccionMaterial : MonoBehaviour
 {
-    [Header("Configuración del Raycast")]
-    public float raycastDistance = 1.5f; // Distancia del raycast (editable desde el Inspector)
-    public LayerMask raycastLayerMask; // Capas específicas que el raycast debe considerar
+    [Header("depuracion")]
+    public bool mostrarDebug = false;
+    public bool gizmosDebug = false;
 
-    [Header("Información del Material Detectado")]
+    #region Variables
+
+    [Header("Configuracion del Raycast")]
+    public float raycastDistance = 1.5f;
+    public LayerMask raycastLayerMask;
+
+    [Header("informacion del material detectado")]
     public string material;
     public int materialIndex;
     public DeteccionAguaPies deteccionAguaPies;
@@ -18,42 +25,45 @@ public class CaminarDeteccionMaterial : MonoBehaviour
     public bool enRopa = false;
     public bool enRopaM = false;
 
-    [Header("Información del Evento")]
+    [Header("informacion del evento")]
     public EventReference Event;
     public string nombreParametro;
-    private EventInstance eventInstance;    
+    private EventInstance eventInstance;
 
-    [Header("Lista de Objetos Detectados")]
-    public List<GameObject> objetosDetectados = new List<GameObject>(); // Lista de objetos detectados
+    [Header("Lista de objetos detectados")]
+    public List<GameObject> objetosDetectados = new List<GameObject>();
+
+    #endregion
 
     private void Start()
     {
-        // Inicializar el evento de FMOD
         eventInstance = RuntimeManager.CreateInstance(Event);
         deteccionAguaPies = GameObject.Find("OV_DeteccionPiesAgua").GetComponent<DeteccionAguaPies>();
+
+        if (mostrarDebug) { Debug.Log("[CaminarDeteccionMaterial]: Componente del objeto " + gameObject.name); }
     }
 
     private void Update()
     {
         DetectarMaterial();
-        ActualizarParametrosFMOD();        
+        ActualizarParametrosFMOD();
     }
 
     private void DetectarMaterial()
     {
+        if (mostrarDebug) { Debug.Log("[CaminarDeteccionMaterial]: Detectando material..."); }
+
         RaycastHit hit;
 
         if (Physics.Raycast(transform.position, Vector3.down, out hit, raycastDistance, raycastLayerMask))
         {
             GameObject objetoDetectado = hit.collider.gameObject;
 
-            // Agregar el objeto a la lista si no está ya
             if (!objetosDetectados.Contains(objetoDetectado))
             {
                 objetosDetectados.Add(objetoDetectado);
             }
 
-            // Comparar las etiquetas y ajustar las variables según corresponda
             if (hit.collider.CompareTag("Metal") && !deteccionAguaPies.playerPiesAgua)
             {
                 enMetal = true;
@@ -62,24 +72,31 @@ public class CaminarDeteccionMaterial : MonoBehaviour
                 enRopaM = false;
                 material = "Metal";
                 materialIndex = 0;
+
+                if (mostrarDebug) { Debug.Log("[CaminarDeteccionMaterial]: Metal detectado."); }
             }
             else if (hit.collider.CompareTag("Ropa"))
             {
                 enMetal = false;
                 enAgua = false;
 
-                if (hit.collider.gameObject.GetComponent<FlotacionObjetos>().estadoMaterial == 0)
+                FlotacionObjetos flotacion = hit.collider.gameObject.GetComponent<FlotacionObjetos>();
+                if (flotacion != null)
                 {
-                    enRopa = true;
-                    material = "Ropa";
-                    materialIndex = 1;
-                }
-
-                if (hit.collider.gameObject.GetComponent<FlotacionObjetos>().estadoMaterial == 1)
-                {
-                    enRopaM = true;
-                    material = "RopaMojada";
-                    materialIndex = 3;
+                    if (flotacion.estadoMaterial == 0)
+                    {
+                        enRopa = true;
+                        material = "Ropa";
+                        materialIndex = 1;
+                        if (mostrarDebug) { Debug.Log("[CaminarDeteccionMaterial]: Ropa detectada."); }
+                    }
+                    else if (flotacion.estadoMaterial == 1)
+                    {
+                        enRopaM = true;
+                        material = "RopaMojada";
+                        materialIndex = 3;
+                        if (mostrarDebug) { Debug.Log("[CaminarDeteccionMaterial]: Ropa mojada detectada."); }
+                    }
                 }
             }
             else if (deteccionAguaPies.playerPiesAgua)
@@ -90,17 +107,19 @@ public class CaminarDeteccionMaterial : MonoBehaviour
                 enRopaM = false;
                 material = "Agua";
                 materialIndex = 2;
+
+                if (mostrarDebug) { Debug.Log("[CaminarDeteccionMaterial]: Agua detectada."); }
             }
         }
         else
         {
-            // Si el raycast no detecta nada, limpiar la lista
             objetosDetectados.Clear();
         }
     }
 
     private void ActualizarParametrosFMOD()
     {
+        if (mostrarDebug) { Debug.Log("[CaminarDeteccionMaterial]: Actualizando parametros FMOD..."); }
 
         if (enMetal && !deteccionAguaPies.playerPiesAgua)
         {
@@ -122,18 +141,19 @@ public class CaminarDeteccionMaterial : MonoBehaviour
 
     private void SetParameter(int materialIndex)
     {
-        // eventInstance.setParameterByName(nombreParametro, materialIndex);    
+        if (mostrarDebug) { Debug.Log($"[CaminarDeteccionMaterial]: SetParameter llamado con indice {materialIndex}."); }
     }
 
     public void ReproducirEvento()
     {
         eventInstance.start();
+        if (mostrarDebug) { Debug.Log("[CaminarDeteccionMaterial]: Reproduciendo evento de sonido."); }
     }
-
 
     private void OnDrawGizmos()
     {
-        // Dibujar el raycast en el editor para depuración
+        if (!gizmosDebug) return;
+
         Gizmos.color = Color.black;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * raycastDistance);
     }

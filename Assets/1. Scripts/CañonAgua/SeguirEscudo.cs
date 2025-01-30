@@ -1,12 +1,13 @@
 using UnityEngine;
 
+// EDITADO: 29/01/2025 - 23:15
 public class SeguirEscudo : MonoBehaviour
 {
-    [Header("Configuración")]
+    [Header("Configuracion")]
+    [Tooltip("Transform del escudo a seguir")]
     public Transform objetivoEscudo;
+    [Tooltip("Transform del raton que determina la rotacion en Y")]
     public Transform objetivoRaton;
-
-    // Unicamente para ubicar el plano de rebote en la posicion del escudo.
 
     private void Update()
     {
@@ -18,7 +19,6 @@ public class SeguirEscudo : MonoBehaviour
             {
                 Vector3 rotacionActual = transform.rotation.eulerAngles;
 
-                // Asignar rotación en Y desde el objetivo del ratón
                 rotacionActual.y = objetivoRaton.rotation.eulerAngles.y;
 
                 transform.rotation = Quaternion.Euler(rotacionActual);

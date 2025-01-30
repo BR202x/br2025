@@ -2,48 +2,69 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// EDITADO: 29/01/2025 - 22:20
 public class ChorroTargetController : MonoBehaviour
 {
-    #region Variables
-
-    [Header("Depuración")]
+    [Header("depuracion")]
+    [Tooltip("Activa o desactiva los mensajes de depuracion en este script")]
     public bool mostrarLog = false;
+    [Tooltip("Variable de prueba para activar estados manualmente")]
     public bool test = true;
 
-    [Header("Configuración de Estados")]
-    public Estado estadoSeleccionado; // Dropdown en el Inspector para seleccionar el estado
+    #region Variables
+
+    [Header("Configuracion de Estados")]
+    [Tooltip("Estado actual del chorro")]
+    public Estado estadoSeleccionado;
+    [Tooltip("Controla si el chorro está activo o no")]
     public bool abrirChorro = false;
+    [Tooltip("Referencia al controlador de rotación de superficies")]
     public RotacionSuperficieController superficieController;
 
     [Header("Estado0: Sin Estados")]
+    [Tooltip("Velocidad de retorno del chorro cuando no tiene estado activo")]
     public float velocidadRetorno;
+    [Tooltip("Referencia al controlador de golpes de la válvula")]
     public ControladorGolpeValvula golpesValvula;
 
     [Header("Comportamiento por Defecto")]
+    [Tooltip("Lista de objetivos a los que se moverá el chorro")]
     public List<Transform> objetivosChorro = new List<Transform>();
+    [Tooltip("Referencia al objeto que sigue el chorro")]
     public Transform targetChorro;
+    [Tooltip("Velocidad de movimiento del chorro hacia los objetivos")]
     public float moveSpeed = 2f;
 
     [Header("Estado 1: Movimiento Aleatorio y Disparo")]
+    [Tooltip("Tiempo entre disparos en el estado 1")]
     public float tiempoEntreDisparosEstado1 = 4f;
+    [Tooltip("Tiempo de disparo continuo en el estado 1")]
     public float tiempoDisparoQuietoEstado1 = 3f;
+    [Tooltip("Referencia a la instancia del chorro")]
     public InstanciaNewChorro chorro;
+    [Tooltip("Indica si el estado 1 está activo")]
     public bool estado1 = false;
-    
+
     private float originalFollowDuration = 10f;
     private float originalIdleAfterFollowDuration = 6f;
     private float originalTiempoEntreDisparos = 6f;
     private float originalTiempoDisparoQuieto = 10f;
 
     [Header("Estado 2: Seguir al Jugador y Disparo")]
+    [Tooltip("Escala de los tiempos para el estado 2")]
     [Range(0f, 3f)]
     public float escalaDeTiempos = 1f;
+    [Tooltip("Referencia al jugador")]
     public Transform player;
+    [Tooltip("Velocidad de seguimiento del jugador")]
     public float followPlayerSpeed = 5.5f;
-
+    [Tooltip("Duración del seguimiento en el estado 2")]
     public float followDuration;
+    [Tooltip("Tiempo de espera después de seguir al jugador")]
     public float idleAfterFollowDuration;
+    [Tooltip("Tiempo entre disparos en el estado 2")]
     public float tiempoEntreDisparos;
+    [Tooltip("Tiempo de disparo continuo en el estado 2")]
     public float tiempoDisparoQuieto;
 
     private SeguirTarget seguirTarget;
@@ -53,12 +74,18 @@ public class ChorroTargetController : MonoBehaviour
     private Coroutine seguirPlayerCorrutina;
 
     [Header("Estado 3: Aturdimiento")]
+    [Tooltip("Referencia a la válvula que se aturde")]
     public Transform valvulaPrefab;
+    [Tooltip("Duración total del aturdimiento")]
     public float duracionAturdimiento = 5f;
+    [Tooltip("Tiempo acumulado en el estado de aturdimiento")]
     public float tiempoAturdimiento = 0;
+    [Tooltip("Velocidad de movimiento durante el aturdimiento")]
     public float velocidadAturdimiento = 2f;
+    [Tooltip("Indica si el estado 3 está activo")]
     public bool estaEstado3;
-    private Coroutine aturdimientoCorrutina; 
+    private Coroutine aturdimientoCorrutina;
+    [Tooltip("Lista de objetos afectados por el aturdimiento")]
     public List<Transform> objetosAturdimiento = new List<Transform>();
 
     private Color originalBaseColor;
@@ -79,6 +106,8 @@ public class ChorroTargetController : MonoBehaviour
 
     private void Start()
     {
+        if (mostrarLog) { Debug.Log($"[ChorroTargetController]: Componente del objeto {gameObject.name}"); }
+
         ActualizarValoresEscalados();
 
         golpesValvula = GameObject.Find("Valvula").GetComponent<ControladorGolpeValvula>();
@@ -87,7 +116,7 @@ public class ChorroTargetController : MonoBehaviour
 
         if (objetivosChorro.Count == 0 && mostrarLog)
         {
-            Debug.LogWarning("La lista objetivosChorro está vacía. Agrega objetos para mover el target.");
+            Debug.LogWarning("[ChorroTargetController]: La lista objetivosChorro está vacía. Agrega objetos para mover el target.");
         }
 
         CambiarEstado(estadoSeleccionado);
@@ -95,63 +124,39 @@ public class ChorroTargetController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            EmpezarEstado1();
-        }
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            EmpezarEstado2();
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            EmpezarEstado3();
-        }
+        if (mostrarLog) { Debug.Log("[ChorroTargetController]: Actualizando estado."); }
 
-        // Buscar la instancia del objeto chorro
+        if (Input.GetKeyDown(KeyCode.U)) { EmpezarEstado1(); }
+        if (Input.GetKeyDown(KeyCode.I)) { EmpezarEstado2(); }
+        if (Input.GetKeyDown(KeyCode.O)) { EmpezarEstado3(); }
+
         chorro = FindFirstObjectByType<InstanciaNewChorro>();
 
-        // Si el chorro existe, manejar su lógica
         if (chorro != null)
         {
             float chorroInicial = chorro.rScale;
-            // Si estado1 está activo, asignar un nuevo valor a rScale
-            if (estado1)
-            {
-                chorro.rScale = 0.5f;
-            }
-            else
-            {
-                // Dejar el valor original o realizar otra acción
-                chorro.rScale = chorroInicial; // Esto mantiene el valor actual
-            }
+            chorro.rScale = estado1 ? 0.5f : chorroInicial;
         }
 
         if (estaEstado3)
         {
             tiempoAturdimiento += Time.deltaTime;
-
-            // Verificar si se supera el tiempo total de aturdimiento
             if (tiempoAturdimiento >= duracionAturdimiento)
             {
                 estaEstado3 = false;
-                Debug.Log("SE CUMPLIÓ el tiempo de aturdimiento.");
+                if (mostrarLog) { Debug.Log("[ChorroTargetController]: Se cumplió el tiempo de aturdimiento."); }
 
-                // Detener la corrutina de aturdimiento
                 if (aturdimientoCorrutina != null)
                 {
                     StopCoroutine(aturdimientoCorrutina);
-                    aturdimientoCorrutina = null; // Limpiar referencia
+                    aturdimientoCorrutina = null;
                 }
 
-                
-                CambiarEstado(Estado.SinEstado);         
+                CambiarEstado(Estado.SinEstado);
                 tiempoAturdimiento = 0;
-                
             }
         }
 
-        // Mantener la lógica de actualización de otros estados
         ActualizarValoresEscalados();
 
         if (estadoSeleccionado != estadoActual)
@@ -173,8 +178,9 @@ public class ChorroTargetController : MonoBehaviour
         StopAllCoroutinesForState();
         estadoActual = nuevoEstado;
 
-        // Actualizar el Dropdown en el Inspector
         estadoSeleccionado = nuevoEstado;
+
+        if (mostrarLog) { Debug.Log($"[ChorroTargetController]: Cambio de estado a {nuevoEstado}"); }
 
         switch (estadoActual)
         {
@@ -191,7 +197,7 @@ public class ChorroTargetController : MonoBehaviour
                 StartEstado3();
                 break;
             default:
-                if (mostrarLog) { Debug.LogWarning("Estado desconocido: " + estadoActual); }
+                if (mostrarLog) { Debug.LogWarning("[ChorroTargetController]: Estado desconocido."); }
                 break;
         }
     }
@@ -205,7 +211,7 @@ public class ChorroTargetController : MonoBehaviour
         estado1 = false;
 
         if (!test) { StartCoroutine(CambiarEstados()); }
-        if (mostrarLog) { Debug.Log("Estado 0 iniciado: Sin Corutinas"); }
+        if (mostrarLog) { Debug.Log("[ChorroTargetController]: Estado 0 iniciado: Sin Corutinas"); }
     }
 
     public void StartEstado1()
@@ -215,35 +221,34 @@ public class ChorroTargetController : MonoBehaviour
         StopAllCoroutinesForState();
         moverCorrutina = StartCoroutine(MoverAleatoriamente());
         disparoCorrutina = StartCoroutine(Disparo1());
-        if (mostrarLog) { Debug.Log("Estado 1 iniciado: Movimiento aleatorio y disparo."); }
+
+        if (mostrarLog) { Debug.Log("[ChorroTargetController]: Estado 1 iniciado: Movimiento aleatorio y disparo."); }
     }
 
     public void StartEstado2()
-    {        
+    {
         estado1 = false;
         superficieController.IniciarCicloEnjuague();
         StopAllCoroutinesForState();
         seguirPlayerCorrutina = StartCoroutine(SeguirPlayer());
         disparoCorrutina = StartCoroutine(Disparo2());
-        if (mostrarLog) { Debug.Log("Estado 2 iniciado: Seguir al jugador y disparo."); }
+
+        if (mostrarLog) { Debug.Log("[ChorroTargetController]: Estado 2 iniciado: Seguir al jugador y disparo."); }
     }
 
     public void StartEstado3()
-    {        
+    {
         estado1 = false;
-        estaEstado3 = true; // Activar la lógica del estado 3
-        tiempoAturdimiento = 0f; // Reiniciar el tiempo transcurrido
+        estaEstado3 = true;
+        tiempoAturdimiento = 0f;
 
         Renderer valvulaRenderer = valvulaPrefab.GetComponentInChildren<Renderer>();
         if (valvulaRenderer != null)
         {
-            // Limpiar la lista de colores originales
             originalColors.Clear();
 
-            // Iterar por todos los materiales del objeto
             foreach (Material material in valvulaRenderer.materials)
             {
-                // Guardar el color original si el material tiene propiedades relevantes
                 if (material.HasProperty("_BaseColor"))
                 {
                     originalColors[material] = material.GetColor("_BaseColor");
@@ -254,21 +259,18 @@ public class ChorroTargetController : MonoBehaviour
                 }
             }
 
-            // Iniciar cambio de color
             colorChangeCoroutine = StartCoroutine(CambiarColorIntermitente(valvulaRenderer.materials));
         }
 
-        // Iniciar la corrutina de aturdimiento
         aturdimientoCorrutina = StartCoroutine(RotacionesValvula());
 
-        if (mostrarLog)
-        {
-            Debug.Log("Estado 3 iniciado: Aturdimiento.");
-        }
+        if (mostrarLog) { Debug.Log("[ChorroTargetController]: Estado 3 iniciado: Aturdimiento."); }
     }
+
+    // Aqui vamos
+
     private void StopAllCoroutinesForState()
     {
-
         Renderer valvulaRenderer = valvulaPrefab.GetComponentInChildren<Renderer>();
 
         foreach (Material material in valvulaRenderer.materials)
@@ -299,7 +301,7 @@ public class ChorroTargetController : MonoBehaviour
         seguirPlayerCorrutina = null;
         aturdimientoCorrutina = null;
 
-        if (mostrarLog) Debug.Log("Todas las corrutinas asociadas al estado actual han sido detenidas.");
+        if (mostrarLog) { Debug.Log("[ChorroTargetController]: Todas las corrutinas asociadas al estado actual han sido detenidas."); }
     }
 
     private IEnumerator MoverAleatoriamente()
@@ -333,13 +335,13 @@ public class ChorroTargetController : MonoBehaviour
 
             abrirChorro = true;
             seguirTarget.CrearChorro();
-            if (mostrarLog) { Debug.Log("Estado 1: Disparando..."); }
+            if (mostrarLog) { Debug.Log("[ChorroTargetController]: Estado 1 - Disparando."); }
 
             yield return new WaitForSeconds(tiempoDisparoQuietoEstado1);
 
             abrirChorro = false;
             seguirTarget.DestruirChorro();
-            if (mostrarLog) { Debug.Log("Estado 1: Deteniendo disparo..."); }
+            if (mostrarLog) { Debug.Log("[ChorroTargetController]: Estado 1 - Deteniendo disparo."); }
         }
     }
 
@@ -360,7 +362,7 @@ public class ChorroTargetController : MonoBehaviour
                 yield return null;
             }
 
-            if (mostrarLog) { Debug.Log("Estado 2: Quieto después de seguir al jugador."); }
+            if (mostrarLog) { Debug.Log("[ChorroTargetController]: Estado 2 - Quieto después de seguir al jugador."); }
             yield return new WaitForSeconds(idleAfterFollowDuration);
         }
     }
@@ -373,13 +375,13 @@ public class ChorroTargetController : MonoBehaviour
 
             abrirChorro = true;
             seguirTarget.CrearChorro();
-            if (mostrarLog) { Debug.Log("Estado 2: Disparando..."); }
+            if (mostrarLog) { Debug.Log("[ChorroTargetController]: Estado 2 - Disparando."); }
 
             yield return new WaitForSeconds(tiempoDisparoQuieto);
 
             abrirChorro = false;
             seguirTarget.DestruirChorro();
-            if (mostrarLog) { Debug.Log("Estado 2: Deteniendo disparo..."); }
+            if (mostrarLog) { Debug.Log("[ChorroTargetController]: Estado 2 - Deteniendo disparo."); }
         }
     }
 
@@ -388,14 +390,6 @@ public class ChorroTargetController : MonoBehaviour
         while (true)
         {
             Transform currentTarget = GetRandomTargetStun();
-
-            /* Comprobacion - 
-            if (currentTarget == null)
-            {
-                Debug.LogWarning("No se encontró un objetivo válido en objetivosChorro.");
-                yield break; 
-            }
-            */
 
             Vector3 posicionDestino = currentTarget.position;
 
@@ -412,13 +406,15 @@ public class ChorroTargetController : MonoBehaviour
 
             if (mostrarLog)
             {
-                Debug.Log($"Movimiento completado hacia {currentTarget.name}.");
+                Debug.Log($"[ChorroTargetController]: Movimiento completado hacia {currentTarget.name}.");
             }
 
             yield return new WaitForSeconds(0.00002f); // Pausa entre frames. "Fluidez"
         }
     }
 
+
+    // Aqui vamos
     private IEnumerator CambiarColorIntermitente(Material[] materials)
     {
         float elapsedTime = 0f;
@@ -467,7 +463,6 @@ public class ChorroTargetController : MonoBehaviour
         }
     }
 
-
     private Transform GetRandomTarget()
     {
         if (objetivosChorro.Count == 0) return null;
@@ -482,27 +477,30 @@ public class ChorroTargetController : MonoBehaviour
 
     public void EmpezarEstado0()
     {
+        if (mostrarLog) { Debug.Log("[ChorroTargetController]: Iniciando Estado 0."); }
         CambiarEstado(Estado.SinEstado);
     }
 
     public void EmpezarEstado1()
     {
+        if (mostrarLog) { Debug.Log("[ChorroTargetController]: Iniciando Estado 1."); }
         CambiarEstado(Estado.Estado1);
     }
 
     public void EmpezarEstado2()
     {
+        if (mostrarLog) { Debug.Log("[ChorroTargetController]: Iniciando Estado 2."); }
         CambiarEstado(Estado.Estado2);
     }
 
     public void EmpezarEstado3() // Aturdimiento
     {
-        Debug.Log("ESTADO3");
+        if (mostrarLog) { Debug.Log("[ChorroTargetController]: Iniciando Estado 3 - Aturdimiento."); }
         CambiarEstado(Estado.Estado3);
     }
 
     private IEnumerator CambiarEstados()
-    {        
+    {
         if (test)
         {
             yield break;
@@ -532,6 +530,4 @@ public class ChorroTargetController : MonoBehaviour
             yield return null;
         }
     }
-
-
 }

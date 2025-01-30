@@ -43,9 +43,6 @@ public class ControladorGolpeValvula : MonoBehaviour
                 if (mostrarLog) { Debug.Log($"[ControladorGolpeValvula]: cambio de fase {fase3}"); }
             }
         }
-
-
-
     }
 
     public void ActivarPuntero()

@@ -5032,6 +5032,64 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &597376673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 597376674}
+  - component: {fileID: 597376675}
+  m_Layer: 0
+  m_Name: DebugManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &597376674
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597376673}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 640405370}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &597376675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597376673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cce1e92bcac41d4a9b9c99921bcc236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colisionEscudo: 0
+  deteccionAguaPies: 0
+  deteccionAguaPlayer: 0
+  moverJugadorPorTambor: 0
+  velocidadCaminarAgua: 0
+  chorroTargetController: 0
+  instanciaNewChorro: 0
+  controlGolpeValvula: 0
+  instanciaChorroEscudo: 0
+  seguirTarget: 0
+  accionesMateriales: 0
+  caminarDeteccionMaterial: 0
+  moverObjetosTambor: 0
+  flotacionObjetos: 0
 --- !u!1 &605269353
 GameObject:
   m_ObjectHideFlags: 0
@@ -5439,6 +5497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbfd1aaeb73adea468d9ec6eb70dcdc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mostrarLog: 0
   playerMovement: {fileID: 0}
   deteccionAguaPies: {fileID: 1262727810}
   velocidadAgua: 3
@@ -5609,7 +5668,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 597376674}
   m_Father: {fileID: 927284713}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &640405371
@@ -11430,6 +11490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13540d10f8689a04b9d7537e89468840, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mostrarDebug: 0
   material: {fileID: 0}
   eventoSalto:
     Guid:
@@ -11773,7 +11834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mostrarLog: 0
-  test: 0
+  test: 1
   estadoSeleccionado: 0
   abrirChorro: 0
   superficieController: {fileID: 0}
@@ -19888,7 +19949,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2147305373}
   - component: {fileID: 2147305372}
-  - component: {fileID: 2147305374}
   - component: {fileID: 2147305376}
   - component: {fileID: 2147305375}
   m_Layer: 11
@@ -19910,12 +19970,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e8fa0ee2e22250419545f51000fb777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mostrarLog: 0
   target: {fileID: 115055719}
   salidaChorro: {fileID: 85740629}
   objectoPrefab: {fileID: 1281019165633363552, guid: 1ea64b74ad5950849985359cbb89db67, type: 3}
+  chorro: {fileID: 0}
   botonAbrir: 257
   botonCerrar: 258
-  chorro: {fileID: 0}
 --- !u!4 &2147305373
 Transform:
   m_ObjectHideFlags: 0
@@ -19934,18 +19995,6 @@ Transform:
   - {fileID: 1662895253}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2147305374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2147305371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74efe6fcad1f02a4c934d811a02080bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2147305375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20729,7 +20778,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2593023799023124786, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: field of view
-      value: 60.000004
+      value: 44.25
       objectReference: {fileID: 0}
     - target: {fileID: 4212152140026027835, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: m_Follow
@@ -20757,15 +20806,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7553006285069151591, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.9033923
+      value: 6.2502303
       objectReference: {fileID: 0}
     - target: {fileID: 7553006285069151591, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.1239915
+      value: 1.5539913
       objectReference: {fileID: 0}
     - target: {fileID: 7553006285069151591, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.759296
+      value: 5.9853067
       objectReference: {fileID: 0}
     - target: {fileID: 7553006285069151591, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -23104,7 +23153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 815f8e9d9c002bd4baf400fbf9c5e1fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mostrarDebug: 1
+  mostrarDebug: 0
   tambor: {fileID: 966597290}
   inicioRay: {x: 0, y: 0, z: 0}
   offsetY: 0.5
@@ -23530,6 +23579,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fe0997cc57c21f42946b4a2644e86e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mostrarDebug: 0
+  gizmosDebug: 0
   raycastDistance: 0.1
   raycastLayerMask:
     serializedVersion: 2

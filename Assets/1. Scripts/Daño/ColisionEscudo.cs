@@ -5,7 +5,7 @@ public class ColisionEscudo : MonoBehaviour
     #region Variables
 
     [Header("depuracion")]
-    public bool mostrarLog = true;
+    public bool mostrarLog = false;
 
     [Header("Configuracion")]
     private bool dano = false;

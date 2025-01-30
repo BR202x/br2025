@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// EDITADO: 29/01/2025
 public class MoverJugadorPorTambor : MonoBehaviour
 {
     [Header("depuracion")]
+    [Tooltip("Activa o desactiva los mensajes de depuracion en este script")]
     public bool mostrarDebug;
 
     #region Variables
@@ -11,18 +13,27 @@ public class MoverJugadorPorTambor : MonoBehaviour
     private Rigidbody rigidJugador;
 
     [Header("Referencias")]
+    [Tooltip("Transform del tambor que afecta al jugador")]
     public Transform tambor;
+    [Tooltip("Punto inicial del Raycast en el eje Y")]
     public Vector3 inicioRay;
+    [Tooltip("Desplazamiento en Y para el inicio del Raycast")]
     public float offsetY;
+    [Tooltip("Referencia al script que detecta la rotacion del tambor")]
     public DetectarRotacionTambor detectarRotacionTambor;
 
     [Header("Configuracion de Fuerzas")]
+    [Tooltip("Fuerza tangencial aplicada al jugador")]
     public float fuerzaTangencial = 1f;
+    [Tooltip("Modo de aplicacion de la fuerza")]
     public ForceMode modoFuerza = ForceMode.Acceleration;
 
     [Header("Configuracion del Raycast")]
+    [Tooltip("Distancia del Raycast para detectar superficies")]
     public float distanciaRaycast = 1f;
+    [Tooltip("Capas que representan las superficies validas")]
     public LayerMask layerSuperficie;
+    [Tooltip("Capas que representan los objetos flotantes")]
     public LayerMask layerObjeto;
 
     private List<FlotacionObjetos> listaObjetosFlotantes;
@@ -37,7 +48,11 @@ public class MoverJugadorPorTambor : MonoBehaviour
             Object.FindObjectsByType<FlotacionObjetos>(FindObjectsSortMode.None)
         );
 
-        if (mostrarDebug) { Debug.Log($"Se han registrado {listaObjetosFlotantes.Count} objetos flotantes."); }
+        if (mostrarDebug)
+        {
+            Debug.Log($"[MoverJugadorPorTambor]: Componente del objeto {gameObject.name}");
+            Debug.Log($"[MoverJugadorPorTambor]: Se han registrado {listaObjetosFlotantes.Count} objetos flotantes.");
+        }
     }
 
     private void Update()
@@ -52,8 +67,6 @@ public class MoverJugadorPorTambor : MonoBehaviour
             objeto.jugadorParado = false;
         }
 
-        #region Logica Hundir Objetos
-
         if (Physics.Raycast(ray, out hit, distanciaRaycast, layerObjeto))
         {
             FlotacionObjetos objetoFlotante = hit.collider.GetComponent<FlotacionObjetos>();
@@ -61,7 +74,7 @@ public class MoverJugadorPorTambor : MonoBehaviour
             if (objetoFlotante != null)
             {
                 objetoFlotante.jugadorParado = true;
-                if (mostrarDebug) { Debug.Log($"Jugador parado sobre: {hit.collider.name}"); }
+                if (mostrarDebug) { Debug.Log($"[MoverJugadorPorTambor]: Jugador parado sobre: {hit.collider.name}"); }
             }
         }
 
@@ -69,8 +82,6 @@ public class MoverJugadorPorTambor : MonoBehaviour
         {
             Debug.DrawRay(inicioRay, Vector3.down * distanciaRaycast, Color.green);
         }
-
-        #endregion
     }
 
     private void FixedUpdate()
@@ -80,16 +91,16 @@ public class MoverJugadorPorTambor : MonoBehaviour
             if (detectarRotacionTambor.girandoSentidoHorario)
             {
                 AplicarFuerzaTangencial(true);
-                if (mostrarDebug) { Debug.Log("Tambor girando en sentido horario."); }
+                if (mostrarDebug) { Debug.Log("[MoverJugadorPorTambor]: Tambor girando en sentido horario."); }
             }
             else if (detectarRotacionTambor.girandoSentidoContrario)
             {
                 AplicarFuerzaTangencial(false);
-                if (mostrarDebug) { Debug.Log("Tambor girando en sentido antihorario."); }
+                if (mostrarDebug) { Debug.Log("[MoverJugadorPorTambor]: Tambor girando en sentido antihorario."); }
             }
             else
             {
-                if (mostrarDebug) { Debug.Log("Tambor está quieto. No se aplica fuerza."); }
+                if (mostrarDebug) { Debug.Log("[MoverJugadorPorTambor]: Tambor está quieto. No se aplica fuerza."); }
             }
         }
     }
@@ -101,7 +112,7 @@ public class MoverJugadorPorTambor : MonoBehaviour
 
         if (mostrarDebug)
         {
-           //  Debug.DrawRay(transform.position, Vector3.down * distanciaRaycast, resultado ? Color.green : Color.red);
+            Debug.DrawRay(transform.position, Vector3.down * distanciaRaycast, resultado ? Color.green : Color.red);
         }
 
         return resultado;
@@ -120,9 +131,7 @@ public class MoverJugadorPorTambor : MonoBehaviour
         Vector3 fuerzaTangencialAplicada = direccionTangencial * fuerzaTangencial * Mathf.Abs(detectarRotacionTambor.velocidadRotacionTambor);
 
         rigidJugador.AddForce(fuerzaTangencialAplicada, modoFuerza);
-                
 
-        if (mostrarDebug) { Debug.Log($"Fuerza tangencial aplicada: {fuerzaTangencialAplicada} (Modo: {modoFuerza})"); }
+        if (mostrarDebug) { Debug.Log($"[MoverJugadorPorTambor]: Fuerza tangencial aplicada: {fuerzaTangencialAplicada} (Modo: {modoFuerza})"); }
     }
-
 }

@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
-// ULTIMO CAMBIO : Esta Final no cambiaba. Condicion al llegar al inicio.
+
 public class FlotacionObjetos : MonoBehaviour
 {
-    [Header("Depuración")]
+    [Header("Depuracion")]
     public bool mostrarDebug;
 
     #region Variables
@@ -61,14 +61,7 @@ public class FlotacionObjetos : MonoBehaviour
         posicionAgua = Mathf.Abs(posInicial.position.y - objetoAgua.position.y);
         remplazoLlenado = llenadoManager.llenandoTambor;
 
-        if (dentroDelAgua && !estaEnInicial)
-        {
-            estadoMaterial = 1; //ropaMojada
-        }
-        else 
-        {
-            estadoMaterial = 0; //ropa
-        }
+        estadoMaterial = (dentroDelAgua && !estaEnInicial) ? 1 : 0;
 
         if (jugadorParado && estaEnFinal && !isOnTop)
         {
@@ -81,7 +74,7 @@ public class FlotacionObjetos : MonoBehaviour
             isOnTop = false;
         }
 
-        if (estaEnFinal && contadorHundimiento > 0f && tiempoHundirse >= 3 && !jugadorParado)
+        if (estaEnFinal && contadorHundimiento > 0f && tiempoHundirse >= tiempoEsperaHundirse && !jugadorParado)
         {
             contadorHundimiento -= Time.deltaTime;
 
@@ -90,7 +83,7 @@ public class FlotacionObjetos : MonoBehaviour
                 contadorHundimiento = 0f;
                 tiempoHundirse = 0f;
 
-                if (mostrarDebug) Debug.Log("Contador completado, tiempoHundirse reiniciado.");
+                if (mostrarDebug) { Debug.Log("[FlotacionObjetos]: Contador completado, tiempoHundirse reiniciado."); }
             }
         }
 
@@ -112,7 +105,7 @@ public class FlotacionObjetos : MonoBehaviour
                 moviendoHaciaArriba = true;
                 estaEnInicial = false;
 
-                if (mostrarDebug) Debug.Log("Tiempo cumplido, iniciando movimiento para seguir al agua.");
+                if (mostrarDebug) { Debug.Log("[FlotacionObjetos]: Tiempo cumplido, iniciando movimiento para seguir al agua."); }
             }
         }
         else if (!remplazoLlenado && dentroDelAgua && !estaEnInicial)
@@ -165,6 +158,8 @@ public class FlotacionObjetos : MonoBehaviour
         }
     }
 
+
+    // Hasta Aqui.
     private void MoverSeguirAgua()
     {
         Vector3 posicionActual = transform.position;
@@ -174,7 +169,7 @@ public class FlotacionObjetos : MonoBehaviour
 
         if (Mathf.Abs(transform.position.y - objetoAgua.position.y) < 0.15f)
         {
-            if (mostrarDebug) Debug.Log("Objeto está alineado con la posición del agua.");
+            if (mostrarDebug) { Debug.Log("[FlotacionObjetos]: Objeto alineado con la posición del agua."); }
             estaEnFinal = true;
 
             if (contadorHundimiento == 0f)
@@ -201,7 +196,7 @@ public class FlotacionObjetos : MonoBehaviour
             tiempoHundirse = 0;
             estaEnFinal = false;
 
-            if (mostrarDebug) Debug.Log("Objeto volvió a la posición inicial.");
+            if (mostrarDebug) { Debug.Log("[FlotacionObjetos]: Objeto volvió a la posición inicial."); }
         }
     }
 
@@ -221,17 +216,20 @@ public class FlotacionObjetos : MonoBehaviour
             remplazoLlenado = false;
             estaEnFinal = false;
 
-            if (mostrarDebug) Debug.Log("Objeto volvió a la posición inicial.");
+            if (mostrarDebug) { Debug.Log("[FlotacionObjetos]: Objeto volvió a la posición inicial."); }
         }
     }
+
+    // Hasta Aqui
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Agua") && !dentroDelAgua)
         {
             tiempoEnAgua = 0f;
-            if (mostrarDebug) Debug.Log("Entrando en el agua, iniciando temporizador.");
             dentroDelAgua = true;
+
+            if (mostrarDebug) { Debug.Log("[FlotacionObjetos]: Entrando en el agua, iniciando temporizador."); }
         }
     }
 
@@ -240,7 +238,8 @@ public class FlotacionObjetos : MonoBehaviour
         if (other.CompareTag("Agua"))
         {
             dentroDelAgua = true;
-            if (mostrarDebug) Debug.Log("Dentro del agua, verificando tiempo.");
+
+            if (mostrarDebug) { Debug.Log("[FlotacionObjetos]: Dentro del agua, verificando tiempo."); }
         }
     }
 
