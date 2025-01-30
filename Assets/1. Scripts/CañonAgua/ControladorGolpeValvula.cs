@@ -4,7 +4,7 @@ using UnityEngine;
 public class ControladorGolpeValvula : MonoBehaviour
 {
     [Header("Depuracion")]
-    public bool mostrarLog = true;
+    public bool mostrarLog = false;
 
     #region Variables
 

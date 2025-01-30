@@ -20,6 +20,7 @@ public class MostrarDebugController : MonoBehaviour
     private InstanciaChorroEscudo iChorroEscudo;
     private SeguirTarget sTarget;
     private VelocidadCaminarAgua vCaminarAgua;
+    private AudioImp audioImp;
 
     [Header("Ver Mensajes de Depuracion - Lista Scripts")]
     [Space]
@@ -52,6 +53,8 @@ public class MostrarDebugController : MonoBehaviour
     public bool accionesMateriales = false;
     [Tooltip("CaminarDeteccionMateriales: Detecta los materiales segun un Raycast")]
     public bool caminarDeteccionMaterial = false;
+    [Tooltip("AudioImp: Implementacion de Audio Custom")]
+    public bool audioImplementacion = false;
     [Space]
     [Header("Escenario")]
     [Tooltip("MoverObjetosPorTambor: Aplica fuerza centrifuga y centripeta a los objetos por la rotacion")]
@@ -77,23 +80,25 @@ public class MostrarDebugController : MonoBehaviour
         iChorroEscudo = Object.FindFirstObjectByType<InstanciaChorroEscudo>();
         sTarget = Object.FindFirstObjectByType<SeguirTarget>();
         vCaminarAgua = Object.FindFirstObjectByType<VelocidadCaminarAgua>();
+        audioImp = Object.FindFirstObjectByType <AudioImp>();
     }
 
     private void Update()
     {
-        accionesMateriales = aMateriales ? aMateriales.mostrarDebug : false;
-        caminarDeteccionMaterial = cDeteccionMaterial ? cDeteccionMaterial.mostrarDebug : false;
-        colisionEscudo = cEscudo ? cEscudo.mostrarLog : false;
-        deteccionAguaPies = dAguaPies ? dAguaPies.mostrarDebug : false;
-        deteccionAguaPlayer = dAguaPlayer ? dAguaPlayer.mostrarDebug : false;
-        instanciaNewChorro = iNewChorro ? iNewChorro.mostrarLog : false;
-        moverJugadorPorTambor = mJugadorTambor ? mJugadorTambor.mostrarDebug : false;
-        moverObjetosTambor = mObjetosTambor ? mObjetosTambor.mostrarDebug : false;
-        chorroTargetController = cTargetController ? cTargetController.mostrarLog : false;
-        controlGolpeValvula = golpeValvula ? golpeValvula.mostrarLog : false;
-        flotacionObjetos = flotObjetos ? flotObjetos.mostrarDebug : false;
-        instanciaChorroEscudo = iChorroEscudo ? iChorroEscudo.mostrarLog : false;
-        seguirTarget = sTarget ? sTarget.mostrarLog : false;
-        velocidadCaminarAgua = vCaminarAgua ? vCaminarAgua.mostrarLog : false;
+        if (cEscudo) cEscudo.mostrarLog = colisionEscudo;
+        if (dAguaPies) dAguaPies.mostrarDebug = deteccionAguaPies;
+        if (dAguaPlayer) dAguaPlayer.mostrarDebug = deteccionAguaPlayer;
+        if (mJugadorTambor) mJugadorTambor.mostrarDebug = moverJugadorPorTambor;
+        if (vCaminarAgua) vCaminarAgua.mostrarLog = velocidadCaminarAgua;
+        if (cTargetController) cTargetController.mostrarLog = chorroTargetController;
+        if (iNewChorro) iNewChorro.mostrarLog = instanciaNewChorro;
+        if (golpeValvula) golpeValvula.mostrarLog = controlGolpeValvula;
+        if (iChorroEscudo) iChorroEscudo.mostrarLog = instanciaChorroEscudo;
+        if (sTarget) sTarget.mostrarLog = seguirTarget;
+        if (aMateriales) aMateriales.mostrarDebug = accionesMateriales;
+        if (cDeteccionMaterial) cDeteccionMaterial.mostrarDebug = caminarDeteccionMaterial;
+        if (mObjetosTambor) mObjetosTambor.mostrarDebug = moverObjetosTambor;
+        if (flotObjetos) flotObjetos.mostrarDebug = flotacionObjetos;
+        if (audioImp) audioImp.mostrarLog = audioImplementacion;
     }
 }

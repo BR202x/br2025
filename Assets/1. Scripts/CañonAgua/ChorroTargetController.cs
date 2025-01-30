@@ -7,7 +7,7 @@ public class ChorroTargetController : MonoBehaviour
 {
     [Header("depuracion")]
     [Tooltip("Activa o desactiva los mensajes de depuracion en este script")]
-    public bool mostrarLog = false;
+    public bool mostrarLog;
     [Tooltip("Variable de prueba para activar estados manualmente")]
     public bool test = true;
 

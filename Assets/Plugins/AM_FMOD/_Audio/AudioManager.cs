@@ -6,8 +6,8 @@ using System.Collections.Generic;
 public class AudioManager : MonoBehaviour
 {
     [Header("Depuración")]
-    public bool mostrarLogMusic;
-    public bool mostrarLogSFX;
+    public bool mostrarLogMusic = false;
+    public bool mostrarLogSFX = false;
 
     [Header("Ubicación de Reproducción por defecto")]
     [Tooltip("Si en las instancias no se especifica la ubicacion de reproducccion, sera sobre este Transform")]

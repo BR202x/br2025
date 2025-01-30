@@ -23,7 +23,7 @@ public class AudioImp : MonoBehaviour
     public List<Evento> Ambiente = new List<Evento>();
 
     public static List<string> TiposEvento = new List<string> { "Música", "SFX", "Ambiente" };
-    private bool mostrarLog = false;
+    public bool mostrarLog = false;
 
     private void Awake()
     {        

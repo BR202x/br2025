@@ -280,6 +280,7 @@ public class InstanciaNewChorro : MonoBehaviour
             lineRenderer.SetPosition(1, transform.position);
             currentDistance = 0f;
 
+            AudioImp.Instance.Reproducir("ChorroStop");
             Destroy(gameObject);
         }
     }

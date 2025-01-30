@@ -5088,6 +5088,7 @@ MonoBehaviour:
   seguirTarget: 0
   accionesMateriales: 0
   caminarDeteccionMaterial: 0
+  audioImplementacion: 0
   moverObjetosTambor: 0
   flotacionObjetos: 0
 --- !u!1 &605269353
@@ -14721,6 +14722,7 @@ MonoBehaviour:
     gameobject: {fileID: 0}
     start: 1
     Tipo: Ambiente
+  mostrarLog: 0
 --- !u!1 &1673907368
 GameObject:
   m_ObjectHideFlags: 0
@@ -16170,12 +16172,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: VolumenManager, Assembly-CSharp
-        m_MethodName: CambiarVolumenMaster
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -20778,7 +20780,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2593023799023124786, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: field of view
-      value: 44.25
+      value: 60.000004
       objectReference: {fileID: 0}
     - target: {fileID: 4212152140026027835, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: m_Follow
@@ -20806,15 +20808,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7553006285069151591, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.2502303
+      value: 5.9033923
       objectReference: {fileID: 0}
     - target: {fileID: 7553006285069151591, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.5539913
+      value: 1.1239915
       objectReference: {fileID: 0}
     - target: {fileID: 7553006285069151591, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.9853067
+      value: 4.759296
       objectReference: {fileID: 0}
     - target: {fileID: 7553006285069151591, guid: 33267c32db4c03545acbd4480cf3a8e1, type: 3}
       propertyPath: m_LocalRotation.w

@@ -77,8 +77,7 @@ public class SeguirTarget : MonoBehaviour
         if (mostrarLog) { Debug.Log("[SeguirTarget]: Intentando destruir chorro."); }
 
         if (chorro != null)
-        {
-            AudioImp.Instance.Reproducir("ChorroStop");
+        {            
             chorro.CerrarChorro();
 
             if (mostrarLog) { Debug.Log("[SeguirTarget]: Chorro destruido."); }

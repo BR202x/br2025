@@ -122,7 +122,7 @@ public class FMODEvents : MonoBehaviour
     }
     public void EventTimeline(string eventReference, Transform transform, bool start, bool fade = true)
     {
-        AudioManager.instance.HandleEvent(GetEventReference(eventReference), transform, start, fade);
+        AudioManager.instance.HandleEvent(GetEventReference(eventReference), transform, start, true);
     }
     public void EventEmitter(string eventReference, GameObject emiter)
     {
