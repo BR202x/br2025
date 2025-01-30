@@ -101,9 +101,6 @@
 		<property name="length">
 			<value>14.841451247165534</value>
 		</property>
-		<relationship name="fadeInCurve">
-			<destination>{08f95fd0-b150-4d03-9631-331f54020037}</destination>
-		</relationship>
 		<relationship name="audioFile">
 			<destination>{be0d27f0-6a13-4043-aea1-0dfbb4b6c658}</destination>
 		</relationship>
@@ -146,6 +143,12 @@
 		<property name="initialValue">
 			<value>-80</value>
 		</property>
+		<property name="holdTime">
+			<value>0</value>
+		</property>
+		<property name="decayTime">
+			<value>0</value>
+		</property>
 		<property name="releaseTime">
 			<value>1200</value>
 		</property>
@@ -161,14 +164,6 @@
 	</object>
 	<object class="MixerBusPanner" id="{cc8e2d13-443c-4ceb-a157-15b6aada57df}" />
 	<object class="MixerBusFader" id="{74ab490a-f7c1-4b94-bfcb-086ad6504379}" />
-	<object class="FadeCurve" id="{08f95fd0-b150-4d03-9631-331f54020037}">
-		<relationship name="startPoint">
-			<destination>{db314ab5-0182-4e2c-858b-cc653c3c58ea}</destination>
-		</relationship>
-		<relationship name="endPoint">
-			<destination>{e6688c89-4949-43cb-81ca-b43f8b6352d1}</destination>
-		</relationship>
-	</object>
 	<object class="MixerBusEffectChain" id="{f622e642-8821-40c1-a47d-16b35824fa3f}">
 		<relationship name="effects">
 			<destination>{8c1447ae-db15-4fc6-a096-d99bc5e09000}</destination>
@@ -182,25 +177,6 @@
 		</property>
 		<property name="overrideRange">
 			<value>true</value>
-		</property>
-	</object>
-	<object class="AutomationPoint" id="{db314ab5-0182-4e2c-858b-cc653c3c58ea}">
-		<property name="position">
-			<value>0</value>
-		</property>
-		<property name="value">
-			<value>0</value>
-		</property>
-		<property name="curveShape">
-			<value>-0.2547189</value>
-		</property>
-	</object>
-	<object class="AutomationPoint" id="{e6688c89-4949-43cb-81ca-b43f8b6352d1}">
-		<property name="position">
-			<value>1</value>
-		</property>
-		<property name="value">
-			<value>1</value>
 		</property>
 	</object>
 	<object class="MixerBusFader" id="{8c1447ae-db15-4fc6-a096-d99bc5e09000}" />

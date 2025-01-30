@@ -1,8 +1,12 @@
+using DG.Tweening.Plugins.Options;
 using UnityEngine;
 public class TestAudio : MonoBehaviour
-{   
+{
+    public string nombreReproduccion;
+
     private void Start()
-    {        
+    {
+        ReproducirEvento(nombreReproduccion);
     }
 
     void Update()
@@ -35,6 +39,10 @@ public class TestAudio : MonoBehaviour
         {
             
         }
+    }
 
+    public void ReproducirEvento(string nombreReproduccion)
+    {
+        AudioImp.Instance.Reproducir(nombreReproduccion);
     }
 }

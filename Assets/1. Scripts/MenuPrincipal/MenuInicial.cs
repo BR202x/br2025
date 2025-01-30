@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuInicial : MonoBehaviour
 {
@@ -24,9 +25,10 @@ public class MenuInicial : MonoBehaviour
 
     }
 
-    public void Jugar()
+    public void Jugar(string nombreEscena)
     {
-        MostrarLog("Entrando al juego...");     
+        SceneManager.LoadScene(nombreEscena);
+        MostrarLog("Entrando al juego...");
     }
 
 
