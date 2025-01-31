@@ -179,11 +179,38 @@ MonoBehaviour:
   Path: Assets/wm/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638739339460755195
+  lastModified: 638739446651538905
   FileSizes:
   - Name: Desktop
-    Value: 1782
+    Value: 1932
   Exists: 1
+--- !u!114 &-3366917133777511609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Boss_Fist_Movement
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Boss_Fist_Movement
+  Guid:
+    Data1: -2104729521
+    Data2: 1296575539
+    Data3: 1571112098
+    Data4: -687364631
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-1583811128345819128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,6 +294,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-516952128144125256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Boss_Fist_Attack
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Boss_Fist_Attack
+  Guid:
+    Data1: 1882700500
+    Data2: 1328309184
+    Data3: -1108204372
+    Data4: 473355584
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,13 +356,43 @@ MonoBehaviour:
   - {fileID: 1582003406574015514}
   - {fileID: 2061283768874123639}
   - {fileID: -8256688586628414965}
+  - {fileID: -3366917133777511609}
+  - {fileID: 955349403578945747}
+  - {fileID: -516952128144125256}
   EditorParameters: []
   MasterBanks:
   - {fileID: 5213428122516410032}
   StringsBanks:
   - {fileID: -3367407833877153125}
-  cacheTime: 638739339460755195
+  cacheTime: 638739446651538905
   cacheVersion: 131621
+--- !u!114 &955349403578945747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Boss_Attack_Bubble
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Boss_Attack_Bubble
+  Guid:
+    Data1: 1382742161
+    Data2: 1210065257
+    Data3: -1508047730
+    Data4: -52106382
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &1582003406574015514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,10 +680,10 @@ MonoBehaviour:
   Path: Assets/wm/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638739339460686806
+  lastModified: 638739446651485539
   FileSizes:
   - Name: Desktop
-    Value: 2488704
+    Value: 2761792
   Exists: 1
 --- !u!114 &5650629332328644770
 MonoBehaviour:
