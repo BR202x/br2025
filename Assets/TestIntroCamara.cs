@@ -4,11 +4,12 @@ using UnityEngine;
 public class TestIntroCamara : MonoBehaviour
 {
     public CinemachineVirtualCamera virtualCamera;
+    public ChorroTargetController targetController;
     public GameObject follow;
     
     void Start()
     {
-        virtualCamera = GetComponent<CinemachineVirtualCamera>();
+
     }
     
     void Update()
@@ -24,5 +25,10 @@ public class TestIntroCamara : MonoBehaviour
     public void DesAsignarFollow()
     {
         virtualCamera.Follow = null;
+    }
+
+    public void ActivarSecuenciaChorro()
+    {
+        targetController.enabled = true;    
     }
 }

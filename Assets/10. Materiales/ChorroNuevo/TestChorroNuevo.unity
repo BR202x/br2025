@@ -516,12 +516,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e8fa0ee2e22250419545f51000fb777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mostrarLog: 0
   target: {fileID: 1831689456}
   salidaChorro: {fileID: 159384691}
   objectoPrefab: {fileID: 1281019165633363552, guid: 1ea64b74ad5950849985359cbb89db67, type: 3}
+  particula: {fileID: 2078431210}
+  chorro: {fileID: 0}
   botonAbrir: 257
   botonCerrar: 258
-  chorro: {fileID: 0}
 --- !u!1 &1745307489
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,6 +745,11 @@ Transform:
 --- !u!4 &2011201929 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6423368212133587200, guid: 9520723bd3b8b4b42a510504af3bbcde, type: 3}
+  m_PrefabInstance: {fileID: 388004151}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2078431210 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5252181753018763099, guid: 9520723bd3b8b4b42a510504af3bbcde, type: 3}
   m_PrefabInstance: {fileID: 388004151}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2242390484407652053

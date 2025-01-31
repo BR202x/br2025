@@ -11,6 +11,9 @@ public class ControladorGolpeValvula : MonoBehaviour
     [Header("Variables Valvula")]
     public int vida = 0;
     public int vidaActual;
+    public int vidaParaFase2 = 3;
+    public int vidaParaFase3 = 6;
+    public int vidaTotal = 10;
     public bool fase2 = false;
     public bool fase3 = false;
 
@@ -27,17 +30,17 @@ public class ControladorGolpeValvula : MonoBehaviour
 
     public void RecibirDano()
     {
-        if (vidaActual <= 4)
+        if (vidaActual <= vidaTotal)
         {
             vidaActual++;            
 
-            if (vidaActual == 2 && !fase2)
+            if (vidaActual == vidaParaFase2 && !fase2)
             {
                 fase2 = true;
                 if (mostrarLog) { Debug.Log($"[ControladorGolpeValvula]: cambio de fase {fase2}"); }
             }
 
-            if (vidaActual == 4 && fase2 && !fase3)
+            if (vidaActual == vidaParaFase3 && fase2 && !fase3)
             {
                 fase3 = true;
                 if (mostrarLog) { Debug.Log($"[ControladorGolpeValvula]: cambio de fase {fase3}"); }

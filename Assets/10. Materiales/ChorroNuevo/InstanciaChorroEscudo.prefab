@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f588b94c77867b1499057053012f729a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mostrarLog: 0
   extensionSpeed: 30
   maxDistance: 40
   collisionLayers:

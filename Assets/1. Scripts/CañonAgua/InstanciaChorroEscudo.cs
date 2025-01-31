@@ -82,26 +82,49 @@ public class InstanciaChorroEscudo : MonoBehaviour
         bool isObstructed = Physics.Raycast(rayOrigin, rayDirection, out hit, maxDistance, collisionLayers);
 
         Vector3 endPoint;
+        float step = extensionSpeed * Time.deltaTime;
 
         if (isObstructed)
         {
-            currentDistance = Vector3.Distance(transform.position, hit.point);
-            endPoint = hit.point;
-            lineRenderer.SetPosition(1, endPoint);
-            isHitting = true;
+            // Extender progresivamente hacia el punto de colisión
+            currentDistance = Mathf.MoveTowards(currentDistance, Vector3.Distance(transform.position, hit.point), step);
+            endPoint = transform.position + rayDirection * currentDistance;
+            int hitLayer = hit.collider.gameObject.layer;
+
+            if (currentDistance >= Vector3.Distance(transform.position, hit.point))
+            {
+                endPoint = hit.point;
+                isHitting = true;
+
+                if (mostrarLog) Debug.Log($"Chorro alcanzó el punto de colisión en: {endPoint}, Objeto: {hit.collider.name}");
+            }
+            else if (hitLayer == LayerMask.NameToLayer("Enemigo"))
+            {
+                Debug.Log("REBOTE ESCUDO CONTRA ENEMIGO");
+            }
+            else
+            {
+                isHitting = false;
+            }
         }
         else
         {
-            float step = extensionSpeed * Time.deltaTime;
+            // Si no hay colisión, extender hasta la distancia máxima
             currentDistance = Mathf.MoveTowards(currentDistance, maxDistance, step);
             endPoint = transform.position + rayDirection * currentDistance;
-            lineRenderer.SetPosition(1, endPoint);
             isHitting = false;
+
+            if (mostrarLog) Debug.Log("No hay colisión, extendiendo hacia el máximo.");
         }
 
+        // Actualizar posiciones del LineRenderer
         lineRenderer.SetPosition(0, transform.position);
+        lineRenderer.SetPosition(1, endPoint);
+
+        // Asegurar que el objeto asociado también siga el movimiento
         UpdateObjectTransform(endPoint);
     }
+
 
     private void UpdateObjectTransform(Vector3 endPoint)
     {

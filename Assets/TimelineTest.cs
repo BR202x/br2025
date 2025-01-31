@@ -1,0 +1,53 @@
+using Cinemachine;
+using UnityEngine;
+
+public class TimelineTest : MonoBehaviour
+{
+    [Tooltip("Reproducir Timeline")]
+    public bool test;
+
+    public GameObject timeLineObject;
+    public CinemachineVirtualCamera virtualCamera;
+    public ChorroTargetController targetController;
+    public GameObject follow;
+    public GameObject targetChorro;
+    public Transform targetPosTest;
+    public Transform targetPosTimeline;
+
+    void Start()
+    {
+        if (test)
+        {
+            timeLineObject.gameObject.SetActive(false);
+            targetController.test = true;
+            AsignarFollowCinemachine();
+            ActivarSecuenciaChorro();
+            targetChorro.transform.position = targetPosTest.position;
+        }
+
+        if (!test)
+        { 
+            targetChorro.transform.position= targetPosTimeline.position;        
+        }
+    }
+
+    void Update()
+    {
+
+    }
+
+    public void AsignarFollowCinemachine()
+    {
+        virtualCamera.Follow = follow.transform;
+    }
+
+    public void DesAsignarFollow()
+    {
+        virtualCamera.Follow = null;
+    }
+
+    public void ActivarSecuenciaChorro()
+    {
+        targetController.enabled = true;
+    }
+}

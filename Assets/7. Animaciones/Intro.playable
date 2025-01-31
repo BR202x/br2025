@@ -568,7 +568,7 @@ MonoBehaviour:
   - {fileID: 4235389646241521111}
   - {fileID: 3240211367171208329}
   - {fileID: -4475387550460847066}
-  m_FixedDuration: 28.45
+  m_FixedDuration: 28.583333333333332
   m_EditorSettings:
     m_Framerate: 60
     m_ScenePreview: 1
@@ -1237,6 +1237,13 @@ AnimationClip:
   m_Events:
   - time: 0.016666668
     functionName: DesAsignarFollow
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 8.45
+    functionName: ActivarSecuenciaChorro
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -2304,7 +2311,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 9.4
+  - time: 9.45
     functionName: AsignarFollowCinemachine
     data: 
     objectReferenceParameter: {fileID: 0}

@@ -35,6 +35,7 @@ public class ControladorApuntar : MonoBehaviour
     public GameObject escudoRebote;
 
     private Coroutine ocultarInfoCoroutine;
+    private ChorroTargetController chorroTargetController;
 
     #endregion
 
@@ -44,6 +45,8 @@ public class ControladorApuntar : MonoBehaviour
         {
             escudoRebote.SetActive(false);
         }
+
+        chorroTargetController = GameObject.Find("Chorro_Manager").GetComponent<ChorroTargetController>();
     }
 
 
@@ -87,7 +90,7 @@ public class ControladorApuntar : MonoBehaviour
                 }
             }
 
-            if (Physics.Raycast(ray, out hit, distanciaMaxima, capaValvulas))
+            if (Physics.Raycast(ray, out hit, distanciaMaxima, capaValvulas) && !chorroTargetController.estaAturdido && chorroTargetController.enabled)
             {
                 ControladorGolpeValvula valvula = hit.collider.GetComponent<ControladorGolpeValvula>();                
 

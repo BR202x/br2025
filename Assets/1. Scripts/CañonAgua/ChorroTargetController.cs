@@ -10,9 +10,11 @@ public class ChorroTargetController : MonoBehaviour
     public bool mostrarLog;
     [Tooltip("Variable de prueba para activar estados manualmente")]
     public bool test = true;
+    public bool iniciar = false;
 
     #region Variables
 
+    #region Estado Inicial
     [Header("Configuracion de Estados")]
     [Tooltip("Estado actual del chorro")]
     public Estado estadoSeleccionado;
@@ -20,13 +22,11 @@ public class ChorroTargetController : MonoBehaviour
     public bool abrirChorro = false;
     [Tooltip("Referencia al controlador de rotación de superficies")]
     public RotacionSuperficieController superficieController;
-
     [Header("Estado0: Sin Estados")]
     [Tooltip("Velocidad de retorno del chorro cuando no tiene estado activo")]
     public float velocidadRetorno;
     [Tooltip("Referencia al controlador de golpes de la válvula")]
     public ControladorGolpeValvula golpesValvula;
-
     [Header("Comportamiento por Defecto")]
     [Tooltip("Lista de objetivos a los que se moverá el chorro")]
     public List<Transform> objetivosChorro = new List<Transform>();
@@ -34,7 +34,9 @@ public class ChorroTargetController : MonoBehaviour
     public Transform targetChorro;
     [Tooltip("Velocidad de movimiento del chorro hacia los objetivos")]
     public float moveSpeed = 2f;
+    #endregion
 
+    #region VariablesEstado1
     [Header("Estado 1: Movimiento Aleatorio y Disparo")]
     [Tooltip("Tiempo entre disparos en el estado 1")]
     public float tiempoEntreDisparosEstado1 = 4f;
@@ -44,12 +46,13 @@ public class ChorroTargetController : MonoBehaviour
     public InstanciaNewChorro chorro;
     [Tooltip("Indica si el estado 1 está activo")]
     public bool estado1 = false;
-
     private float originalFollowDuration = 10f;
     private float originalIdleAfterFollowDuration = 6f;
     private float originalTiempoEntreDisparos = 6f;
     private float originalTiempoDisparoQuieto = 10f;
+    #endregion
 
+    #region VariablesEstado2
     [Header("Estado 2: Seguir al Jugador y Disparo")]
     [Tooltip("Escala de los tiempos para el estado 2")]
     [Range(0f, 3f)]
@@ -66,33 +69,30 @@ public class ChorroTargetController : MonoBehaviour
     public float tiempoEntreDisparos;
     [Tooltip("Tiempo de disparo continuo en el estado 2")]
     public float tiempoDisparoQuieto;
+    #endregion
 
-    private SeguirTarget seguirTarget;
-
-    private Coroutine moverCorrutina;
-    private Coroutine disparoCorrutina;
-    private Coroutine seguirPlayerCorrutina;
-
+    #region VariablesEstado3 
     [Header("Estado 3: Aturdimiento")]
-    [Tooltip("Referencia a la válvula que se aturde")]
-    public Transform valvulaPrefab;
-    [Tooltip("Duración total del aturdimiento")]
-    public float duracionAturdimiento = 5f;
-    [Tooltip("Tiempo acumulado en el estado de aturdimiento")]
-    public float tiempoAturdimiento = 0;
-    [Tooltip("Velocidad de movimiento durante el aturdimiento")]
+    
+    public Transform valvulaPrefab;    
+    public float duracionAturdimiento = 5f;    
+    public float tiempoAturdimiento = 0;    
     public float velocidadAturdimiento = 2f;
-    [Tooltip("Indica si el estado 3 está activo")]
+    public bool estaAturdido = false;
     public bool estaEstado3;
-    private Coroutine aturdimientoCorrutina;
-    [Tooltip("Lista de objetos afectados por el aturdimiento")]
+    
     public List<Transform> objetosAturdimiento = new List<Transform>();
+    #endregion 
 
-    private Color originalBaseColor;
-    private Dictionary<Material, Color> originalColors = new Dictionary<Material, Color>();
-    private Coroutine colorChangeCoroutine;
-
-    private Estado estadoActual = Estado.SinEstado;
+        private Dictionary<Material, Color> originalColors = new Dictionary<Material, Color>();
+        private Coroutine colorChangeCoroutine;
+        private Coroutine aturdimientoCorrutina;
+        private Coroutine moverCorrutina;
+        private Coroutine disparoCorrutina;
+        private Coroutine seguirPlayerCorrutina;
+        private Color originalBaseColor;
+        private Estado estadoActual = Estado.SinEstado;
+        private SeguirTarget seguirTarget;
 
     public enum Estado
     {
@@ -101,7 +101,6 @@ public class ChorroTargetController : MonoBehaviour
         Estado2,
         Estado3,
     }
-
     #endregion
 
     private void Start()
@@ -141,6 +140,7 @@ public class ChorroTargetController : MonoBehaviour
         if (estaEstado3)
         {
             tiempoAturdimiento += Time.deltaTime;
+
             if (tiempoAturdimiento >= duracionAturdimiento)
             {
                 estaEstado3 = false;
@@ -240,6 +240,7 @@ public class ChorroTargetController : MonoBehaviour
     {
         estado1 = false;
         estaEstado3 = true;
+        estaAturdido = true;
         tiempoAturdimiento = 0f;
 
         Renderer valvulaRenderer = valvulaPrefab.GetComponentInChildren<Renderer>();
@@ -335,6 +336,7 @@ public class ChorroTargetController : MonoBehaviour
 
             abrirChorro = true;
             seguirTarget.CrearChorro();
+            estaAturdido = false;
             if (mostrarLog) { Debug.Log("[ChorroTargetController]: Estado 1 - Disparando."); }
 
             yield return new WaitForSeconds(tiempoDisparoQuietoEstado1);
@@ -375,6 +377,7 @@ public class ChorroTargetController : MonoBehaviour
 
             abrirChorro = true;
             seguirTarget.CrearChorro();
+            estaAturdido = false;
             if (mostrarLog) { Debug.Log("[ChorroTargetController]: Estado 2 - Disparando."); }
 
             yield return new WaitForSeconds(tiempoDisparoQuieto);
@@ -404,17 +407,12 @@ public class ChorroTargetController : MonoBehaviour
                 yield return null;
             }
 
-            if (mostrarLog)
-            {
-                Debug.Log($"[ChorroTargetController]: Movimiento completado hacia {currentTarget.name}.");
-            }
+            if (mostrarLog) Debug.Log($"[ChorroTargetController]: Movimiento completado hacia {currentTarget.name}.");
 
             yield return new WaitForSeconds(0.00002f); // Pausa entre frames. "Fluidez"
         }
     }
 
-
-    // Aqui vamos
     private IEnumerator CambiarColorIntermitente(Material[] materials)
     {
         float elapsedTime = 0f;
@@ -495,8 +493,11 @@ public class ChorroTargetController : MonoBehaviour
 
     public void EmpezarEstado3() // Aturdimiento
     {
-        if (mostrarLog) { Debug.Log("[ChorroTargetController]: Iniciando Estado 3 - Aturdimiento."); }
-        CambiarEstado(Estado.Estado3);
+        if (!estaAturdido)
+        {
+            if (mostrarLog) { Debug.Log("[ChorroTargetController]: Iniciando Estado 3 - Aturdimiento."); }
+            CambiarEstado(Estado.Estado3);
+        }
     }
 
     private IEnumerator CambiarEstados()
@@ -510,7 +511,7 @@ public class ChorroTargetController : MonoBehaviour
 
         while (Vector3.Distance(targetChorro.position, Vector3.zero) > 0.01f)
         {
-            targetChorro.position = Vector3.Lerp(targetChorro.position, Vector3.zero, velocidadRetorno * Time.deltaTime);
+            targetChorro.position = Vector3.Lerp(targetChorro.position, Vector3.zero, velocidadRetorno * Time.deltaTime);            
             yield return null; // Espera al siguiente frame
         }
 

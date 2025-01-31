@@ -19,6 +19,7 @@ public class SeguirTarget : MonoBehaviour
     [Header("Configuracion del Chorro")]
     [Tooltip("Prefab del objeto a instanciar como chorro")]
     public GameObject objectoPrefab;
+    public GameObject particula;
     [Tooltip("Referencia al script del chorro")]
     public InstanciaNewChorro chorro;
 
@@ -62,6 +63,7 @@ public class SeguirTarget : MonoBehaviour
         if (refInstancia == null)
         {
             AudioImp.Instance.Reproducir("ChorroStart");
+            particula.gameObject.SetActive(true);
             refInstancia = Instantiate(objectoPrefab, salidaChorro.transform.position, Quaternion.identity);
 
             if (mostrarLog) { Debug.Log("[SeguirTarget]: Chorro creado exitosamente."); }
@@ -79,7 +81,7 @@ public class SeguirTarget : MonoBehaviour
         if (chorro != null)
         {            
             chorro.CerrarChorro();
-
+            particula.gameObject.SetActive(false);
             if (mostrarLog) { Debug.Log("[SeguirTarget]: Chorro destruido."); }
         }
         else

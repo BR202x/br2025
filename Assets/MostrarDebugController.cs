@@ -10,17 +10,18 @@ public class MostrarDebugController : MonoBehaviour
     private CaminarDeteccionMaterial cDeteccionMaterial;
     private ColisionEscudo cEscudo;
     private DeteccionAguaPies dAguaPies;
-    private DeteccionAguaPlayer dAguaPlayer;
-    private InstanciaNewChorro iNewChorro;
+    private DeteccionAguaPlayer dAguaPlayer;    
     private MoverJugadorPorTambor mJugadorTambor;
     private MoverObjetosTambor mObjetosTambor;
     private ChorroTargetController cTargetController;
     private ControladorGolpeValvula golpeValvula;
-    private FlotacionObjetos flotObjetos;
-    private InstanciaChorroEscudo iChorroEscudo;
+    private FlotacionObjetos flotObjetos;    
     private SeguirTarget sTarget;
     private VelocidadCaminarAgua vCaminarAgua;
     private AudioImp audioImp;
+
+    private InstanciaNewChorro iNewChorro;
+    private InstanciaChorroEscudo iChorroEscudo;
 
     [Header("Ver Mensajes de Depuracion - Lista Scripts")]
     [Space]
@@ -70,14 +71,12 @@ public class MostrarDebugController : MonoBehaviour
         cDeteccionMaterial = Object.FindFirstObjectByType<CaminarDeteccionMaterial>();
         cEscudo = Object.FindFirstObjectByType<ColisionEscudo>();
         dAguaPies = Object.FindFirstObjectByType<DeteccionAguaPies>();
-        dAguaPlayer = Object.FindFirstObjectByType<DeteccionAguaPlayer>();
-        iNewChorro = Object.FindFirstObjectByType<InstanciaNewChorro>();
+        dAguaPlayer = Object.FindFirstObjectByType<DeteccionAguaPlayer>();        
         mJugadorTambor = Object.FindFirstObjectByType<MoverJugadorPorTambor>();
         mObjetosTambor = Object.FindFirstObjectByType<MoverObjetosTambor>();
         cTargetController = Object.FindFirstObjectByType<ChorroTargetController>();
         golpeValvula = Object.FindFirstObjectByType<ControladorGolpeValvula>();
-        flotObjetos = Object.FindFirstObjectByType<FlotacionObjetos>();
-        iChorroEscudo = Object.FindFirstObjectByType<InstanciaChorroEscudo>();
+        flotObjetos = Object.FindFirstObjectByType<FlotacionObjetos>();        
         sTarget = Object.FindFirstObjectByType<SeguirTarget>();
         vCaminarAgua = Object.FindFirstObjectByType<VelocidadCaminarAgua>();
         audioImp = Object.FindFirstObjectByType <AudioImp>();
@@ -85,6 +84,10 @@ public class MostrarDebugController : MonoBehaviour
 
     private void Update()
     {
+        iNewChorro = Object.FindFirstObjectByType<InstanciaNewChorro>();
+        iChorroEscudo = Object.FindFirstObjectByType<InstanciaChorroEscudo>();
+
+
         if (cEscudo) cEscudo.mostrarLog = colisionEscudo;
         if (dAguaPies) dAguaPies.mostrarDebug = deteccionAguaPies;
         if (dAguaPlayer) dAguaPlayer.mostrarDebug = deteccionAguaPlayer;
