@@ -27,6 +27,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-8256688586628414965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/AMB/AMB_Motor
+  m_EditorClassIdentifier: 
+  Path: event:/AMB/AMB_Motor
+  Guid:
+    Data1: 1769980121
+    Data2: 1156598961
+    Data3: -1729962081
+    Data4: -1318393191
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-6886544209832820315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,10 +179,10 @@ MonoBehaviour:
   Path: Assets/wm/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638737890229060410
+  lastModified: 638739339460755195
   FileSizes:
   - Name: Desktop
-    Value: 1548
+    Value: 1782
   Exists: 1
 --- !u!114 &-1583811128345819128
 MonoBehaviour:
@@ -270,13 +297,45 @@ MonoBehaviour:
   - {fileID: -720493630715580088}
   - {fileID: -1583811128345819128}
   - {fileID: -928438148322026481}
+  - {fileID: 3122209779507967247}
+  - {fileID: 2106341982319306963}
+  - {fileID: 1582003406574015514}
+  - {fileID: 2061283768874123639}
+  - {fileID: -8256688586628414965}
   EditorParameters: []
   MasterBanks:
   - {fileID: 5213428122516410032}
   StringsBanks:
   - {fileID: -3367407833877153125}
-  cacheTime: 638737890229060410
+  cacheTime: 638739339460755195
   cacheVersion: 131621
+--- !u!114 &1582003406574015514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Player_Hit_Chorro
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Player_Hit_Chorro
+  Guid:
+    Data1: 1786338113
+    Data2: 1204904082
+    Data3: -1063750216
+    Data4: -1730433726
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &1667135961892025350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,6 +354,60 @@ MonoBehaviour:
     Data2: 1275147202
     Data3: -55231103
     Data4: -2041697554
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &2061283768874123639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/AMB/AMB_Water
+  m_EditorClassIdentifier: 
+  Path: event:/AMB/AMB_Water
+  Guid:
+    Data1: -950437718
+    Data2: 1339396108
+    Data3: -2075877972
+    Data4: 762974946
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &2106341982319306963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Boss_Hurt
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Boss_Hurt
+  Guid:
+    Data1: 1804517678
+    Data2: 1124826947
+    Data3: 1986836155
+    Data4: 68933096
   Banks:
   - {fileID: 5213428122516410032}
   IsStream: 0
@@ -331,6 +444,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 14841
+--- !u!114 &3122209779507967247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tools/Shield_Hit_Chorro
+  m_EditorClassIdentifier: 
+  Path: event:/Tools/Shield_Hit_Chorro
+  Guid:
+    Data1: -897857522
+    Data2: 1182507877
+    Data3: -293301846
+    Data4: 852286009
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &3529870895364095644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -456,10 +596,10 @@ MonoBehaviour:
   Path: Assets/wm/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638737890229030503
+  lastModified: 638739339460686806
   FileSizes:
   - Name: Desktop
-    Value: 2133280
+    Value: 2488704
   Exists: 1
 --- !u!114 &5650629332328644770
 MonoBehaviour:
