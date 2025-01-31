@@ -47,7 +47,7 @@ public class CameraController : MonoBehaviour
         if (!player.IsShield()) { return; }
                 
         if(!shotShield)
-        {            
+        {   
             AudioImp.Instance.Reproducir("ShieldThrow");
             AudioImp.Instance.Reproducir("PlayerEffort");
 

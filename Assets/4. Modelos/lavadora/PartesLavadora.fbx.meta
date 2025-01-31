@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 4b61f42ace04d79439bb1050df231772
+guid: 5e34d2fc59784314a805f4349e567961
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BoxerDos
-    second: {fileID: 2100000, guid: c8331fc4fe94a5942870e8a0d729214b, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
