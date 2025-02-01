@@ -18,10 +18,16 @@ public class CambioEstadosAudio : MonoBehaviour
     [Header("Estados del Jugador")]
     public bool estaPiso;
     public bool estaSaltando;
+    public bool puedeSonar = false;
 
     private bool estadoAnterior;
 
     #endregion
+
+    private void OnEnable()
+    {
+        puedeSonar = false;
+    }
 
     private void Start()
     {
@@ -32,6 +38,11 @@ public class CambioEstadosAudio : MonoBehaviour
     {
         DetectarSuelo();
         VerificarCambiosDeEstado();
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            puedeSonar = true;
+        }
     }
 
     private void DetectarSuelo()
@@ -48,7 +59,7 @@ public class CambioEstadosAudio : MonoBehaviour
             if (mostrarLog) { Debug.Log("[CambioEstadosAudio]: Jugador comenzó a saltar."); }
         }
 
-        if (estaPiso && estadoAnterior != true)
+        if (estaPiso && estadoAnterior != true && puedeSonar)
         {
             if (mostrarLog) { Debug.Log("[CambioEstadosAudio]: Jugador aterrizó."); }
             AudioImp.Instance.Reproducir("PlayerEffort");

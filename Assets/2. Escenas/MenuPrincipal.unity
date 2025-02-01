@@ -665,7 +665,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0f03160f51d27641837b7249c4ec984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nombreReproduccion: MenuStart
+  pruebasAudio: []
+  nombreReproduccionInicial: 
 --- !u!1 &189102530
 GameObject:
   m_ObjectHideFlags: 0
@@ -10419,7 +10420,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Lavadora
+          m_StringArgument: "Lavadora_Ca\xF1on"
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 174164415}

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class BibliotecaPruebasAudio : MonoBehaviour
+public class TestAudio : MonoBehaviour
 {
     [System.Serializable]
     public class PruebaAudio

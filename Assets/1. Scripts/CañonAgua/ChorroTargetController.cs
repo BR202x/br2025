@@ -210,7 +210,7 @@ public class ChorroTargetController : MonoBehaviour
 
         estado1 = false;
 
-        if (!test) { StartCoroutine(CambiarEstados()); }
+        if (!test && iniciar) { StartCoroutine(CambiarEstados()); }
         if (mostrarLog) { Debug.Log("[ChorroTargetController]: Estado 0 iniciado: Sin Corutinas"); }
     }
 
