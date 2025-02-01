@@ -37,12 +37,14 @@ public class InstanciaNewChorro : MonoBehaviour
 
     [Header("Empuje Jugador")]
     public float fuerzaEmpujeJugador;
+    public bool hitJugador = false;
 
     private GameObject chorroReboteInst;
     private float currentDistance = 0f;
     private Vector3 currentScale;
     private bool isOpen = false;
     private Vector3 collisionPoint;
+    private bool sonidoReproducido = false;
 
     #endregion
 
@@ -97,11 +99,18 @@ public class InstanciaNewChorro : MonoBehaviour
         {
             HandleCloseState();
         }
+
+        if (hitJugador && !sonidoReproducido)
+        {
+            SonidoHitJugador();
+        }
+
     }
 
     private void HandleOpenState()
     {
         float currentExtensionSpeed = extensionSpeed;
+        hitJugador = false;
 
         if (instantiatedObject == null)
         {
@@ -114,6 +123,7 @@ public class InstanciaNewChorro : MonoBehaviour
 
         if (isObstructed)
         {
+
             float distanciaDelChorro = Vector3.Distance(lineRenderer.GetPosition(1), hit.point);            
 
             int hitLayer = hit.collider.gameObject.layer;
@@ -127,25 +137,32 @@ public class InstanciaNewChorro : MonoBehaviour
                     hitLayer == LayerMask.NameToLayer("Agua")) && (distanciaDelChorro < 0.1f && distanciaDelChorro >= 0))
                 {
                     HandleFlotanteSuperficie();
+                    sonidoReproducido = false;
                 }
                 else if (hitLayer == LayerMask.NameToLayer("Escudo"))
                 {
                     HandleEscudo(currentExtensionSpeed, hit);
-                    
+
                 }
                 else if (hitName == "Player")
                 {
+                    if (!hitJugador)
+                    {
+                        hitJugador = true;
+                    }
+
                     HandlePlayer(hit.collider.gameObject, direction);
                     estaTocandoLlenar = false;
                 }
             }
+            
 
             if (distanciaDelChorro < 0.1f && hitLayer != LayerMask.NameToLayer("Escudo"))
             {
                 DestruirRebote();
             }
 
-                MoverChorroHacia(currentExtensionSpeed, hit.point);
+            MoverChorroHacia(currentExtensionSpeed, hit.point);
         }
         else
         {
@@ -300,6 +317,18 @@ public class InstanciaNewChorro : MonoBehaviour
 
         instantiatedObject.transform.localScale = currentScale;
     }
+
+    public void SonidoHitJugador()
+    {
+        if (!sonidoReproducido)
+        {
+            Debug.Log("SONIDO DANO CHORRO");
+            AudioImp.Instance.Reproducir("PlayerHitChorro");
+            AudioImp.Instance.Reproducir("PlayerHurt");
+            sonidoReproducido = true;
+        }
+    }
+
 
     private void CreateInstance()
     {

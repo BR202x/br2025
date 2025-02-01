@@ -45,9 +45,10 @@ public class ColisionEscudo : MonoBehaviour
             }
         }
 
-        if (other.CompareTag("Valvula") && !dano && chorroTargetController.enabled)
+        if (other.CompareTag("Valvula") && !dano && chorroTargetController.enabled && !chorroTargetController.estaAturdido)
         {
-            ControladorGolpeValvula contadorGolpes = other.GetComponent<ControladorGolpeValvula>();                        
+            ControladorGolpeValvula contadorGolpes = other.GetComponent<ControladorGolpeValvula>();
+            AudioImp.Instance.Reproducir("ShieldHitChorro");
             chorroTargetController.EmpezarEstado3();
             contadorGolpes.RecibirDano();
             dano = true;

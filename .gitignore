@@ -90,3 +90,9 @@ crashlytics-build.properties
 fmod_editor.log
 fmod_editor.log
 fmod_editor.log
+
+# Ignorar la caché del editor de FMOD
+Assets/Plugins/FMOD/Cache/
+
+# Ignorar los registros de FMOD
+fmod_editor.log

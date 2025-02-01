@@ -2386,6 +2386,53 @@ MonoBehaviour:
   panelControles: {fileID: 2066630073}
   panelSonido: {fileID: 1798279403}
   panelGraficos: {fileID: 822612206}
+--- !u!1 &194516252
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 194516253}
+  - component: {fileID: 194516254}
+  m_Layer: 0
+  m_Name: OV_DeteccionAguaSonido
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &194516253
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194516252}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1446135294}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &194516254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194516252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b08adcca9c5e68e44bde9444173949f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objetoAgua: {fileID: 149208440}
+  umbralCambioSonido: {fileID: 194516253}
+  sobreAgua: 0
 --- !u!1 &199784707
 GameObject:
   m_ObjectHideFlags: 0
@@ -7156,7 +7203,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0f03160f51d27641837b7249c4ec984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nombreReproduccion: 
+  pruebasAudio:
+  - nombreEvento: enemyBossHit
+    teclaPrueba: 49
+  - nombreEvento: ShieldHitChorro
+    teclaPrueba: 50
+  - nombreEvento: PlayerHitChorro
+    teclaPrueba: 51
+  - nombreEvento: PlayerHurt
+    teclaPrueba: 52
+  nombreReproduccionInicial: 
 --- !u!114 &759788096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10753,6 +10809,62 @@ MonoBehaviour:
         Data3: 1755044245
         Data4: -204918714
       Path: event:/Enemy/SFX_Enemy_Chorro
+  - nombreEvento: motor
+    eventReference:
+      Guid:
+        Data1: 1769980121
+        Data2: 1156598961
+        Data3: -1729962081
+        Data4: -1318393191
+      Path: event:/AMB/AMB_Motor
+  - nombreEvento: motorAgua
+    eventReference:
+      Guid:
+        Data1: -950437718
+        Data2: 1339396108
+        Data3: -2075877972
+        Data4: 762974946
+      Path: event:/AMB/AMB_Water
+  - nombreEvento: enemyBossHit
+    eventReference:
+      Guid:
+        Data1: 1804517678
+        Data2: 1124826947
+        Data3: 1986836155
+        Data4: 68933096
+      Path: event:/Enemy/Boss_Hurt
+  - nombreEvento: playerHitChorro
+    eventReference:
+      Guid:
+        Data1: 1786338113
+        Data2: 1204904082
+        Data3: -1063750216
+        Data4: -1730433726
+      Path: event:/Player/Player_Hit_Chorro
+  - nombreEvento: playerHurt
+    eventReference:
+      Guid:
+        Data1: 2132210499
+        Data2: 1201288112
+        Data3: 553008792
+        Data4: -1626079819
+      Path: event:/Player/PlayerHurt
+  - nombreEvento: ShieldHitChorro
+    eventReference:
+      Guid:
+        Data1: -897857522
+        Data2: 1182507877
+        Data3: -293301846
+        Data4: 852286009
+      Path: event:/Tools/Shield_Hit_Chorro
+  - nombreEvento: BossFistMove
+    eventReference:
+      Guid:
+        Data1: -2104729521
+        Data2: 1296575539
+        Data3: 1571112098
+        Data4: -687364631
+      Path: event:/Enemy/Boss_Fist_Movement
   ambiente: []
 --- !u!1 &1074767364
 GameObject:
@@ -13827,7 +13939,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 194516253}
   m_Father: {fileID: 392993906}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1446135295
@@ -13852,6 +13965,10 @@ MonoBehaviour:
   velocidadEnjuague: 15
   duracionGiro: 8
   pausaEntreGiros: 2
+  estaRotando: 0
+  reproducirAudio1: 0
+  reproducirAudio2: 0
+  deteccionAgua: {fileID: 0}
 --- !u!114 &1446135296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15286,6 +15403,42 @@ MonoBehaviour:
     gameobject: {fileID: 115055715}
     start: 0
     Tipo: SFX
+  - NombreElegido: Motor
+    Metodo: OneShot3D
+    EventoFMOD: motor
+    gameobject: {fileID: 1811098209}
+    start: 0
+    Tipo: SFX
+  - NombreElegido: MotorAgua
+    Metodo: OneShot3D
+    EventoFMOD: motorAgua
+    gameobject: {fileID: 1811098209}
+    start: 0
+    Tipo: SFX
+  - NombreElegido: enemyBossHit
+    Metodo: OneShot
+    EventoFMOD: enemyBossHit
+    gameobject: {fileID: 0}
+    start: 0
+    Tipo: SFX
+  - NombreElegido: PlayerHitChorro
+    Metodo: OneShot
+    EventoFMOD: playerHitChorro
+    gameobject: {fileID: 0}
+    start: 0
+    Tipo: SFX
+  - NombreElegido: PlayerHurt
+    Metodo: OneShot
+    EventoFMOD: playerHurt
+    gameobject: {fileID: 0}
+    start: 0
+    Tipo: SFX
+  - NombreElegido: ShieldHitChorro
+    Metodo: OneShot
+    EventoFMOD: ShieldHitChorro
+    gameobject: {fileID: 0}
+    start: 0
+    Tipo: SFX
   Musica:
   - NombreElegido: d
     Metodo: TimeLine
@@ -15364,6 +15517,42 @@ MonoBehaviour:
     Metodo: TimeLine3D
     EventoFMOD: Chorro
     gameobject: {fileID: 115055715}
+    start: 0
+    Tipo: SFX
+  - NombreElegido: Motor
+    Metodo: OneShot3D
+    EventoFMOD: motor
+    gameobject: {fileID: 1811098209}
+    start: 0
+    Tipo: SFX
+  - NombreElegido: MotorAgua
+    Metodo: OneShot3D
+    EventoFMOD: motorAgua
+    gameobject: {fileID: 1811098209}
+    start: 0
+    Tipo: SFX
+  - NombreElegido: enemyBossHit
+    Metodo: OneShot
+    EventoFMOD: enemyBossHit
+    gameobject: {fileID: 0}
+    start: 0
+    Tipo: SFX
+  - NombreElegido: PlayerHitChorro
+    Metodo: OneShot
+    EventoFMOD: playerHitChorro
+    gameobject: {fileID: 0}
+    start: 0
+    Tipo: SFX
+  - NombreElegido: PlayerHurt
+    Metodo: OneShot
+    EventoFMOD: playerHurt
+    gameobject: {fileID: 0}
+    start: 0
+    Tipo: SFX
+  - NombreElegido: ShieldHitChorro
+    Metodo: OneShot
+    EventoFMOD: ShieldHitChorro
+    gameobject: {fileID: 0}
     start: 0
     Tipo: SFX
   Ambiente:

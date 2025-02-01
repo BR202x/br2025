@@ -1,48 +1,80 @@
-using DG.Tweening.Plugins.Options;
 using UnityEngine;
-public class TestAudio : MonoBehaviour
+using System.Collections.Generic;
+
+public class BibliotecaPruebasAudio : MonoBehaviour
 {
-    public string nombreReproduccion;
+    [System.Serializable]
+    public class PruebaAudio
+    {
+        public string nombreEvento; // Nombre del evento o prueba
+        public KeyCode teclaPrueba; // Tecla asociada a la prueba
+    }
+
+    [Header("Pruebas de Audio")]
+    [Tooltip("Para Usar el audio te llevas esta linea de codigo AudioImp.Instance.Reproducir(nombreEvento);")]
+    public List<PruebaAudio> pruebasAudio = new List<PruebaAudio>(); // Lista de pruebas de audio
+
+    [Header("Evento Inicial")]
+    public string nombreReproduccionInicial; // Reproducción inicial opcional
 
     private void Start()
     {
-        ReproducirEvento(nombreReproduccion);
-    }
-
-    void Update()
-    {
-
-        if (Input.GetKeyDown(KeyCode.E))
+        if (!string.IsNullOrEmpty(nombreReproduccionInicial))
         {
-            AudioImp.Instance.Reproducir("PlayerSword");
-                       
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            AudioImp.Instance.Reproducir("Test2");
-        }        
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            
-        }
-        if (Input.GetKeyUp(KeyCode.T))
-        {
-
-        }
-
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            
-        }
-        if (Input.GetKeyUp(KeyCode.Y))
-        {
-            
+            ReproducirEvento(nombreReproduccionInicial);
         }
     }
 
-    public void ReproducirEvento(string nombreReproduccion)
+    private void Update()
     {
-        AudioImp.Instance.Reproducir(nombreReproduccion);
+        // Recorremos la lista de pruebas y verificamos si se presiona alguna tecla
+        foreach (var prueba in pruebasAudio)
+        {
+            if (Input.GetKeyDown(prueba.teclaPrueba))
+            {
+                ReproducirEvento(prueba.nombreEvento);
+                Debug.Log($"Reproduciendo evento: Para Usar el audio te llevas esta linea de codigo 'AudioImp.Instance.Reproducir(comillas "+prueba.nombreEvento+" comillas);'");
+            }
+        }
+    }
+
+    public void ReproducirEvento(string nombreEvento)
+    {
+        // Lógica para reproducir audio desde AudioImp.Instance
+        if (AudioImp.Instance != null)
+        {
+            AudioImp.Instance.Reproducir(nombreEvento);
+        }
+        else
+        {
+            Debug.LogWarning($"AudioImp.Instance no está configurado. No se puede reproducir: {nombreEvento}");
+        }
+    }
+
+    public void AgregarPrueba(string nombreEvento, KeyCode tecla)
+    {
+        // Agrega dinámicamente una nueva prueba a la lista
+        PruebaAudio nuevaPrueba = new PruebaAudio
+        {
+            nombreEvento = nombreEvento,
+            teclaPrueba = tecla
+        };
+        pruebasAudio.Add(nuevaPrueba);
+        Debug.Log($"Prueba agregada: {nombreEvento} con tecla: {tecla}");
+    }
+
+    public void EliminarPrueba(string nombreEvento)
+    {
+        // Elimina una prueba de la lista según el nombre del evento
+        PruebaAudio pruebaAEliminar = pruebasAudio.Find(p => p.nombreEvento == nombreEvento);
+        if (pruebaAEliminar != null)
+        {
+            pruebasAudio.Remove(pruebaAEliminar);
+            Debug.Log($"Prueba eliminada: {nombreEvento}");
+        }
+        else
+        {
+            Debug.LogWarning($"No se encontró la prueba con el nombre: {nombreEvento}");
+        }
     }
 }

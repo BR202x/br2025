@@ -29,11 +29,18 @@ public class RotacionSuperficieController : MonoBehaviour
 
     private Coroutine cicloActivo; // Referencia a la corrutina activa
 
+    public bool estaRotando = false;
+    public bool reproducirAudio1 = false;
+    public bool reproducirAudio2 = false;
+    public DeteccionAguaMotor deteccionAgua;
+
     #endregion
 
     private void Start()
     {
         if (mostrarLog) { Debug.Log("[RotacionSuperficieController]: Componente del objeto " + gameObject.name); }
+
+        deteccionAgua = GameObject.Find("OV_DeteccionAguaSonido").GetComponent<DeteccionAguaMotor>();
     }
 
     private void Update()
@@ -61,6 +68,15 @@ public class RotacionSuperficieController : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             superficieTambor.transform.Rotate(0, -velocidadTest * Time.deltaTime, 0);
+        }
+
+        if (estaRotando && !deteccionAgua.sobreAgua)
+        {
+            ReproducirSonidoGiro();
+        }
+        else if (estaRotando && deteccionAgua.sobreAgua)
+        { 
+            ReproducirSonidoGiroEnAgua();
         }
     }
 
@@ -104,24 +120,44 @@ public class RotacionSuperficieController : MonoBehaviour
     }
 
     private IEnumerator CicloLavado()
-    {
+    {        
+
         while (true)
         {
+            estaRotando = false;            
+
             float tiempo = 0f;
             while (tiempo < duracionRotacionNormal)
             {
+                estaRotando = true;
                 superficieTambor.transform.Rotate(0, velocidadNormal * Time.deltaTime, 0);
                 tiempo += Time.deltaTime;
                 yield return null;
+                
             }
 
+            yield return null;
+            reproducirAudio1 = false;
+            reproducirAudio2 = false;
+            yield return null;
+
             tiempo = 0f;
+            estaRotando = false;            
+
             while (tiempo < duracionRotacionReducida)
             {
+                estaRotando = true;
                 superficieTambor.transform.Rotate(0, -velocidadNormal * factorVelocidadReducida * Time.deltaTime, 0);
                 tiempo += Time.deltaTime;
                 yield return null;
+                
             }
+
+            yield return null;
+            reproducirAudio1 = false;
+            reproducirAudio2 = false;
+            yield return null;
+
         }
     }
 
@@ -132,22 +168,30 @@ public class RotacionSuperficieController : MonoBehaviour
             float tiempo = 0f;
             while (tiempo < duracionGiro)
             {
+                estaRotando = true;
                 superficieTambor.transform.Rotate(0, velocidadEnjuague * Time.deltaTime, 0);
                 tiempo += Time.deltaTime;
                 yield return null;
             }
 
-            yield return new WaitForSeconds(pausaEntreGiros);
+            yield return new WaitForSeconds(pausaEntreGiros);            
+            reproducirAudio1 = false;
+            reproducirAudio2 = false;
+            yield return null;
 
             tiempo = 0f;
             while (tiempo < duracionGiro)
             {
+                estaRotando = true;
                 superficieTambor.transform.Rotate(0, -velocidadEnjuague * Time.deltaTime, 0);
                 tiempo += Time.deltaTime;
                 yield return null;
             }
 
             yield return new WaitForSeconds(pausaEntreGiros);
+            reproducirAudio1 = false;
+            reproducirAudio2 = false;
+            yield return null;
         }
     }
 
@@ -161,4 +205,31 @@ public class RotacionSuperficieController : MonoBehaviour
     }
 
     #endregion
+
+    public void ReproducirSonidoGiro()
+    {
+        if (!reproducirAudio1)
+        {
+            AudioImp.Instance.Reproducir("Motor");
+            Debug.Log("Sonido1");
+            reproducirAudio1 = true;
+        }
+    }
+    public void ReproducirSonidoGiroEnAgua()
+    {
+        if (!reproducirAudio2)
+        {
+            AudioImp.Instance.Reproducir("Motor");
+            AudioImp.Instance.Reproducir("MotorAgua");
+            Debug.Log("Sonido2");
+            reproducirAudio2 = true;
+        }
+    }
+
 }
+
+
+
+
+
+
