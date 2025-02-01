@@ -100,6 +100,7 @@ public class ChorroTargetController : MonoBehaviour
     public float tiempoEntreDisparos4 = 0.5f;
     [Tooltip("Tiempo de disparo continuo en el estado 4")]
     public float tiempoDisparoQuieto4 = 1f;
+    public bool estaEstado4;
 
     #endregion
 
@@ -265,6 +266,8 @@ public class ChorroTargetController : MonoBehaviour
     public void StartEstado4()
     {
         estado1 = false;
+        estaEstado3 = false;
+        estaEstado4 = true;
         superficieController.velocidadEnjuague = 20;
         superficieController.duracionGiro = 10;
         superficieController.pausaEntreGiros = 1;
@@ -368,11 +371,16 @@ public class ChorroTargetController : MonoBehaviour
 
     private IEnumerator MoverAleatoriamente()
     {
+        // Mueve el `targetChorro` inicialmente hacia Vector3.zero
         targetChorro.position = Vector3.MoveTowards(targetChorro.position, Vector3.zero, 50 * Time.deltaTime);
 
         while (true)
         {
-            yield return ControladorScripts.instance.WaitForUnpause(); // Espera si el juego está pausado
+            // Espera si el juego está pausado
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
 
             if (objetivosChorro.Count > 0)
             {
@@ -380,8 +388,13 @@ public class ChorroTargetController : MonoBehaviour
 
                 while (Vector3.Distance(targetChorro.position, currentTarget.position) > 0.1f)
                 {
-                    yield return ControladorScripts.instance.WaitForUnpause(); // Detiene el movimiento si el juego está pausado
+                    // Detener el movimiento si el juego está pausado
+                    while (ControladorScripts.instance.isPaused)
+                    {
+                        yield return null;
+                    }
 
+                    // Movimiento hacia el objetivo actual
                     targetChorro.position = Vector3.MoveTowards(
                         targetChorro.position,
                         currentTarget.position,
@@ -400,35 +413,73 @@ public class ChorroTargetController : MonoBehaviour
     {
         while (true)
         {
-            yield return ControladorScripts.instance.WaitForUnpause(); // Espera si el juego está pausado
-            yield return new WaitForSeconds(tiempoEntreDisparosEstado1);
+            // Espera mientras el juego esté pausado
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
 
-            yield return ControladorScripts.instance.WaitForUnpause();
+            // Espera el tiempo entre disparos
+            yield return new WaitForSecondsRealtime(tiempoEntreDisparosEstado1);
+
+            // Espera mientras el juego esté pausado antes de disparar
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
+
+            // Iniciar disparo
             abrirChorro = true;
             seguirTarget.CrearChorro();
             estaAturdido = false;
-            if (mostrarLog) { Debug.Log("[ChorroTargetController]: Estado 1 - Disparando."); }
 
-            yield return ControladorScripts.instance.WaitForUnpause();
-            yield return new WaitForSeconds(tiempoDisparoQuietoEstado1);
+            if (mostrarLog)
+            {
+                Debug.Log("[ChorroTargetController]: Estado 1 - Disparando.");
+            }
 
-            yield return ControladorScripts.instance.WaitForUnpause();
+            // Mantener el disparo activo por un tiempo
+            yield return new WaitForSecondsRealtime(tiempoDisparoQuietoEstado1);
+
+            // Espera mientras el juego esté pausado antes de detener el disparo
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
+
+            // Detener disparo
             abrirChorro = false;
             seguirTarget.DestruirChorro();
-            if (mostrarLog) { Debug.Log("[ChorroTargetController]: Estado 1 - Deteniendo disparo."); }
+
+            if (mostrarLog)
+            {
+                Debug.Log("[ChorroTargetController]: Estado 1 - Deteniendo disparo.");
+            }
         }
     }
+
     private IEnumerator SeguirPlayer()
     {
         while (true)
         {
-            yield return ControladorScripts.instance.WaitForUnpause(); // Espera si el juego está pausado
+            // Espera mientras el juego está pausado
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
 
             float timer = 0f;
+
+            // Seguir al jugador por un tiempo definido
             while (timer < followDuration)
             {
-                yield return ControladorScripts.instance.WaitForUnpause(); // Detiene el seguimiento si el juego está pausado
+                // Espera mientras el juego esté pausado
+                while (ControladorScripts.instance.isPaused)
+                {
+                    yield return null;
+                }
 
+                // Lógica de seguimiento
                 targetChorro.position = Vector3.Lerp(
                     targetChorro.position,
                     new Vector3(player.position.x + 0.5f, player.position.y, player.position.z),
@@ -439,10 +490,19 @@ public class ChorroTargetController : MonoBehaviour
                 yield return null;
             }
 
-            if (mostrarLog) { Debug.Log("[ChorroTargetController]: Estado 2 - Quieto después de seguir al jugador."); }
+            // Mensaje de depuración
+            if (mostrarLog)
+            {
+                Debug.Log("[ChorroTargetController]: Estado 2 - Quieto después de seguir al jugador.");
+            }
 
-            yield return ControladorScripts.instance.WaitForUnpause();
-            yield return new WaitForSeconds(idleAfterFollowDuration);
+            // Espera después de seguir al jugador
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
+
+            yield return new WaitForSecondsRealtime(idleAfterFollowDuration);
         }
     }
 
@@ -450,30 +510,61 @@ public class ChorroTargetController : MonoBehaviour
     {
         while (true)
         {
-            yield return ControladorScripts.instance.WaitForUnpause(); // Espera si el juego está pausado
-            yield return new WaitForSeconds(tiempoEntreDisparos);
+            // Espera mientras el juego está pausado antes de iniciar el disparo
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
 
-            yield return ControladorScripts.instance.WaitForUnpause();
+            // Espera el tiempo entre disparos
+            yield return new WaitForSecondsRealtime(tiempoEntreDisparos);
+
+            // Espera mientras el juego esté pausado antes de disparar
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
+
+            // Iniciar disparo
             abrirChorro = true;
             seguirTarget.CrearChorro();
             estaAturdido = false;
-            if (mostrarLog) { Debug.Log("[ChorroTargetController]: Estado 2 - Disparando."); }
 
-            yield return ControladorScripts.instance.WaitForUnpause();
-            yield return new WaitForSeconds(tiempoDisparoQuieto);
+            if (mostrarLog)
+            {
+                Debug.Log("[ChorroTargetController]: Estado 2 - Disparando.");
+            }
 
-            yield return ControladorScripts.instance.WaitForUnpause();
+            // Mantener el disparo activo por un tiempo
+            yield return new WaitForSecondsRealtime(tiempoDisparoQuieto);
+
+            // Espera mientras el juego esté pausado antes de detener el disparo
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
+
+            // Detener disparo
             abrirChorro = false;
             seguirTarget.DestruirChorro();
-            if (mostrarLog) { Debug.Log("[ChorroTargetController]: Estado 2 - Deteniendo disparo."); }
+
+            if (mostrarLog)
+            {
+                Debug.Log("[ChorroTargetController]: Estado 2 - Deteniendo disparo.");
+            }
         }
     }
 
+
     private IEnumerator CambiarColor4(Material[] materials)
     {
-        while (estaEstado3) // Puedes cambiar `estaEstado3` por la condición adecuada para tu estado
+        while (estaEstado4) // Puedes cambiar `estaEstado3` por la condición adecuada para tu estado
         {
-            yield return ControladorScripts.instance.WaitForUnpause(); // Espera si el juego está pausado
+            // Espera mientras el juego está pausado
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
 
             // Cambiar el color de los materiales a rojo
             foreach (Material material in materials)
@@ -491,22 +582,34 @@ public class ChorroTargetController : MonoBehaviour
                 }
             }
 
-            yield return ControladorScripts.instance.WaitForUnpause();
-            yield return new WaitForSeconds(0.002f); // Pausa entre actualizaciones
+            // Pausa entre actualizaciones
+            yield return new WaitForSecondsRealtime(0.002f); // Usar tiempo real para evitar afectaciones por Time.timeScale
         }
     }
+
 
     private IEnumerator SeguirPlayer4()
     {
         while (true)
         {
-            yield return ControladorScripts.instance.WaitForUnpause(); // Espera si el juego está pausado
+            // Espera mientras el juego esté pausado antes de empezar el seguimiento
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
 
             float timer = 0f;
+
+            // Seguir al jugador por un tiempo definido
             while (timer < followDuration4)
             {
-                yield return ControladorScripts.instance.WaitForUnpause(); // Detiene el seguimiento si el juego está pausado
+                // Espera mientras el juego esté pausado
+                while (ControladorScripts.instance.isPaused)
+                {
+                    yield return null;
+                }
 
+                // Lógica de seguimiento
                 targetChorro.position = Vector3.Lerp(
                     targetChorro.position,
                     new Vector3(player.position.x + 0.5f, player.position.y, player.position.z),
@@ -517,10 +620,19 @@ public class ChorroTargetController : MonoBehaviour
                 yield return null;
             }
 
-            if (mostrarLog) { Debug.Log("[ChorroTargetController]: Estado 4 - Quieto después de seguir al jugador."); }
+            // Mensaje de depuración
+            if (mostrarLog)
+            {
+                Debug.Log("[ChorroTargetController]: Estado 4 - Quieto después de seguir al jugador.");
+            }
 
-            yield return ControladorScripts.instance.WaitForUnpause();
-            yield return new WaitForSeconds(idleAfterFollowDuration4);
+            // Espera mientras el juego esté pausado antes de entrar en idle
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
+
+            yield return new WaitForSecondsRealtime(idleAfterFollowDuration4);
         }
     }
 
@@ -528,39 +640,75 @@ public class ChorroTargetController : MonoBehaviour
     {
         while (true)
         {
-            yield return ControladorScripts.instance.WaitForUnpause(); // Espera si el juego está pausado
-            yield return new WaitForSeconds(tiempoEntreDisparos4);
+            // Espera mientras el juego esté pausado antes de iniciar el disparo
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
 
-            yield return ControladorScripts.instance.WaitForUnpause();
+            // Espera el tiempo entre disparos
+            yield return new WaitForSecondsRealtime(tiempoEntreDisparos4);
+
+            // Espera mientras el juego esté pausado antes de disparar
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
+
+            // Iniciar disparo
             abrirChorro = true;
             seguirTarget.CrearChorro();
             estaAturdido = false;
-            if (mostrarLog) { Debug.Log("[ChorroTargetController]: Estado 4 - Disparando."); }
 
-            yield return ControladorScripts.instance.WaitForUnpause();
-            yield return new WaitForSeconds(tiempoDisparoQuieto4);
+            if (mostrarLog)
+            {
+                Debug.Log("[ChorroTargetController]: Estado 4 - Disparando.");
+            }
 
-            yield return ControladorScripts.instance.WaitForUnpause();
+            // Mantener el disparo activo por un tiempo
+            yield return new WaitForSecondsRealtime(tiempoDisparoQuieto4);
+
+            // Espera mientras el juego esté pausado antes de detener el disparo
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
+
+            // Detener disparo
             abrirChorro = false;
             seguirTarget.DestruirChorro();
-            if (mostrarLog) { Debug.Log("[ChorroTargetController]: Estado 4 - Deteniendo disparo."); }
+
+            if (mostrarLog)
+            {
+                Debug.Log("[ChorroTargetController]: Estado 4 - Deteniendo disparo.");
+            }
         }
     }
-
 
     private IEnumerator RotacionesValvula()
     {
         while (true)
         {
-            yield return ControladorScripts.instance.WaitForUnpause(); // Espera si el juego está pausado
+            // Espera mientras el juego está pausado antes de iniciar un nuevo movimiento
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
 
+            // Obtener objetivo de aturdimiento
             Transform currentTarget = GetRandomTargetStun();
             Vector3 posicionDestino = currentTarget.position;
 
+            // Movimiento hacia el objetivo
             while (Vector3.Distance(targetChorro.position, posicionDestino) > 0.1f)
             {
-                yield return ControladorScripts.instance.WaitForUnpause(); // Detiene el movimiento si el juego está pausado
+                // Espera mientras el juego esté pausado
+                while (ControladorScripts.instance.isPaused)
+                {
+                    yield return null;
+                }
 
+                // Mover el targetChorro hacia el destino
                 targetChorro.position = Vector3.MoveTowards(
                     targetChorro.position,
                     posicionDestino,
@@ -570,12 +718,22 @@ public class ChorroTargetController : MonoBehaviour
                 yield return null;
             }
 
-            if (mostrarLog) Debug.Log($"[ChorroTargetController]: Movimiento completado hacia {currentTarget.name}.");
+            // Log de depuración
+            if (mostrarLog)
+            {
+                Debug.Log($"[ChorroTargetController]: Movimiento completado hacia {currentTarget.name}.");
+            }
 
-            yield return ControladorScripts.instance.WaitForUnpause();
-            yield return new WaitForSeconds(0.00002f); // Pausa entre frames para "fluidez"
+            // Espera mientras el juego está pausado antes de la pausa final
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
+
+            yield return new WaitForSecondsRealtime(0.00002f); // Pausa mínima para fluidez
         }
     }
+
     private IEnumerator CambiarColorIntermitente(Material[] materials)
     {
         float elapsedTime = 0f;
@@ -673,7 +831,6 @@ public class ChorroTargetController : MonoBehaviour
         if (mostrarLog) { Debug.Log("[ChorroTargetController]: Iniciando Estado 4."); }
         CambiarEstado(Estado.Estado4);
     }
-
     private IEnumerator CambiarEstados()
     {
         if (test)
@@ -681,12 +838,22 @@ public class ChorroTargetController : MonoBehaviour
             yield break;
         }
 
-        yield return ControladorScripts.instance.WaitForUnpause(); // Espera si el juego está pausado
-        yield return new WaitForSeconds(2f);
+        // Espera mientras el juego esté pausado antes de empezar
+        while (ControladorScripts.instance.isPaused)
+        {
+            yield return null;
+        }
 
+        yield return new WaitForSecondsRealtime(2f); // Usar tiempo real para evitar problemas con Time.timeScale
+
+        // Mover targetChorro hacia Vector3.zero
         while (Vector3.Distance(targetChorro.position, Vector3.zero) > 0.01f)
         {
-            yield return ControladorScripts.instance.WaitForUnpause(); // Detiene el movimiento si el juego está pausado
+            // Espera mientras el juego esté pausado
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
 
             targetChorro.position = Vector3.Lerp(
                 targetChorro.position,
@@ -697,34 +864,46 @@ public class ChorroTargetController : MonoBehaviour
             yield return null; // Espera al siguiente frame
         }
 
-        yield return ControladorScripts.instance.WaitForUnpause();
-        yield return new WaitForSeconds(0.2f);
-
-        if (!golpesValvula.fase2 && !test)
+        // Espera mientras el juego esté pausado antes de continuar
+        while (ControladorScripts.instance.isPaused)
         {
-            EmpezarEstado1();
             yield return null;
         }
 
-        yield return ControladorScripts.instance.WaitForUnpause();
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSecondsRealtime(0.2f);
+
+        // Verificar condiciones y cambiar estados
+        if (!golpesValvula.fase2 && !test)
+        {
+            EmpezarEstado1();
+        }
+
+        // Espera mientras el juego esté pausado antes de continuar
+        while (ControladorScripts.instance.isPaused)
+        {
+            yield return null;
+        }
+
+        yield return new WaitForSecondsRealtime(0.2f);
 
         if (golpesValvula.fase2 && !test)
         {
             EmpezarEstado2();
+        }
+
+        // Espera mientras el juego esté pausado antes de continuar
+        while (ControladorScripts.instance.isPaused)
+        {
             yield return null;
         }
 
-        yield return ControladorScripts.instance.WaitForUnpause();
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSecondsRealtime(0.2f);
 
         if (golpesValvula.fase3 && !test)
         {
             EmpezarEstado4();
-            yield return null;
         }
-
-        
     }
+
 
 }

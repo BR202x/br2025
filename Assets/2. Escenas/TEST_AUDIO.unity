@@ -5600,7 +5600,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1007679716}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &759788095
 MonoBehaviour:
@@ -8111,7 +8111,6 @@ Transform:
   - {fileID: 247722630}
   - {fileID: 1278063855}
   - {fileID: 803529624}
-  - {fileID: 759788094}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1007679717
@@ -26461,3 +26460,4 @@ SceneRoots:
   - {fileID: 4605212148590288926}
   - {fileID: 7638135}
   - {fileID: 1819704649}
+  - {fileID: 759788094}

@@ -5,6 +5,8 @@ public class TimelineTest : MonoBehaviour
 {
     [Tooltip("Reproducir Timeline")]
     public bool test;
+    public bool esCanon;
+    public bool esPato;
 
     public GameObject timeLineObject;
     public CinemachineVirtualCamera virtualCamera;
@@ -20,20 +22,23 @@ public class TimelineTest : MonoBehaviour
 
     void Start()
     {
-        if (test)
+        if (esCanon)
         {
-            timeLineObject.gameObject.SetActive(false);
-            targetController.test = true;
-            AsignarFollowCinemachine();
-            ActivarSecuenciaChorro();
-            targetChorro.transform.position = targetPosTest.position;
-            player.transform.position = playerPosTest.position;
-        }
+            if (test)
+            {
+                timeLineObject.gameObject.SetActive(false);
+                targetController.test = true;
+                AsignarFollowCinemachine();
+                ActivarSecuenciaChorro();
+                targetChorro.transform.position = targetPosTest.position;
+                player.transform.position = playerPosTest.position;
+            }
 
-        if (!test)
-        {
-            player.transform.position = playerPosTimeline.position;
-            targetChorro.transform.position= targetPosTimeline.position;        
+            if (!test)
+            {
+                player.transform.position = playerPosTimeline.position;
+                targetChorro.transform.position = targetPosTimeline.position;
+            }
         }
     }
 

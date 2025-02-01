@@ -23,7 +23,7 @@ public class ControladorScripts : MonoBehaviour
     public Shield shield;
     private Vector3 storedVelocity;
 
-    private bool isPaused = false; // Variable para saber si el juego está pausado
+    public bool isPaused = false; // Variable para saber si el juego está pausado
 
     #endregion
 
@@ -67,13 +67,15 @@ public class ControladorScripts : MonoBehaviour
         if (mostrarDebug) Debug.Log("[ControladorScripts] Juego Reanudado.");
     }
 
-    
+
     public IEnumerator WaitForUnpause()
     {
         while (isPaused)
         {
+            if (mostrarDebug) Debug.Log("[WaitForUnpause] Juego en pausa. Esperando...");
             yield return null;
         }
+        if (mostrarDebug) Debug.Log("[WaitForUnpause] Juego reanudado.");
     }
 
     public void MovimientoJugador(bool estado)

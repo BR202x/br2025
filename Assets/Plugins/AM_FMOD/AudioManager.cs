@@ -78,7 +78,7 @@ public class AudioManager : MonoBehaviour
     }
 
     #region Reproducir Musica
-    public void InitializeMusic(EventReference musicEventReference, bool reproducir)
+    public void InitializeMusic(FMODUnity.EventReference musicEventReference, bool reproducir)
     {
         if (reproducir)
         {
@@ -92,7 +92,8 @@ public class AudioManager : MonoBehaviour
             if (musicEventInstance.isValid())
             {
                 musicEventInstance.start();
-                if (mostrarLogMusic) Debug.Log($"Música iniciada: {musicEventReference.Path}.");
+                if (mostrarLogMusic)
+                    Debug.Log($"Música iniciada: {musicEventReference.Guid}"); // Usar el GUID del evento para identificarlo
             }
         }
         else
@@ -104,8 +105,10 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+
+
     // --- CREACION DE EVENTOS
-    public EventInstance CreateEventInstance(EventReference eventReference, Transform followTransform = null)
+    public EventInstance CreateEventInstance(FMODUnity.EventReference eventReference, Transform followTransform = null)
     {
         EventInstance eventInstance = RuntimeManager.CreateInstance(eventReference);
 
@@ -132,34 +135,44 @@ public class AudioManager : MonoBehaviour
         return eventInstance;
     }
 
-    public void CleanUpMusic(EventInstance eventInstance, EventReference targetReference)
+    public void CleanUpMusic(EventInstance eventInstance, FMODUnity.EventReference targetReference)
     {
         if (eventInstance.isValid())
         {
             // Obtener la descripción del evento para comparar con la referencia
             eventInstance.getDescription(out var description);
-            description.getPath(out string eventPath);
 
-            // Comparar el path del evento activo con el del targetReference
-            string targetPath = targetReference.Path; // Este es el acceso correcto
-            if (eventPath == targetPath)
+            // Obtener el GUID del evento activo
+            description.getID(out var eventGuid);
+
+            // Comparar el GUID del evento activo con el del targetReference
+            if (eventGuid == targetReference.Guid)
             {
-                eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE); // Detener de inmediato
-                eventInstance.release(); // Liberar recursos
-                eventInstance.clearHandle(); // Limpiar la referencia
+                // Detener y liberar la instancia si coincide
+                eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                eventInstance.release();
+                eventInstance.clearHandle();
 
-                if (mostrarLogMusic) Debug.Log($"Evento musical {eventPath} liberado y recursos limpiados.");
+                if (mostrarLogMusic)
+                    Debug.Log("Evento musical liberado y recursos limpiados.");
             }
             else
             {
-                if (mostrarLogMusic) Debug.LogWarning($"El evento activo ({eventPath}) no coincide con la referencia proporcionada ({targetPath}). No se realizó la limpieza.");
+                // Opcional: Obtener el path del evento activo para log de depuración
+                description.getPath(out string eventPath);
+
+                if (mostrarLogMusic)
+                    Debug.LogWarning($"El evento activo ({eventPath}) no coincide con la referencia proporcionada ({targetReference.Guid}). No se realizó la limpieza.");
             }
         }
         else
         {
-            if (mostrarLogMusic) Debug.LogWarning("No se encontró una instancia válida de música para limpiar.");
+            if (mostrarLogMusic)
+                Debug.LogWarning("No se encontró una instancia válida de música para limpiar.");
         }
     }
+
+
     public void SetMusicArea(MusicArea area)
     {
         musicEventInstance.setParameterByName("area", (float)area);
@@ -168,7 +181,7 @@ public class AudioManager : MonoBehaviour
     #endregion
 
     #region Reproducir Ambiente y Cambios en el ambiente
-    public void InitializeAmbienceEvent(EventReference ambienceEventReference, bool reproducir, Transform transform = null)
+    public void InitializeAmbienceEvent(FMODUnity.EventReference ambienceEventReference, bool reproducir, Transform transform = null)
     {
         if (reproducir)
         {
@@ -185,7 +198,11 @@ public class AudioManager : MonoBehaviour
             {
                 ambienceEventInstance.start();
                 ambienceEvents.Add(ambienceEventInstance);
-                if (mostrarLogSFX) Debug.Log($"Evento de ambiente {ambienceEventReference.Path} reproducido en {(transform != null ? transform.name : "jugador")}");
+                if (mostrarLogSFX)
+                {
+                    string transformName = transform != null ? transform.name : (jugador != null ? jugador.name : "posición predeterminada");
+                    Debug.Log($"Evento de ambiente {ambienceEventReference.Guid} reproducido en {transformName}");
+                }
             }
         }
         else
@@ -198,37 +215,32 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void CleanUpAmbience(EventInstance eventInstance, EventReference targetReference)
+    private void CleanUpAmbience(EventInstance eventInstance, FMODUnity.EventReference targetReference)
     {
         if (eventInstance.isValid())
         {
-            // Obtener la descripción del evento para comparar con la referencia
             eventInstance.getDescription(out var description);
-            description.getPath(out string eventPath);
 
-            // Comparar el path del evento activo con el del targetReference
-            string targetPath = targetReference.Path;
-            if (eventPath == targetPath)
+            // Comparar el GUID del evento activo con el del `targetReference`
+            if (description.getID(out var eventGuid) == FMOD.RESULT.OK && eventGuid == targetReference.Guid)
             {
-                // Detener y liberar la instancia si coincide
                 eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 eventInstance.release();
                 eventInstance.clearHandle();
 
                 ambienceEvents.Remove(eventInstance);
-                if (mostrarLogSFX) Debug.Log($"Evento de ambiente {eventPath} detenido y recursos liberados.");
+                if (mostrarLogSFX) Debug.Log($"Evento de ambiente {targetReference.Guid} detenido y recursos liberados.");
             }
             else
             {
-                if (mostrarLogSFX) Debug.LogWarning($"El evento activo ({eventPath}) no coincide con la referencia proporcionada ({targetPath}). No se realizó la limpieza.");
+                if (mostrarLogSFX) Debug.LogWarning($"No se encontró coincidencia entre el evento activo y {targetReference.Guid}");
             }
         }
-        else
-        {
-            if (mostrarLogSFX) Debug.LogWarning("No se encontró una instancia válida de ambiente para limpiar.");
-        }
     }
-    public EventInstance CreateEventAmbientInstance(EventReference eventReference, Transform followTransform)
+
+
+
+    public EventInstance CreateEventAmbientInstance(FMODUnity.EventReference eventReference, Transform followTransform)
     {
         followTransform ??= jugador.transform;
 
@@ -254,25 +266,30 @@ public class AudioManager : MonoBehaviour
 
     #region Reproducir Eventos de una sola vez "Play One Shot"
 
-    public void PlayOneShot(EventReference sound, GameObject posicion = null)
+    public void PlayOneShot(FMODUnity.EventReference sound, GameObject posicion = null)
     {
+        // Determinar la posición final del evento
         Vector3 finalPos = posicion != null
             ? posicion.transform.position
             : (jugador != null
                 ? jugador.transform.position
                 : Vector3.zero);
 
-        // Debug.Log($"PlayOneShot sound: {sound.Path}, position: {finalPos}");
-
-        if (!string.IsNullOrEmpty(sound.Path))
+        // Verificar si el `sound` es válido (usamos el Guid)
+        if (sound.Guid != System.Guid.Empty)
         {
+            // Reproducir el sonido
             RuntimeManager.PlayOneShot(sound, finalPos);
+
+            if (mostrarLogSFX)
+                Debug.Log($"PlayOneShot reproducido en la posición {finalPos} para el evento {sound.Guid}");
         }
         else
         {
-            Debug.LogWarning("Sound event reference is invalid.");
+            Debug.LogWarning("Referencia de sonido no válida. No se puede reproducir el evento.");
         }
     }
+
 
 
 
@@ -281,60 +298,71 @@ public class AudioManager : MonoBehaviour
 
     #region Reproducir Eventos Timeline 3D - Tipo Pasos
 
-    public void HandleEvent(EventReference eventReference, Transform followTransform = null, bool start = true, bool allowFadeOut = true)
+    public void HandleEvent(FMODUnity.EventReference eventReference, Transform followTransform = null, bool start = true, bool allowFadeOut = true)
     {
         followTransform ??= jugador.transform;
 
         if (start)
         {
+            // Crear una nueva instancia del evento
             EventInstance eventInstance = RuntimeManager.CreateInstance(eventReference);
 
+            // Configurar los atributos 3D si se proporciona un Transform
             if (followTransform != null)
             {
                 eventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(followTransform.position));
                 eventosActivos[eventInstance] = followTransform;
             }
 
-            PLAYBACK_STATE playbackState;
-            eventInstance.getPlaybackState(out playbackState);
+            // Iniciar el evento si no está en reproducción
+            eventInstance.getPlaybackState(out PLAYBACK_STATE playbackState);
 
             if (playbackState == PLAYBACK_STATE.STOPPED)
             {
                 eventInstance.start();
-                if (mostrarLogSFX) Debug.Log($"Evento {eventReference.Path} iniciado.");
+                if (mostrarLogSFX) Debug.Log($"Evento {eventReference.Guid} iniciado en {followTransform?.name ?? "posición predeterminada"}.");
             }
         }
         else
         {
-            EventInstance targetEvent = default;
-
-            // Buscar el evento específico usando el nombre (path)
-            foreach (var evento in eventosActivos)
-            {
-                string eventPath;
-                evento.Key.getDescription(out var description);
-                description.getPath(out eventPath);
-
-                if (evento.Key.isValid() && eventPath == eventReference.Path)
-                {
-                    targetEvent = evento.Key;
-                    break;
-                }
-            }
+            // Buscar el evento activo correspondiente al `eventReference`
+            EventInstance targetEvent = FindActiveEvent(eventReference);
 
             if (targetEvent.isValid())
             {
+                // Detener y liberar el evento si se encuentra
                 targetEvent.stop(allowFadeOut ? FMOD.Studio.STOP_MODE.ALLOWFADEOUT : FMOD.Studio.STOP_MODE.IMMEDIATE);
                 eventosActivos.Remove(targetEvent);
                 ReleaseEvent(targetEvent);
-                if (mostrarLogSFX) Debug.Log($"Evento {eventReference.Path} detenido.");
+
+                if (mostrarLogSFX) Debug.Log($"Evento {eventReference.Guid} detenido.");
             }
             else
             {
-                Debug.LogWarning($"No se encontró ninguna instancia activa para el evento: {eventReference.Path}");
+                Debug.LogWarning($"No se encontró ningún evento activo correspondiente a {eventReference.Guid}.");
             }
         }
     }
+
+    private EventInstance FindActiveEvent(FMODUnity.EventReference eventReference)
+    {
+        foreach (var evento in eventosActivos)
+        {
+            if (evento.Key.isValid())
+            {
+                evento.Key.getDescription(out var description);
+
+                // Comparar el GUID del evento activo con el del `eventReference`
+                if (description.getID(out var eventGuid) == FMOD.RESULT.OK && eventGuid == eventReference.Guid)
+                {
+                    return evento.Key;
+                }
+            }
+        }
+
+        return default; // No se encontró un evento correspondiente
+    }
+
 
 
     public void ReleaseEvent(EventInstance eventInstance)
@@ -352,7 +380,7 @@ public class AudioManager : MonoBehaviour
 
     #region Reproducir Emisores de Sonido
 
-    public StudioEventEmitter InitializeEventEmitter(EventReference eventReference, GameObject emitterGameObject)
+    public StudioEventEmitter InitializeEventEmitter(FMODUnity.EventReference eventReference, GameObject emitterGameObject)
     { 
         StudioEventEmitter emitter = emitterGameObject.GetComponent<StudioEventEmitter>();
         emitter.EventReference = eventReference;

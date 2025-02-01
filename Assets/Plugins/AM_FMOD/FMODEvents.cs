@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class FMODEvents : MonoBehaviour
 {
@@ -34,25 +36,27 @@ public class FMODEvents : MonoBehaviour
         }
     }
 
-    [InitializeOnLoadMethod]
+#if UNITY_EDITOR
+    [UnityEditor.InitializeOnLoadMethod]
     public static void BuscarInstanciaEnEditor()
     {
         if (!Application.isPlaying)
         {
-            EditorApplication.update += () =>
+            UnityEditor.EditorApplication.update += () =>
             {
                 if (instance == null)
                 {
                     instance = FindFirstObjectByType<FMODEvents>();
                     if (instance != null)
                     {
-                        // Debug.Log("FMODEvents inicializado Edición.");
+                        // Debug.Log("FMODEvents inicializado en el Editor.");
                         instance.RecargarEventosEnEditor();
                     }
                 }
             };
         }
     }
+#endif
 
     public void RecargarEventosEnEditor()
     {

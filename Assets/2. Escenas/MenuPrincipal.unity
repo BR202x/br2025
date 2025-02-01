@@ -666,7 +666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pruebasAudio: []
-  nombreReproduccionInicial: 
+  nombreReproduccionInicial: MenuStart
 --- !u!1 &189102530
 GameObject:
   m_ObjectHideFlags: 0
@@ -10420,7 +10420,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: "Lavadora_Ca\xF1on"
+          m_StringArgument: Lavadora_Canon
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 174164415}

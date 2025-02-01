@@ -16,23 +16,27 @@ public class TimelineController : MonoBehaviour
         inicioChorro = GameObject.Find("Chorro_Manager").GetComponent<ChorroTargetController>();
         controladorScripts = GameObject.Find("GameManager").GetComponent <ControladorScripts>();
         menuPausaManager = GameObject.Find("Controlador_MenuPausa").GetComponent<MenuPausaManager>();
-        controladorScripts.enabled = false;
-        menuPausaManager.enabled = false;
+
+        if (esCanon)
+        {
+            controladorScripts.enabled = false;
+            menuPausaManager.enabled = false;
+        }
     }
         
-    void Update()
+    void FixedUpdate()
     {
         if (esCanon)
         { 
-            contadorCanon += Time.deltaTime;
+            contadorCanon += Time.fixedDeltaTime;
 
-            if (contadorCanon >= 6 && contadorCanon <=6.1)
+            if (contadorCanon >= 8 && contadorCanon <=9f)
             {                
                 controladorScripts.enabled = true;
                 menuPausaManager.enabled = true;
             }
 
-            if (contadorCanon >= 15 && timeLineIntro.activeSelf)
+            if (contadorCanon >= 18 && timeLineIntro.activeSelf)
             {                
                 timeLineCanon.SetActive(true);
                 inicioChorro.iniciar = true;

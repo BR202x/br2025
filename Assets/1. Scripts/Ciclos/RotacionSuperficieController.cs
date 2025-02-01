@@ -123,88 +123,135 @@ public class RotacionSuperficieController : MonoBehaviour
     {
         while (true)
         {
-            yield return ControladorScripts.instance.WaitForUnpause(); // Espera si el juego está pausado
+            // Pausar si el juego está pausado
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
 
+            // Primer ciclo de rotación (normal)
             estaRotando = false;
             float tiempo = 0f;
 
             while (tiempo < duracionRotacionNormal)
             {
-                yield return ControladorScripts.instance.WaitForUnpause(); // Verifica pausa en cada frame
+                while (ControladorScripts.instance.isPaused)
+                {
+                    yield return null; // Espera si el juego está pausado
+                }
+
                 estaRotando = true;
                 superficieTambor.transform.Rotate(0, velocidadNormal * Time.deltaTime, 0);
                 tiempo += Time.deltaTime;
                 yield return null;
             }
 
-            yield return ControladorScripts.instance.WaitForUnpause();
+            // Pausa entre ciclos
+            estaRotando = false;
             reproducirAudio1 = false;
             reproducirAudio2 = false;
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
             yield return null;
 
+            // Segundo ciclo de rotación (reducida)
             tiempo = 0f;
-            estaRotando = false;
 
             while (tiempo < duracionRotacionReducida)
             {
-                yield return ControladorScripts.instance.WaitForUnpause();
+                while (ControladorScripts.instance.isPaused)
+                {
+                    yield return null; // Espera si el juego está pausado
+                }
+
                 estaRotando = true;
                 superficieTambor.transform.Rotate(0, -velocidadNormal * factorVelocidadReducida * Time.deltaTime, 0);
                 tiempo += Time.deltaTime;
                 yield return null;
             }
 
-            yield return ControladorScripts.instance.WaitForUnpause();
+            // Pausa entre ciclos
+            estaRotando = false;
             reproducirAudio1 = false;
             reproducirAudio2 = false;
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
             yield return null;
         }
     }
+
 
 
     private IEnumerator CicloEnjuague()
     {
         while (true)
         {
-            yield return ControladorScripts.instance.WaitForUnpause(); // Espera si el juego está pausado
+            // Verifica el estado de pausa antes de iniciar cada acción
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null; // Esperar mientras el juego esté pausado
+            }
 
             float tiempo = 0f;
 
+            // Primer giro (positivo)
             while (tiempo < duracionGiro)
             {
-                yield return ControladorScripts.instance.WaitForUnpause(); // Verifica pausa en cada frame
+                // Verifica el estado de pausa en cada frame
+                if (ControladorScripts.instance.isPaused)
+                {
+                    yield return null;
+                    continue;
+                }
+
                 estaRotando = true;
                 superficieTambor.transform.Rotate(0, velocidadEnjuague * Time.deltaTime, 0);
                 tiempo += Time.deltaTime;
                 yield return null;
             }
 
-            yield return ControladorScripts.instance.WaitForUnpause();
-            yield return new WaitForSeconds(pausaEntreGiros); // Pausa entre giros
-
+            // Pausa entre giros
+            estaRotando = false;
             reproducirAudio1 = false;
             reproducirAudio2 = false;
-            yield return null;
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null; // Esperar mientras el juego esté pausado
+            }
+            yield return new WaitForSeconds(pausaEntreGiros);
 
+            // Segundo giro (negativo)
             tiempo = 0f;
-
             while (tiempo < duracionGiro)
             {
-                yield return ControladorScripts.instance.WaitForUnpause();
+                if (ControladorScripts.instance.isPaused)
+                {
+                    yield return null;
+                    continue;
+                }
+
                 estaRotando = true;
                 superficieTambor.transform.Rotate(0, -velocidadEnjuague * Time.deltaTime, 0);
                 tiempo += Time.deltaTime;
                 yield return null;
             }
 
-            yield return ControladorScripts.instance.WaitForUnpause();
-            yield return new WaitForSeconds(pausaEntreGiros); // Pausa entre giros
-
+            // Pausa entre giros
+            estaRotando = false;
             reproducirAudio1 = false;
             reproducirAudio2 = false;
-            yield return null;
+            while (ControladorScripts.instance.isPaused)
+            {
+                yield return null;
+            }
+            yield return new WaitForSeconds(pausaEntreGiros);
         }
     }
+
 
 
 
