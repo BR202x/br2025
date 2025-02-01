@@ -36,14 +36,16 @@ public class MenuPausaManager : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            ControladorScripts.instance.MovimientoJugador(false);
+            //ControladorScripts.instance.MovimientoJugador(false);
+            ControladorScripts.instance.PausarJuego();
             if (mostrarDebug) Debug.Log("[MenuPausaManager] Cursor desbloqueado, jugador detenido.");
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            ControladorScripts.instance.MovimientoJugador(true);
+            //ControladorScripts.instance.MovimientoJugador(true);
+            ControladorScripts.instance.ReanudarJuego();
             if (mostrarDebug) Debug.Log("[MenuPausaManager] Cursor bloqueado, jugador habilitado.");
         }
     }

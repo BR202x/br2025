@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/2. Escenas/MenuPrincipal.unity
     guid: 442a12bc1d2efe64792cbef3360ca812
   - enabled: 1
-    path: "Assets/2. Escenas/Lavadora_Ca\xF1on.unity"
+    path: Assets/2. Escenas/Lavadora_Canon.unity
     guid: ca69d29dc0c7b3346a8114dee6908cd5
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

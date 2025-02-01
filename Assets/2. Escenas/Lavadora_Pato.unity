@@ -2654,6 +2654,8 @@ MonoBehaviour:
   timeLineIntro: {fileID: 7638133}
   timeLineCanon: {fileID: 1819704647}
   inicioChorro: {fileID: 0}
+  controladorScripts: {fileID: 0}
+  menuPausaManager: {fileID: 0}
   contadorCanon: 0
   esCanon: 1
 --- !u!1 &352648437
@@ -2734,7 +2736,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 352648437}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba4bbe6f21f09e34c95fcb1ef735e883, type: 3}
   m_Name: 
@@ -3296,7 +3298,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 401958275}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba4bbe6f21f09e34c95fcb1ef735e883, type: 3}
   m_Name: 
@@ -4773,6 +4775,7 @@ GameObject:
   m_Component:
   - component: {fileID: 640405370}
   - component: {fileID: 640405371}
+  - component: {fileID: 640405372}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4812,7 +4815,31 @@ MonoBehaviour:
   mostrarDebug: 0
   playerMovement: {fileID: 1865969658143185733}
   cameraController: {fileID: 5230089263082947096}
+  moverJugadorTambor: {fileID: 7412388784692970270}
+  animJugador: {fileID: 0}
+  inicioLlenado: {fileID: 0}
+  llenadoManager: {fileID: 0}
+  chorroTargetController: {fileID: 0}
+  rotacionSuperficieController: {fileID: 0}
+  seguirTarget: {fileID: 0}
   shield: {fileID: 0}
+--- !u!114 &640405372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640405369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcf9b5f24758fdc4f879e4ed5a8a81d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transicion: {fileID: 0}
+  contadorValvula: {fileID: 0}
+  escenaSiguiente: Lavadora_Pato
+  esCanon: 1
+  esPato: 0
 --- !u!1 &649709064
 GameObject:
   m_ObjectHideFlags: 0
@@ -6408,7 +6435,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 866429588}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba4bbe6f21f09e34c95fcb1ef735e883, type: 3}
   m_Name: 
@@ -9695,7 +9722,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1177306239}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba4bbe6f21f09e34c95fcb1ef735e883, type: 3}
   m_Name: 
@@ -10673,6 +10700,12 @@ MonoBehaviour:
   - {fileID: 1734814397}
   - {fileID: 1767661274}
   - {fileID: 291508755}
+  escalaDeTiempos4: 1
+  followPlayerSpeed4: 6
+  followDuration4: 3
+  idleAfterFollowDuration4: 1
+  tiempoEntreDisparos4: 0.5
+  tiempoDisparoQuieto4: 1
 --- !u!1 &1344209009
 GameObject:
   m_ObjectHideFlags: 0
@@ -15763,7 +15796,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2051665864}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba4bbe6f21f09e34c95fcb1ef735e883, type: 3}
   m_Name: 
@@ -16181,7 +16214,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066573282}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba4bbe6f21f09e34c95fcb1ef735e883, type: 3}
   m_Name: 
@@ -17775,7 +17808,6 @@ GameObject:
   - component: {fileID: 1395484507581005468}
   - component: {fileID: 7412388784692970270}
   - component: {fileID: 7412388784692970271}
-  - component: {fileID: 7412388784692970272}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -18088,7 +18120,6 @@ GameObject:
   - component: {fileID: 2482255332032130137}
   - component: {fileID: 9059453891240454282}
   - component: {fileID: 9059453891240454283}
-  - component: {fileID: 9059453891240454284}
   m_Layer: 0
   m_Name: RATON  JACK
   m_TagString: Untagged
@@ -25622,36 +25653,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7412388784692970272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2275437824937966199}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Events:
-    m_Signals:
-    - {fileID: 11400000, guid: e92ca3e4dd0c57c4c9d7903a1425b9df, type: 2}
-    m_Events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 7638136}
-          m_TargetAssemblyTypeName: TimelineControl, Assembly-CSharp
-          m_MethodName: FreeObjectsFromTimeline
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!4 &7539681352801163253
 Transform:
   m_ObjectHideFlags: 0
@@ -26312,36 +26313,6 @@ MonoBehaviour:
     Path: event:/Player/PlayerSteps
   nombreParametro: Parameter 1
   objetosDetectados: []
---- !u!114 &9059453891240454284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2970527192375129827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Events:
-    m_Signals:
-    - {fileID: 11400000, guid: e92ca3e4dd0c57c4c9d7903a1425b9df, type: 2}
-    m_Events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 7638136}
-          m_TargetAssemblyTypeName: TimelineControl, Assembly-CSharp
-          m_MethodName: FreeObjectsFromTimeline
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!4 &9162912308012204521
 Transform:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ public class ControladorGolpeValvula : MonoBehaviour
     public int vidaActual;
     public int vidaParaFase2 = 3;
     public int vidaParaFase3 = 6;
-    public int vidaTotal = 10;
+    public int vidaTotal = 9;
     public bool fase2 = false;
     public bool fase3 = false;
 
