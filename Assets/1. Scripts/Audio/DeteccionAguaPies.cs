@@ -39,10 +39,4 @@ public class DeteccionAguaPies : MonoBehaviour
             }
         }
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = playerPiesAgua ? Color.green : Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, radioEsfera);
-    }
 }

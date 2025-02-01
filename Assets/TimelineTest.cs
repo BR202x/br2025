@@ -11,8 +11,12 @@ public class TimelineTest : MonoBehaviour
     public ChorroTargetController targetController;
     public GameObject follow;
     public GameObject targetChorro;
+    public GameObject player;
+    [Header("Posiciones")]
     public Transform targetPosTest;
     public Transform targetPosTimeline;
+    public Transform playerPosTest;
+    public Transform playerPosTimeline;
 
     void Start()
     {
@@ -23,10 +27,12 @@ public class TimelineTest : MonoBehaviour
             AsignarFollowCinemachine();
             ActivarSecuenciaChorro();
             targetChorro.transform.position = targetPosTest.position;
+            player.transform.position = playerPosTest.position;
         }
 
         if (!test)
-        { 
+        {
+            player.transform.position = playerPosTimeline.position;
             targetChorro.transform.position= targetPosTimeline.position;        
         }
     }

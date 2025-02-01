@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: COLOR_BARRAS
+  m_Name: MaterialTuboCentro
   m_Shader: {fileID: 4800000, guid: be891319084e9d147b09d89e80ce60e0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -250,11 +250,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _1st2nd_Shades_Feather: 0.226
+    - _1st2nd_Shades_Feather: 0.065
     - _1st_ShadeColor_Feather: 0.215
-    - _1st_ShadeColor_Step: 0.156
-    - _2nd_ShadeColor_Feather: 0.226
-    - _2nd_ShadeColor_Step: 0.392
+    - _1st_ShadeColor_Step: 0.446
+    - _2nd_ShadeColor_Feather: 0.065
+    - _2nd_ShadeColor_Step: 0.489
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ARSampler_AlphaOn: 0
@@ -284,7 +284,7 @@ Material:
     - _AutoRenderQueue: 1
     - _BaseColorOverridden: 0
     - _BaseColorVisible: 1
-    - _BaseColor_Step: 0.156
+    - _BaseColor_Step: 0.446
     - _BaseShade_Feather: 0.215
     - _Base_Speed: 0
     - _Blend: 0
@@ -418,7 +418,7 @@ Material:
     - _Offset_Z: 0
     - _OutlineOverridden: 0
     - _OutlineVisible: 1
-    - _Outline_Width: 0.02
+    - _Outline_Width: 2
     - _PPDLodThreshold: 5
     - _PPDMaxSamples: 15
     - _PPDMinSamples: 5
@@ -446,7 +446,7 @@ Material:
     - _SecondShadeOverridden: 0
     - _SecondShadeVisible: 1
     - _Set_SystemShadowsToBase: 1
-    - _ShadeColor_Step: 0.392
+    - _ShadeColor_Step: 0.489
     - _Smoothness: 0.5
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
@@ -499,7 +499,7 @@ Material:
     - _Tweak_MatcapMaskLevel: 0
     - _Tweak_RimLightMaskLevel: 0
     - _Tweak_ShadingGradeMapLevel: 0
-    - _Tweak_SystemShadowsLevel: -0.037
+    - _Tweak_SystemShadowsLevel: -0.075
     - _Tweak_transparency: 0
     - _UVBase: 0
     - _UVDetail: 0

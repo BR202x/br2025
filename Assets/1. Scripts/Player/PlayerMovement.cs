@@ -171,7 +171,7 @@ public Oneshots Sound;
         if (currentState == stateWalk)
         {
             AccionesMateriales.Instance.ReproducirDash();
-            AudioImp.Instance.Reproducir("PlayerEffort");
+            // AudioImp.Instance.Reproducir("PlayerEffort");
 
             ChangeState(stateDash);
         }
