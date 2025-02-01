@@ -227,6 +227,7 @@ MonoBehaviour:
   model: {fileID: 1110324164502372700}
   controllerCam: {fileID: 7318091671551258397}
   currentStateText: {fileID: 0}
+  Sound: {fileID: 0}
 --- !u!54 &4064757803431830242
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -429,13 +430,146 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b391a7d7249b4c0c859666200ab9955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event:
+  Attack:
     Guid:
       Data1: 699578458
       Data2: 1169560599
       Data3: 1770202520
       Data4: 1534546147
     Path: event:/Tools/PlayerSword
+  Defense:
+    Guid:
+      Data1: 681863339
+      Data2: 1275147202
+      Data3: -55231103
+      Data4: -2041697554
+    Path: event:/Tools/PlayerShieldOff
+  UnDefense:
+    Guid:
+      Data1: 681863339
+      Data2: 1275147202
+      Data3: -55231103
+      Data4: -2041697554
+    Path: event:/Tools/PlayerShieldOff
+  ThrowShield:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  StepsCloth:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  StepsWetCloth:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  StepsMetal:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  StepsWater:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  RollWater:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  RollCloth:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  RollWetCloth:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  RollMetal:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  JumpWater:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  JumpCloth:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  JumpWetCloth:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  JumpMetal:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  ChorroOn:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  CallChorro:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  Botones:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  Event:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   PlayOnAwake: 0
 --- !u!1 &4521914719308447866
 GameObject:
