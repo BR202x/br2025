@@ -179,5 +179,5 @@ MonoBehaviour:
   scaleSpeedConstant: 0.2
   reductionSpeedConstant: 1
   rScale: 0.2
-  fuerzaEmpujeJugador: 0.1
+  fuerzaEmpujeJugador: 6
   hitJugador: 0

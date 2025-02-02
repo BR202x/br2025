@@ -88,6 +88,7 @@ public class ControladorDano : MonoBehaviour
 
     void GenerarVidas()
     {
+        /*
         if (mostrarDebug) Debug.Log("[ControladorDano] Generando vidas.");
         foreach (Transform child in panelVida.transform)
         {
@@ -102,10 +103,12 @@ public class ControladorDano : MonoBehaviour
             nuevaVida.name = "Vida_" + (i + 1);
             listaVidas.Add(nuevaVida);
         }
+        */
     }
 
     public void RecibirDano()
     {
+        /*
         if (mostrarDebug) Debug.Log("[ControladorDano] Aplicando dano.");
         if (vidaActual > 0)
         {
@@ -119,10 +122,12 @@ public class ControladorDano : MonoBehaviour
             }
             vidaActual--;
         }
+        */
     }
 
     public void RecuperarVida()
     {
+        /*
         if (mostrarDebug) Debug.Log("[ControladorDano] Recuperando vida.");
         if (vidaActual < vida)
         {
@@ -140,6 +145,7 @@ public class ControladorDano : MonoBehaviour
         {
             if (mostrarDebug) Debug.Log("[ControladorDano] Vida al máximo.");
         }
+        */
     }
 
     private void ReducirOxigeno()
@@ -170,12 +176,14 @@ public class ControladorDano : MonoBehaviour
 
     private void ContarParaReducirVida()
     {
+
         if (mostrarDebug) Debug.Log("[ControladorDano] Contando para dano.");
         contadorTiempo -= Time.deltaTime;
 
         if (contadorTiempo <= 0f)
         {
-            RecibirDano();
+            Debug.Log("REDUCIENDO VIDA OXIGENO");
+            ControladorAtaque.Instance.HacerDamagePlayer(1);
             contadorTiempo = tiempoParaReducirVida;
         }
     }

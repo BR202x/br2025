@@ -1822,6 +1822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mostrarDebug: 0
+  panelOpciones: {fileID: 0}
   panelControles: {fileID: 2066630073}
   panelSonido: {fileID: 1798279403}
   panelGraficos: {fileID: 822612206}
@@ -1869,6 +1870,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08adcca9c5e68e44bde9444173949f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnabled: 0
   objetoAgua: {fileID: 149208440}
   umbralCambioSonido: {fileID: 194516253}
   sobreAgua: 0
@@ -1965,7 +1967,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &203207731
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2841,6 +2843,7 @@ RectTransform:
   - {fileID: 1446490316}
   - {fileID: 1197004240}
   - {fileID: 1350703726}
+  - {fileID: 1297072443}
   - {fileID: 1873832421}
   - {fileID: 1428797702}
   m_Father: {fileID: 975662719}
@@ -5262,6 +5265,7 @@ GameObject:
   - component: {fileID: 640405370}
   - component: {fileID: 640405371}
   - component: {fileID: 640405372}
+  - component: {fileID: 640405373}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5325,8 +5329,30 @@ MonoBehaviour:
   transicion: {fileID: 1428797698}
   contadorValvula: {fileID: 0}
   escenaSiguiente: Lavadora_Pato
-  esCanon: 1
+  esCanon: 0
   esPato: 0
+--- !u!95 &640405373
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640405369}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &649709064
 GameObject:
   m_ObjectHideFlags: 0
@@ -6158,6 +6184,7 @@ GameObject:
   - component: {fileID: 759788094}
   - component: {fileID: 759788095}
   - component: {fileID: 759788096}
+  - component: {fileID: 759788097}
   m_Layer: 0
   m_Name: TEST_AUDIO
   m_TagString: Untagged
@@ -6222,6 +6249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mostrarLog: 0
   gizmosDebug: 0
+  isEnabled: 0
   sueloLayer:
     serializedVersion: 2
     m_Bits: 320
@@ -6230,6 +6258,28 @@ MonoBehaviour:
   estaPiso: 0
   estaSaltando: 0
   puedeSonar: 0
+--- !u!95 &759788097
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759788093}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &763815692
 GameObject:
   m_ObjectHideFlags: 0
@@ -9556,7 +9606,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f833ddfcbc7986c41adc81a1c3cea278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musica: []
+  musica:
+  - nombreEvento: MusicaPato
+    eventReference:
+      Guid:
+        Data1: -401243426
+        Data2: 1313276521
+        Data3: -374723416
+        Data4: -194766815
+      Path: event:/Music/W.M_Mus_Boss_Foam
   sfx:
   - nombreEvento: PlayerSword
     eventReference:
@@ -10836,6 +10894,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1188283952}
   m_CullTransparentMesh: 1
+--- !u!1 &1190992714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1190992715}
+  - component: {fileID: 1190992717}
+  - component: {fileID: 1190992716}
+  m_Layer: 5
+  m_Name: Slider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1190992715
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190992714}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1297072443}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 318, y: 334}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1190992716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190992714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 837965ac132b33241be95ca66fc47ea2, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 0
+  m_FillOrigin: 2
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1190992717
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190992714}
+  m_CullTransparentMesh: 1
 --- !u!1 &1197004239
 GameObject:
   m_ObjectHideFlags: 0
@@ -10855,7 +10988,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1197004240
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11432,6 +11565,123 @@ MonoBehaviour:
       Data4: -1934181046
     Path: event:/Player/PlayerRoll
   nombreParametro: Parameter 1
+--- !u!1 &1297072442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1297072443}
+  - component: {fileID: 1297072447}
+  - component: {fileID: 1297072446}
+  - component: {fileID: 1297072445}
+  - component: {fileID: 1297072444}
+  m_Layer: 5
+  m_Name: Panel_Vida
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1297072443
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297072442}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1190992715}
+  m_Father: {fileID: 284438553}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.00024414062, y: 0}
+  m_SizeDelta: {x: 318, y: 334}
+  m_Pivot: {x: 0, y: 0}
+--- !u!114 &1297072444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297072442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a491299a15c91ad43b2d5ead0299cb7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 1190992716}
+--- !u!114 &1297072445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297072442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 5
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!114 &1297072446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297072442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 816391dae345ceb4f91f10613321cc2f, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1297072447
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297072442}
+  m_CullTransparentMesh: 1
 --- !u!1 &1308512564
 GameObject:
   m_ObjectHideFlags: 0
@@ -14039,6 +14289,12 @@ MonoBehaviour:
     gameobject: {fileID: 0}
     start: 0
     Tipo: SFX
+  - NombreElegido: MusicaPatoStart
+    Metodo: MusicaFondo
+    EventoFMOD: MusicaPato
+    gameobject: {fileID: 0}
+    start: 1
+    Tipo: "M\xFAsica"
   Musica:
   - NombreElegido: d
     Metodo: TimeLine
@@ -14067,6 +14323,12 @@ MonoBehaviour:
   - NombreElegido: dfsfs
     Metodo: SonidoAmbiental3D
     EventoFMOD: Musica1
+    gameobject: {fileID: 0}
+    start: 1
+    Tipo: "M\xFAsica"
+  - NombreElegido: MusicaPatoStart
+    Metodo: MusicaFondo
+    EventoFMOD: MusicaPato
     gameobject: {fileID: 0}
     start: 1
     Tipo: "M\xFAsica"
@@ -14337,6 +14599,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mostrarLog: 0
+  playerhealth: {fileID: 0}
+  recargarEscena: 
+  panelTransicion: {fileID: 0}
 --- !u!114 &1682750960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17395,6 +17660,10 @@ PlayableDirector:
     value: {fileID: 1873832418}
   - key: {fileID: -2898134923880313692, guid: aebe04416d19b564ab6c19b6607f2878, type: 2}
     value: {fileID: 961685734}
+  - key: {fileID: 2221746974931373721, guid: aebe04416d19b564ab6c19b6607f2878, type: 2}
+    value: {fileID: 640405373}
+  - key: {fileID: -1256740168745144143, guid: aebe04416d19b564ab6c19b6607f2878, type: 2}
+    value: {fileID: 759788097}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &2034499478
@@ -19445,6 +19714,8 @@ MonoBehaviour:
   rotationSpeed: 0.1
   moveSmooth: 0.2
   jumpForce: 12
+  knockBackForce: 0
+  damageDuration: 0
   gravityScale: 2.5
   raySize: 0.09
   isGround: 0
@@ -19469,8 +19740,6 @@ MonoBehaviour:
   currentRotation: 0
   model: {fileID: 2482255332032130137}
   controllerCam: {fileID: 5230089263082947096}
-  currentStateText: {fileID: 1975499391}
-  Sound: {fileID: 0}
 --- !u!4 &1867135844244771175
 Transform:
   m_ObjectHideFlags: 0
@@ -19754,6 +20023,7 @@ GameObject:
   - component: {fileID: 1395484507581005468}
   - component: {fileID: 7412388784692970270}
   - component: {fileID: 7412388784692970271}
+  - component: {fileID: 7412388784692970272}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -27694,6 +27964,29 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7412388784692970272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2275437824937966199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfe5eb629ccf0924fa77b0f2a98b603e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vidaActual: 0
+  vida: 13
+  cooldownDealDamage: 0.5
+  OnDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDead:
+    m_PersistentCalls:
+      m_Calls: []
+  hasBar: 1
+  health: {fileID: 1297072444}
 --- !u!4 &7539681352801163253
 Transform:
   m_ObjectHideFlags: 0

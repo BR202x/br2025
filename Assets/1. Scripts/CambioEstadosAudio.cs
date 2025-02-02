@@ -5,6 +5,7 @@ public class CambioEstadosAudio : MonoBehaviour
     [Header("depuracion")]
     public bool mostrarLog = false;
     public bool gizmosDebug = false;
+    public bool isEnabled = false;
 
     #region Variables
 
@@ -36,12 +37,15 @@ public class CambioEstadosAudio : MonoBehaviour
 
     private void Update()
     {
-        DetectarSuelo();
-        VerificarCambiosDeEstado();
-
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (isEnabled)
         {
-            puedeSonar = true;
+            DetectarSuelo();
+            VerificarCambiosDeEstado();
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                puedeSonar = true;
+            }
         }
     }
 

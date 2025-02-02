@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CambioDeEscena : MonoBehaviour
+public class GestionEscenarios : MonoBehaviour
 {
     public GameObject transicion;
     public ControladorGolpeValvula contadorValvula;
@@ -16,14 +16,18 @@ public class CambioDeEscena : MonoBehaviour
         
     void Update()
     {
-        if (contadorValvula.vidaActual >= 9 && esCanon)
+        if (contadorValvula.vidaActual >= contadorValvula.vidaTotal && esCanon)
         {
-            transicion.SetActive(true);
-            ControladorScripts.instance.PausarJuego();
-            Invoke("CambiarEscena", 3);
+            CambiarEscenaDelay(); // nombrar escena en el inspector AJJAJAJ
         }
     }
+    public void CambiarEscenaDelay() // MACHETE 7 am
+    {
+        transicion.SetActive(true);
+        ControladorScripts.instance.PausarJuego();
+        Invoke("CambiarEscena", 3);
 
+    }
     public void CambiarEscena()
     {
         CambiarEscenaNext(escenaSiguiente);
@@ -32,6 +36,7 @@ public class CambioDeEscena : MonoBehaviour
     public void CambiarEscenaNext(string nombreEscena)
     {
         Debug.Log("Cambiando Escena");
+        AudioImp.Instance.Reproducir("MusicaCanonStop");
         SceneManager.LoadScene(nombreEscena);
     }
 }

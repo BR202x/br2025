@@ -349,9 +349,9 @@ public class InstanciaNewChorro : MonoBehaviour
     {
         if (!sonidoReproducido)
         {
+            ControladorAtaque.Instance.HacerDamagePlayer(1);
             Debug.Log("SONIDO DANO CHORRO");
             AudioImp.Instance.Reproducir("PlayerHitChorro");
-            AudioImp.Instance.Reproducir("PlayerHurt");
             sonidoReproducido = true;
         }
     }

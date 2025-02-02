@@ -1,12 +1,54 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class ControladorAtaque : MonoBehaviour
 {
+    public static ControladorAtaque Instance { get; private set; }
+
     [Header("Depuración")]
     public bool mostrarLog;
 
-    void Update()
+    public HealthController playerhealth;
+    public string recargarEscena;
+    public GameObject panelTransicion;
+
+    private void Awake()
     {
+
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
+
+    private void Start()
+    {
+        playerhealth = GameObject.Find("Player").GetComponent<HealthController>();
+
+        if (panelTransicion != null)
+        {
+            panelTransicion.SetActive(false);
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            playerhealth.DealDamage(1);
+        }
+
+        if (playerhealth.vidaActual == 0)
+        {
+            RecargarEscena(recargarEscena);
+        }
+
         Shield shieldObject = FindFirstObjectByType<Shield>();
         if (shieldObject != null)
         {
@@ -20,5 +62,32 @@ public class ControladorAtaque : MonoBehaviour
         {
             if (mostrarLog) { Debug.LogWarning("No se encontró un objeto llamado Shield en la escena."); }
         }
+
+    }
+
+    public void HacerDamagePlayer(int damage)
+    {
+        if (playerhealth != null)
+        {
+            AudioImp.Instance.Reproducir("PlayerHurt");
+            playerhealth.DealDamage(damage);
+        }
+    }
+
+    public void RecargarEscena(string nombreEscena)
+    {
+        StartCoroutine(CorutinaRecargarEscena(nombreEscena));
+    }
+
+    private IEnumerator CorutinaRecargarEscena(string nombreEscena)
+    {
+        if (panelTransicion != null)
+        {
+            panelTransicion.SetActive(true); // Activar el panel de transición
+        }
+
+        yield return new WaitForSeconds(3f); // Esperar 3 segundos
+
+        SceneManager.LoadScene(nombreEscena); // Recargar la escena
     }
 }
