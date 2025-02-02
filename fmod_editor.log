@@ -1,13 +1,12 @@
 [LOG] System::create                           : Header version = 2.02.25. Current version = 2.02.25.
-[LOG] Manager::init                            : maxchannels = 256 studioflags = 00000006 flags 00000000 extradriverdata 0000000000000000.
+[LOG] Manager::init                            : maxchannels = 256 studioflags = 00000006 flags 00000000 extradriverdata 0x0.
 [LOG] SystemI::init                            : Initialize version=20225 (147536), maxchannels=256, flags=0x00020000
-[LOG] SystemI::setOutputInternal               : Setting output to 'FMOD WASAPI Output'
-[LOG] OutputWASAPI::init                       : Mix Format (WAVEFORMATEX): wFormatTag=0xFFFE, nChannels=2, nSamplesPerSec=48000, nAvgBytesPerSec=384000, nBlockAlign=8, wBitsPerSample=32, cbSize=22.
-[LOG] OutputWASAPI::init                       : Mix Format (WAVEFORMATEXTENSIBLE): wValidBitsPerSample=32, dwChannelMask=0x00000003, SubFormat=00000003-0000-0010-8000-00AA00389B71.
-[LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
+[LOG] SystemI::setOutputInternal               : Setting output to 'FMOD Core Audio Output'
+[LOG] OutputCoreAudio::init                    : Output running 2 channels at 48000Hz sample rate.
+[LOG] OutputCoreAudio::init                    : Maximum hardware read size: 512 samples, Software buffer size: 512 samples, Number of software buffers: 4.
 [LOG] Thread::initThread                       : Init FMOD stream thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
-[LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x4000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 0000023BF3F52928 isAsync 0 updatePeriod 0.02
+[LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x4000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: Yes, Sleep Time: 0, Looping: Yes.
+[LOG] AsyncManager::init                       : manager 0x7fb787eb9008 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -16,115 +15,8 @@
 [LOG] Manager::init                            : done.
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 2876864
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 85216
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000008D722FF038
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFD744D5B90
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFD744D5B50
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFD744D5C70
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFD744D5D30
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 00000239C682B198
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='SFX_Enemy_Boss_Fist_Move_01', format=5, channels=1, frequency=48000, lengthbytes=27008, lengthpcm=147255, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.516418.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 2876864
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 85216
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000008D722FF038
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFD744D5B90
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFD744D5B50
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFD744D5C70
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFD744D5D30
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 00000239C682B198
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='SFX_Enemy_Boss_Fist_Move_03', format=5, channels=1, frequency=48000, lengthbytes=25056, lengthpcm=138604, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.468597.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 2876864
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 85216
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000008D722FF038
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFD744D5B90
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFD744D5B50
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFD744D5C70
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFD744D5D30
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 00000239C682B198
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='SFX_Enemy_Boss_Fist_Move_06', format=5, channels=1, frequency=48000, lengthbytes=27008, lengthpcm=146779, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.485107.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 2876864
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 85216
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000008D722FF038
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFD744D5B90
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFD744D5B50
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFD744D5C70
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFD744D5D30
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 00000239C682B198
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='SFX_Enemy_Boss_Fist_Move_04', format=5, channels=1, frequency=48000, lengthbytes=26240, lengthpcm=136447, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.520813.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 2876864
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 85216
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000008D722FF038
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFD744D5B90
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFD744D5B50
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFD744D5C70
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFD744D5D30
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 00000239C682B198
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='SFX_Enemy_Boss_Fist_Move_02', format=5, channels=1, frequency=48000, lengthbytes=26432, lengthpcm=145362, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.533905.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 2876864
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 85216
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000008D722FF038
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFD744D5B90
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFD744D5B50
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFD744D5C70
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFD744D5D30
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 00000239C682B198
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='SFX_Enemy_Boss_Fist_Move_05', format=5, channels=1, frequency=48000, lengthbytes=27776, lengthpcm=145121, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.535095.
-[LOG] SoundI::release                          :  (0000023B3FF5CCF8)
-[LOG] SoundI::release                          :     SFX_Enemy_Boss_Fist_Move_01 (0000023BF4BE9278)
-[LOG] SoundI::release                          :  (00000239D79229F8)
-[LOG] SoundI::release                          :     SFX_Enemy_Boss_Fist_Move_02 (0000023D323D61A8)
-[LOG] SoundI::release                          :  (0000023B3FF5CA18)
-[LOG] SoundI::release                          :     SFX_Enemy_Boss_Fist_Move_03 (0000023BF4BE98F8)
-[LOG] SoundI::release                          :  (00000239D7922888)
-[LOG] SoundI::release                          :     SFX_Enemy_Boss_Fist_Move_04 (0000023D323D6828)
-[LOG] SoundI::release                          :  (00000239D7923298)
-[LOG] SoundI::release                          :     SFX_Enemy_Boss_Fist_Move_05 (0000023D323D6348)
-[LOG] SoundI::release                          :  (0000023B3FF5C738)
-[LOG] SoundI::release                          :     SFX_Enemy_Boss_Fist_Move_06 (0000023BF4BE9C38)
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.
 [LOG] Thread::callback                         : FMOD Studio sample load thread finished.
 [LOG] LiveUpdate::release                      : 
