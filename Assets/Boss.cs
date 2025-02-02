@@ -9,6 +9,7 @@ public class Boss : MonoBehaviour
 {
     public float timer;
     public float timeToChangeAttack = 5;
+    private Animator anim;
     private enum BossState
     {
         intro,
@@ -27,7 +28,27 @@ public class Boss : MonoBehaviour
         health = GetComponent<HealthController>();
         rightHand.Configure(this);
         leftHand.Configure(this);
+        anim = GetComponent<Animator>();
+
     }
+    private void Start()
+    {
+        health.OnDamage.AddListener(DamageAnimation);
+        health.OnDead.AddListener(DeadAnimation);
+    }
+
+
+    public void DamageAnimation()
+    {
+        if(health.isDead) return;
+        anim.SetTrigger("Damage");
+    }
+    public void DeadAnimation()
+    {
+        anim.Play("BossDead");
+        DeadHands();
+    }
+
     private void Update()
     {
         timer += Time.deltaTime;
@@ -40,6 +61,15 @@ public class Boss : MonoBehaviour
         }
 
     }
+    public void DeadHands()
+    {
+        leftHand.gameObject.SetActive(false);
+        rightHand.gameObject.SetActive(false);
+    }
+    public void Dead()
+    {
+        gameObject.SetActive(false);
+    }
     public void TryAttack(int attackleft, int attackRight)
     {
         if (attackleft == 1)// 1 = followPunch
@@ -49,7 +79,7 @@ public class Boss : MonoBehaviour
             {
                 leftHand.ChangeState(BossHand.HandState.FollowPunch);
             }
-            
+
             else
             {
                 attackleft = Random.Range(2, 4);
@@ -114,8 +144,8 @@ public class Boss : MonoBehaviour
 
         }
 
-        
+
     }
 
-   
+
 }
