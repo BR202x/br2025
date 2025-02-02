@@ -78,6 +78,16 @@ public class ControladorAtaque : MonoBehaviour
         }
     }
 
+    public void HacerDamageAhogado(int damage)
+    {
+        if (playerhealth != null)
+        {
+            AudioImp.Instance.Reproducir("PlayerDrown");
+            playerhealth.DealDamage(damage);
+        }
+
+    }
+
     public void RecargarEscena(string nombreEscena)
     {
         StartCoroutine(CorutinaRecargarEscena(nombreEscena));

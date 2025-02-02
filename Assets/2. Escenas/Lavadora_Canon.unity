@@ -261,7 +261,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 404.72736, y: -264.25}
+  m_AnchoredPosition: {x: 404.72736, y: -200}
   m_SizeDelta: {x: 332, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &39258362
@@ -8530,11 +8530,11 @@ MonoBehaviour:
   - nombreEvento: PlayerDrown
     eventReference:
       Guid:
-        Data1: 691475134
-        Data2: 1301538661
-        Data3: 1555920572
-        Data4: 748755148
-      Path: event:/UI/SFX_UI_Button
+        Data1: 1654317778
+        Data2: 1134727475
+        Data3: 1668707262
+        Data4: -1165034610
+      Path: event:/Player/Player_Drown
   ambiente: []
 --- !u!1 &1093551853
 GameObject:
@@ -8666,7 +8666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.15686275}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10302,7 +10302,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 404.72736, y: -404.25}
+  m_AnchoredPosition: {x: 404.72736, y: -340}
   m_SizeDelta: {x: 332, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1258329794
@@ -10840,7 +10840,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 404.72736, y: -124.25}
+  m_AnchoredPosition: {x: 404.72736, y: -60}
   m_SizeDelta: {x: 332, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1284801180
@@ -13414,6 +13414,12 @@ MonoBehaviour:
     gameobject: {fileID: 0}
     start: 0
     Tipo: SFX
+  - NombreElegido: PlayerDrown
+    Metodo: OneShot
+    EventoFMOD: PlayerDrown
+    gameobject: {fileID: 0}
+    start: 0
+    Tipo: "M\xFAsica"
   Musica:
   - NombreElegido: d
     Metodo: TimeLine
@@ -13454,6 +13460,12 @@ MonoBehaviour:
   - NombreElegido: MusicaCanonStop
     Metodo: MusicaFondo
     EventoFMOD: MusicaCanon
+    gameobject: {fileID: 0}
+    start: 0
+    Tipo: "M\xFAsica"
+  - NombreElegido: PlayerDrawn
+    Metodo: OneShot
+    EventoFMOD: PlayerDrown
     gameobject: {fileID: 0}
     start: 0
     Tipo: "M\xFAsica"
@@ -16712,9 +16724,9 @@ RectTransform:
   - {fileID: 853477181}
   m_Father: {fileID: 2076571460}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 404.50732, y: -14.75}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 404.72736, y: -480}
   m_SizeDelta: {x: 332, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2062917330
@@ -17181,7 +17193,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -442.69623, y: -52}
+  m_AnchoredPosition: {x: -442.69623, y: -125}
   m_SizeDelta: {x: 809.4547, y: 528.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2076571461
@@ -17688,7 +17700,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 44.25
+  field of view: 60.000004
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -24837,8 +24849,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3387058055385218570}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 2.5889099, y: 0.03999996, z: 6.6369467}
+  m_LocalRotation: {x: -0.1778509, y: 0.0047761095, z: -0.0018351203, w: -0.9840442}
+  m_LocalPosition: {x: 3.3389099, y: -0.39, z: 7.6669464}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
