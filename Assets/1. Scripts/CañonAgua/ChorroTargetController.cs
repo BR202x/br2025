@@ -149,9 +149,9 @@ public class ChorroTargetController : MonoBehaviour
     {
         if (mostrarLog) { Debug.Log("[ChorroTargetController]: Actualizando estado."); }
 
-        if (Input.GetKeyDown(KeyCode.U)) { EmpezarEstado1(); }
-        if (Input.GetKeyDown(KeyCode.I)) { EmpezarEstado2(); }
-        if (Input.GetKeyDown(KeyCode.O)) { EmpezarEstado3(); }
+        //if (Input.GetKeyDown(KeyCode.U)) { EmpezarEstado1(); }
+        //if (Input.GetKeyDown(KeyCode.I)) { EmpezarEstado2(); }
+        //if (Input.GetKeyDown(KeyCode.O)) { EmpezarEstado3(); }
 
         chorro = FindFirstObjectByType<InstanciaNewChorro>();
 

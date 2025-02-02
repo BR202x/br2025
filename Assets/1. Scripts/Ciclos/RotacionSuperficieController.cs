@@ -47,27 +47,27 @@ public class RotacionSuperficieController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.C))
         {
-            IniciarCicloLavado();
+            // IniciarCicloLavado();
         }
 
         if (Input.GetKey(KeyCode.V))
         {
-            IniciarCicloEnjuague();
+            // IniciarCicloEnjuague();
         }
 
         if (Input.GetKey(KeyCode.B))
         {
-            IniciarCicloCentrifugado();
+            // IniciarCicloCentrifugado();
         }
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            superficieTambor.transform.Rotate(0, velocidadTest * Time.deltaTime, 0);
+            // superficieTambor.transform.Rotate(0, velocidadTest * Time.deltaTime, 0);
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            superficieTambor.transform.Rotate(0, -velocidadTest * Time.deltaTime, 0);
+            // superficieTambor.transform.Rotate(0, -velocidadTest * Time.deltaTime, 0);
         }
 
         if (estaRotando && !deteccionAgua.sobreAgua)

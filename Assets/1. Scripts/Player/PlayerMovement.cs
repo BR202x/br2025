@@ -171,8 +171,7 @@ public class PlayerMovement : MonoBehaviour
         Invoke(nameof(EnableDash), dashCooldown);
         if (currentState == stateWalk)
         {
-            AccionesMateriales.Instance.ReproducirDash();
-            // AudioImp.Instance.Reproducir("PlayerEffort");
+            AccionesMateriales.Instance.ReproducirDash();            
 
             ChangeState(stateDash);
         }
@@ -190,7 +189,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 ChangeState(stateJump);
                 AccionesMateriales.Instance.ReproducirSalto();
-                //AudioImp.Instance.Reproducir("PlayerEffort");
+                AudioImp.Instance.Reproducir("PlayerEffort");
 
             }
         }

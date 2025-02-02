@@ -49,20 +49,20 @@ public class ControladorDano : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            if (mostrarDebug) Debug.Log("[ControladorDano] Input M: Recibir Dano.");
-            RecibirDano();
+            //if (mostrarDebug) Debug.Log("[ControladorDano] Input M: Recibir Dano.");
+            //RecibirDano();
         }
 
         if (Input.GetKeyDown(KeyCode.N))
         {
             if (mostrarDebug) Debug.Log("[ControladorDano] Input N: Recuperar Vida.");
-            RecuperarVida();
+            //RecuperarVida();
         }
 
         if (Input.GetKeyDown(KeyCode.O))
         {
             if (mostrarDebug) Debug.Log("[ControladorDano] Input O: Cambiando estado de agua.");
-            estaEnAgua = !estaEnAgua;
+            //estaEnAgua = !estaEnAgua;
         }
 
         estaEnAgua = deteccionCabezaAgua.playerCabezaAgua;

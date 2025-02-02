@@ -60,6 +60,12 @@ public class MenuOpciones : MonoBehaviour
         panelGraficos.SetActive(false);
     }
 
+    public void Salir()
+    {
+        MostrarLog("Saliendo del juego...");
+        Application.Quit();
+    }
+
     private void MostrarLog(string mensaje)
     {
         if (mostrarDebug)

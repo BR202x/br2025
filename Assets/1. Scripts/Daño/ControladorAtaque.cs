@@ -41,7 +41,7 @@ public class ControladorAtaque : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            playerhealth.DealDamage(1);
+            // playerhealth.DealDamage(1);
         }
 
         if (playerhealth.vidaActual == 0)

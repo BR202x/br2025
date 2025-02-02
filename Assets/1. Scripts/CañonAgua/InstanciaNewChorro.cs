@@ -82,9 +82,9 @@ public class InstanciaNewChorro : MonoBehaviour
         target = GameObject.Find("Valvula").GetComponent<SeguirTarget>().target;
         chorroReboteInst = GameObject.Find("ChorroNew(Clone)");
 
-        if (Input.GetKeyDown(toggleKey))
+        if (Input.GetKeyDown(toggleKey)) // ABRIR LLAVE TEST
         {
-            isOpen = false;
+            // isOpen = false;
         }
 
         lineRenderer.SetPosition(0, transform.position);

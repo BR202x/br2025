@@ -12,8 +12,14 @@ EditorBuildSettings:
     path: Assets/2. Escenas/Lavadora_Canon.unity
     guid: ca69d29dc0c7b3346a8114dee6908cd5
   - enabled: 1
+    path: Assets/2. Escenas/Presentacion_Pato.unity
+    guid: 9cdeaab0aeed1b249980fce8afa4f753
+  - enabled: 0
     path: Assets/2. Escenas/Lavadora_Pato.unity
     guid: a2cb7e71628b7d745b7a98a7eb24273b
+  - enabled: 1
+    path: Assets/2. Escenas/Lavadora_Pato_NEW.unity
+    guid: 75ebc35e3feb4d9468ea12e03986768d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

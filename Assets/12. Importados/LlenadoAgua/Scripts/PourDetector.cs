@@ -25,8 +25,8 @@ public class PourDetector : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            MostrarDebug("Presionando X en: " + this.name);
-            pourCheck = !pourCheck;
+           // MostrarDebug("Presionando X en: " + this.name);
+           // pourCheck = !pourCheck;
         }
 
         if (isPouring != pourCheck)

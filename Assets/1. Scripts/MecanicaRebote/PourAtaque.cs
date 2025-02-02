@@ -31,8 +31,8 @@ public class PourAtaque : MonoBehaviour
     {        
         if (Input.GetKeyDown(KeyCode.L))
         {
-            if (mostrarLog) { Debug.Log("Presionando X en: " + this.name); }
-            pourCheck = !pourCheck;
+            //if (mostrarLog) { Debug.Log("Presionando X en: " + this.name); }
+            //pourCheck = !pourCheck;
         }
              
         if (isPouring != pourCheck)
