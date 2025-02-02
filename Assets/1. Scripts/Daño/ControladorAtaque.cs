@@ -12,10 +12,10 @@ public class ControladorAtaque : MonoBehaviour
     public HealthController playerhealth;
     public string recargarEscena;
     public GameObject panelTransicion;
+    public bool estaVivo = true;
 
     private void Awake()
     {
-
         if (Instance == null)
         {
             Instance = this;
@@ -29,6 +29,8 @@ public class ControladorAtaque : MonoBehaviour
 
     private void Start()
     {
+        estaVivo = true;
+
         playerhealth = GameObject.Find("Player").GetComponent<HealthController>();
 
         if (panelTransicion != null)
@@ -44,9 +46,11 @@ public class ControladorAtaque : MonoBehaviour
             // playerhealth.DealDamage(1);
         }
 
-        if (playerhealth.vidaActual == 0)
+        if (playerhealth.vidaActual == 0 && estaVivo)
         {
+            AudioImp.Instance.Reproducir("PlayerDie");
             RecargarEscena(recargarEscena);
+            estaVivo = false;
         }
 
         Shield shieldObject = FindFirstObjectByType<Shield>();
