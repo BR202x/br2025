@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -19,8 +20,14 @@ public class Boss : MonoBehaviour
 
     public BossHand rightHand;
     public BossHand leftHand;
+    public HealthController health;
 
-
+    private void Awake()
+    {
+        health = GetComponent<HealthController>();
+        rightHand.Configure(this);
+        leftHand.Configure(this);
+    }
     private void Update()
     {
         timer += Time.deltaTime;
@@ -42,10 +49,7 @@ public class Boss : MonoBehaviour
             {
                 leftHand.ChangeState(BossHand.HandState.FollowPunch);
             }
-            else if (leftHand.stateHand != BossHand.HandState.Idle)
-            {
-                Debug.Log("mano izquierda ocupada");
-            }
+            
             else
             {
                 attackleft = Random.Range(2, 4);
@@ -56,12 +60,9 @@ public class Boss : MonoBehaviour
             if (rightHand.stateHand == BossHand.HandState.Idle && leftHand.stateHand != BossHand.HandState.FollowPunch)
             {
                 rightHand.ChangeState(BossHand.HandState.FollowPunch);
-            }
-            else if (rightHand.stateHand != BossHand.HandState.Idle)
-            {
-                Debug.Log("mano derecha ocupada");
 
             }
+
             else
             {
                 attackRight = Random.Range(2, 4);
@@ -97,6 +98,7 @@ public class Boss : MonoBehaviour
             {
                 leftHand.ChangeState(BossHand.HandState.FingerShooter);
 
+
             }
 
 
@@ -111,5 +113,9 @@ public class Boss : MonoBehaviour
 
 
         }
+
+        
     }
+
+   
 }

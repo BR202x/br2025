@@ -12,12 +12,12 @@ public class Needle : MonoBehaviour
     private void Awake()
     {
         hitBox = GetComponent<Collider>();
+        PlayerMovement.OnAttack += Attack;
     }
 
 
     private void OnEnable()
     {
-        PlayerMovement.OnAttack += Attack;
     }
 
     private void Attack(object sender, EventArgs e)
@@ -43,4 +43,12 @@ public class Needle : MonoBehaviour
             target.DealDamage(damage);
         }
     }
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.collider.TryGetComponent<Idamageable>(out Idamageable target))
+    //    {
+    //        target.DealDamage(damage);
+    //    }
+    //}
 }

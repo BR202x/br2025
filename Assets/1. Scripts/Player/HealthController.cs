@@ -1,32 +1,62 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class HealthController : MonoBehaviour, Idamageable
 {
-    [SerializeField]int vida;
+    [SerializeField] public int vidaActual;
+
+    [SerializeField] public int vida;
+    [SerializeField] float cooldownDealDamage;
+    bool canDealDamage = true;
     bool isDead;
     public UnityEvent OnDamage;
     public UnityEvent OnDead;
+    [SerializeField] bool hasBar;
+    [SerializeField] SliderVida health;
 
-
-
+    private void Start()
+    {
+        vidaActual = vida;
+    }
 
 
     public void DealDamage(int damage)
     {
         if (!isDead)
         {
-            vida -= damage;
-            OnDamage?.Invoke();
-            
-            if(vida <= 0)
+            if (canDealDamage)
             {
-                vida = 0;
-                isDead = true;
-                OnDead?.Invoke();
+                canDealDamage = false;
+                Invoke(nameof(DealDamageCooldown), cooldownDealDamage);
+                vidaActual -= damage;
+                OnDamage?.Invoke();
+
+                if (vidaActual <= 0)
+                {
+                    vidaActual = 0;
+                    isDead = true;
+                    OnDead?.Invoke();
+                }
+
+                UpdateHealthBar();
             }
         }
 
+    }
+
+    public void DealDamageCooldown()
+    {
+        canDealDamage = true;
+    }
+    public void UpdateHealthBar()
+    {
+        if (hasBar)
+        {
+            float healthPercent = (float)vidaActual / (float)vida;
+
+            health.UpdateHealthBar(healthPercent);
+        }
     }
 
 

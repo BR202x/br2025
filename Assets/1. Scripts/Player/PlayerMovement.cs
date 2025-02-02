@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public AttackState stateAttack = new AttackState();
     [HideInInspector] public JumpState stateJump = new JumpState();
     [HideInInspector] public FallState stateFall = new FallState();
+    [HideInInspector] public DamageState stateDamage = new DamageState();
 
     [HideInInspector] public Rigidbody rb;
     [HideInInspector] public InputReader input;
@@ -30,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
     public float moveSmooth;
     private bool isAiming;
     public float jumpForce;
+    [SerializeField] public float knockBackForce;
+     public float damageDuration;
     public float gravityScale = 5;
     public float raySize = 1;
     [SerializeField] private bool isGround;
@@ -54,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public CameraController controllerCam;
     private Animator anim;
     private string currentAnimation;
+    private HealthController health;
 
     [Header("Testing y debug")]
     [SerializeField] TMP_Text currentStateText;
@@ -65,6 +69,7 @@ public Oneshots Sound;
 
     private void Awake()
     {
+        health = GetComponent<HealthController>();
         input = GetComponent<InputReader>();
         anim = transform.GetChild(0).GetComponent<Animator>();
         model = transform.GetChild(0);
@@ -86,6 +91,7 @@ public Oneshots Sound;
         input.OnDefense += Shield;
         input.OnNoDefense += UnShield;
         input.OnJump += Jump;
+        health.OnDamage.AddListener(() => { Damage(); });
 
         //estados
         currentState = stateIdle;
@@ -187,10 +193,10 @@ public Oneshots Sound;
         {
             if (GetIsGround())
             {
-                AccionesMateriales.Instance.ReproducirSalto();
-                AudioImp.Instance.Reproducir("PlayerEffort");
-
                 ChangeState(stateJump);
+                AccionesMateriales.Instance.ReproducirSalto();
+                //AudioImp.Instance.Reproducir("PlayerEffort");
+
             }
         }
     }
@@ -227,7 +233,7 @@ public Oneshots Sound;
         isAiming = false;
         moveSpeed = moveNormalSpeed;
         
-        AudioImp.Instance.Reproducir("ShieldOff");
+        //AudioImp.Instance.Reproducir("ShieldOff");
     }
 
     private void OnDrawGizmos()
@@ -240,4 +246,8 @@ public Oneshots Sound;
         }
     }
 
+    public void Damage()
+    {
+       ChangeState(stateDamage);
+    }
 }

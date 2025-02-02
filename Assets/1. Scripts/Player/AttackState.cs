@@ -52,16 +52,16 @@ public class AttackState : IPlayerState
             player.ChangeAnimation("Attack", 0);
             player.slashAttack.Play();
 
-            AudioImp.Instance.Reproducir("PlayerSword");
-            AudioImp.Instance.Reproducir("PlayerEffort");            
+            //AudioImp.Instance.Reproducir("PlayerSword");
+            //AudioImp.Instance.Reproducir("PlayerEffort");            
         }
         else
         {
             player.ChangeAnimation("Attack 2", 0);
             player.slashAttack2.Play();
 
-            AudioImp.Instance.Reproducir("PlayerSword");
-            AudioImp.Instance.Reproducir("PlayerEffort");
+            //AudioImp.Instance.Reproducir("PlayerSword");
+            //AudioImp.Instance.Reproducir("PlayerEffort");
 
         }
 
