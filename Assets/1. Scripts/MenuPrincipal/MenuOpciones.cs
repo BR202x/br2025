@@ -8,6 +8,7 @@ public class MenuOpciones : MonoBehaviour
     public bool mostrarDebug;
 
     [Header("Paneles de Opciones")]
+    public GameObject panelOpciones;
     public GameObject panelControles;
     public GameObject panelSonido;
     public GameObject panelGraficos;
@@ -26,6 +27,7 @@ public class MenuOpciones : MonoBehaviour
 
     public void MostrarControles()
     {
+        panelOpciones.SetActive(false);
         panelControles.SetActive(true);
         panelSonido.SetActive(false);
         panelGraficos.SetActive(false);
@@ -34,6 +36,7 @@ public class MenuOpciones : MonoBehaviour
 
     public void MostrarSonido()
     {
+        panelOpciones.SetActive(false);
         panelControles.SetActive(false);
         panelSonido.SetActive(true);
         panelGraficos.SetActive(false);
@@ -42,6 +45,7 @@ public class MenuOpciones : MonoBehaviour
 
     public void MostrarGraficos()
     {
+        panelOpciones.SetActive(false);
         panelControles.SetActive(false);
         panelSonido.SetActive(false);
         panelGraficos.SetActive(true);
@@ -50,7 +54,8 @@ public class MenuOpciones : MonoBehaviour
 
     public void Volver()
     {
-        panelControles.SetActive(true);
+        panelOpciones.SetActive(true);
+        panelControles.SetActive(false);
         panelSonido.SetActive(false);
         panelGraficos.SetActive(false);
     }
