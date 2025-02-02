@@ -36,7 +36,7 @@ public class TimelineController : MonoBehaviour
                 menuPausaManager.enabled = true;
             }
 
-            if (contadorCanon >= 18 && timeLineIntro.activeSelf)
+            if (contadorCanon >= 24 && timeLineIntro.activeSelf)
             {                
                 timeLineCanon.SetActive(true);
                 inicioChorro.iniciar = true;

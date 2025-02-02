@@ -14394,6 +14394,7 @@ GameObject:
   - component: {fileID: 1811098213}
   - component: {fileID: 1811098212}
   - component: {fileID: 1811098211}
+  - component: {fileID: 1811098214}
   m_Layer: 6
   m_Name: ColliderCentro
   m_TagString: Metal
@@ -14491,6 +14492,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1811098209}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1811098214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811098209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a711d9c238601d643bb15c85b6afb5f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1819704647
 GameObject:
   m_ObjectHideFlags: 0
@@ -17145,7 +17158,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60.000004
+  field of view: 44.25
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -24290,8 +24303,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3387058055385218570}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.1778509, y: 0.0047761095, z: -0.0018351203, w: -0.9840442}
-  m_LocalPosition: {x: 3.3389099, y: -0.39, z: 7.6669464}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 2.5889099, y: 0.03999996, z: 6.6369467}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

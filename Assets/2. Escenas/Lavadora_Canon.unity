@@ -2635,6 +2635,7 @@ MonoBehaviour:
   timeLineObject: {fileID: 7638133}
   virtualCamera: {fileID: 5682603661937895452}
   targetController: {fileID: 1342642636}
+  timelineController: {fileID: 0}
   follow: {fileID: 617033184711830380}
   targetChorro: {fileID: 115055715}
   player: {fileID: 2275437824937966199}
@@ -14410,8 +14411,8 @@ Transform:
   m_GameObject: {fileID: 1811098209}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.0069, z: -0.014}
-  m_LocalScale: {x: 0.2, y: 0.1, z: 0.2}
+  m_LocalPosition: {x: 0, y: -0.0061, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.093903, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 966597290}
@@ -17523,6 +17524,9 @@ GameObject:
   - component: {fileID: 4714554692663990197}
   - component: {fileID: 8273479398487111856}
   - component: {fileID: 7975701958620735924}
+  - component: {fileID: 8273479398487111859}
+  - component: {fileID: 8273479398487111858}
+  - component: {fileID: 8273479398487111857}
   m_Layer: 0
   m_Name: CentroBaseCentroReja
   m_TagString: Metal
@@ -18754,7 +18758,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 686689577921756531}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 10
   simulationSpeed: 1.9
   stopAction: 0
   cullingMode: 0
@@ -18829,7 +18833,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4
+      scalar: 5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -19317,7 +19321,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 3000
+    maxNumParticles: 500
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -26145,6 +26149,72 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1486413993591498460}
   m_Mesh: {fileID: -4471081164153928698, guid: 5e34d2fc59784314a805f4349e567961, type: 3}
+--- !u!114 &8273479398487111857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1486413993591498460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a711d9c238601d643bb15c85b6afb5f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particulaBurbujas: {fileID: 686689577921756531}
+  tiempoActivacion: 3
+  tiempoDesactivacion: 5
+  tocandoCollision: 0
+  rbJugador: {fileID: 1545575029291831271}
+  fuerzaEmpuje: 300
+--- !u!54 &8273479398487111858
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1486413993591498460}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!65 &8273479398487111859
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1486413993591498460}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.1057349, y: 0.021280827, z: 0.11117627}
+  m_Center: {x: 0, y: 0.143552, z: -0.000000029802315}
 --- !u!1 &8345343796273263457
 GameObject:
   m_ObjectHideFlags: 0
