@@ -59,10 +59,7 @@ public class PlayerMovement : MonoBehaviour
     private string currentAnimation;
     private HealthController health;
 
-    [Header("Testing y debug")]
-    [SerializeField] TMP_Text currentStateText;
-
-public Oneshots Sound;
+    
 
 
 
@@ -75,7 +72,6 @@ public Oneshots Sound;
         model = transform.GetChild(0);
         rb = GetComponent<Rigidbody>();
         controllerCam = GetComponent<CameraController>();
-        Sound = GetComponent<Oneshots>();
 
     }
     void Start()
@@ -101,7 +97,6 @@ public Oneshots Sound;
     void Update()
     {
         currentState.UpdateState(this);
-        currentStateText.text = currentState.ToString();
         CheckGround();
     }
 
