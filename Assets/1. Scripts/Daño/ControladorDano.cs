@@ -183,7 +183,8 @@ public class ControladorDano : MonoBehaviour
         if (contadorTiempo <= 0f)
         {
             Debug.Log("REDUCIENDO VIDA OXIGENO");
-            ControladorAtaque.Instance.HacerDamageAhogado(1);            
+            ControladorAtaque.Instance.HacerDamagePlayer(1);
+            AudioImp.Instance.Reproducir("PlayerDrown");
             contadorTiempo = tiempoParaReducirVida;
         }
     }

@@ -287,10 +287,14 @@ MonoBehaviour:
   Path: Assets/wm/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638740949452597272
+<<<<<<< HEAD
+  lastModified: 638740963220733816
+=======
+  lastModified: 638740952224779863
+>>>>>>> 0ee342df8dd5058231924dac7a3efc1f729aefe2
   FileSizes:
   - Name: Desktop
-    Value: 2240
+    Value: 2278
   Exists: 1
 --- !u!114 &-3366917133777511609
 MonoBehaviour:
@@ -483,6 +487,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-499868853216960692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/W.M_Mus_Chorro
+  m_EditorClassIdentifier: 
+  Path: event:/Music/W.M_Mus_Chorro
+  Guid:
+    Data1: -799961114
+    Data2: 1258488277
+    Data3: -1010583118
+    Data4: -2070804493
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 34285
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -528,12 +559,17 @@ MonoBehaviour:
   - {fileID: -1910666727639152039}
   - {fileID: -9222739695005179995}
   - {fileID: -585463211992481185}
+  - {fileID: -499868853216960692}
   EditorParameters: []
   MasterBanks:
   - {fileID: 5213428122516410032}
   StringsBanks:
   - {fileID: -3367407833877153125}
-  cacheTime: 638740949452597272
+<<<<<<< HEAD
+  cacheTime: 638740963220733816
+=======
+  cacheTime: 638740952224779863
+>>>>>>> 0ee342df8dd5058231924dac7a3efc1f729aefe2
   cacheVersion: 131621
 --- !u!114 &1582003406574015514
 MonoBehaviour:
@@ -849,10 +885,14 @@ MonoBehaviour:
   Path: Assets/wm/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638740949452517148
+<<<<<<< HEAD
+  lastModified: 638740963220663989
+=======
+  lastModified: 638740952224779863
+>>>>>>> 0ee342df8dd5058231924dac7a3efc1f729aefe2
   FileSizes:
   - Name: Desktop
-    Value: 2996544
+    Value: 3189152
   Exists: 1
 --- !u!114 &5650629332328644770
 MonoBehaviour:

@@ -9,7 +9,7 @@ public class HealthController : MonoBehaviour, Idamageable
     [SerializeField] public int vida;
     [SerializeField] float cooldownDealDamage;
     bool canDealDamage = true;
-    bool isDead;
+    public bool isDead;
     public UnityEvent OnDamage;
     public UnityEvent OnDead;
     [SerializeField] bool hasBar;
@@ -30,7 +30,6 @@ public class HealthController : MonoBehaviour, Idamageable
                 canDealDamage = false;
                 Invoke(nameof(DealDamageCooldown), cooldownDealDamage);
                 vidaActual -= damage;
-                OnDamage?.Invoke();
 
                 if (vidaActual <= 0)
                 {
@@ -39,6 +38,7 @@ public class HealthController : MonoBehaviour, Idamageable
                     OnDead?.Invoke();
                 }
 
+                OnDamage?.Invoke();
                 UpdateHealthBar();
             }
         }
