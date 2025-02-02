@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class TimelineController : MonoBehaviour
@@ -8,6 +7,7 @@ public class TimelineController : MonoBehaviour
     public ChorroTargetController inicioChorro;
     public ControladorScripts controladorScripts;
     public MenuPausaManager menuPausaManager;
+    
     public float contadorCanon;
     public bool esCanon;
     void Start()
@@ -15,12 +15,12 @@ public class TimelineController : MonoBehaviour
         contadorCanon = 0;
         inicioChorro = GameObject.Find("Chorro_Manager").GetComponent<ChorroTargetController>();
         controladorScripts = GameObject.Find("GameManager").GetComponent <ControladorScripts>();
-        menuPausaManager = GameObject.Find("Controlador_MenuPausa").GetComponent<MenuPausaManager>();
+        menuPausaManager = GameObject.Find("Controlador_MenuPausa").GetComponent<MenuPausaManager>();        
 
         if (esCanon)
         {
             controladorScripts.enabled = false;
-            menuPausaManager.enabled = false;
+            menuPausaManager.enabled = false;            
         }
     }
         

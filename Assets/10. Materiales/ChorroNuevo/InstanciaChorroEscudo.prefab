@@ -163,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mostrarLog: 0
   extensionSpeed: 30
-  maxDistance: 40
+  maxDistance: 100
   collisionLayers:
     serializedVersion: 2
     m_Bits: 4294967295

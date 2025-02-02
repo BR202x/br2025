@@ -2629,12 +2629,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00fc5a4530ee5b4788e70ae1d6a3c92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: 0
+  test: 1
   esCanon: 1
   esPato: 0
   timeLineObject: {fileID: 7638133}
   virtualCamera: {fileID: 5682603661937895452}
   targetController: {fileID: 1342642636}
+  timelineController: {fileID: 0}
   follow: {fileID: 617033184711830380}
   targetChorro: {fileID: 115055715}
   player: {fileID: 2275437824937966199}
@@ -2660,7 +2661,7 @@ MonoBehaviour:
   controladorScripts: {fileID: 0}
   menuPausaManager: {fileID: 0}
   contadorCanon: 0
-  esCanon: 1
+  esCanon: 0
 --- !u!1 &352648437
 GameObject:
   m_ObjectHideFlags: 0
@@ -10661,7 +10662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mostrarLog: 0
-  test: 0
+  test: 1
   iniciar: 0
   estadoSeleccionado: 0
   abrirChorro: 0

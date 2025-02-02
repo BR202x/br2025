@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class InstanciaNewChorro : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class InstanciaNewChorro : MonoBehaviour
     private LineRenderer lineRenderer;
     private GameObject instantiatedObject;
     private GameObject reboteInstancia;
+
+    public RotacionVfx rotacionChoque;
     public GameObject prefabRebote;
     public Transform target;
     public bool estaTocandoLlenar;
@@ -49,7 +52,8 @@ public class InstanciaNewChorro : MonoBehaviour
     #endregion
 
     private void Start()
-    {
+    {        
+
         lineRenderer = GetComponent<LineRenderer>();
         target = GameObject.Find("Valvula").GetComponent<SeguirTarget>().target;
 
@@ -123,8 +127,7 @@ public class InstanciaNewChorro : MonoBehaviour
 
         if (isObstructed)
         {
-
-            float distanciaDelChorro = Vector3.Distance(lineRenderer.GetPosition(1), hit.point);            
+            float distanciaDelChorro = Vector3.Distance(lineRenderer.GetPosition(1), hit.point);
 
             int hitLayer = hit.collider.gameObject.layer;
             string hitName = hit.collider.gameObject.name;
@@ -133,16 +136,18 @@ public class InstanciaNewChorro : MonoBehaviour
             {
                 // Manejo de cada caso
                 if ((hitLayer == LayerMask.NameToLayer("SuperficieTambor") ||
-                    hitLayer == LayerMask.NameToLayer("Flotante") ||
-                    hitLayer == LayerMask.NameToLayer("Agua")) && (distanciaDelChorro < 0.1f && distanciaDelChorro >= 0))
+                     hitLayer == LayerMask.NameToLayer("Flotante") ||
+                     hitLayer == LayerMask.NameToLayer("Agua")) &&
+                    (distanciaDelChorro < 0.1f && distanciaDelChorro >= 0))
                 {
                     HandleFlotanteSuperficie();
                     sonidoReproducido = false;
+                    rotacionChoque.gameObject.SetActive(true);
                 }
                 else if (hitLayer == LayerMask.NameToLayer("Escudo"))
                 {
                     HandleEscudo(currentExtensionSpeed, hit);
-
+                    rotacionChoque.gameObject.SetActive(false);
                 }
                 else if (hitName == "Player")
                 {
@@ -153,9 +158,24 @@ public class InstanciaNewChorro : MonoBehaviour
 
                     HandlePlayer(hit.collider.gameObject, direction);
                     estaTocandoLlenar = false;
+                    rotacionChoque.gameObject.SetActive(true);
+                }
+
+                // Cambiar la rotación del efecto visual al entrar en contacto
+                if (rotacionChoque != null)
+                {
+                    // Indicar que hay contacto
+                    rotacionChoque.sinContacto = false;
+                    rotacionChoque.cosContacto = true;
+
+                    // Usar una rotación predeterminada en Euler
+                    Vector3 nuevaRotacionEuler = new Vector3(90, 0, 0); // Rotación fija como ejemplo
+                    Debug.Log($"Rotación Forzada en Euler: {nuevaRotacionEuler}");
+
+                    // Aplicar la rotación al efecto visual
+                    rotacionChoque.EstablecerRotacion(nuevaRotacionEuler);
                 }
             }
-            
 
             if (distanciaDelChorro < 0.1f && hitLayer != LayerMask.NameToLayer("Escudo"))
             {
@@ -166,11 +186,19 @@ public class InstanciaNewChorro : MonoBehaviour
         }
         else
         {
+            
+            if (rotacionChoque != null)
+            {
+                rotacionChoque.sinContacto = true;
+                rotacionChoque.cosContacto = false;
+            }
+
             HandleNoColision(direction, currentExtensionSpeed);
         }
 
         UpdateObjectTransform(direction, currentDistance, true);
     }
+
 
     private void HandleFlotanteSuperficie()
     {        
@@ -333,6 +361,7 @@ public class InstanciaNewChorro : MonoBehaviour
     private void CreateInstance()
     {
         instantiatedObject = Instantiate(objectPrefab, transform.position, Quaternion.identity);
+        rotacionChoque = instantiatedObject.GetComponentInChildren<RotacionVfx>();
         currentScale = Vector3.zero;
         instantiatedObject.transform.localScale = currentScale;
     } 

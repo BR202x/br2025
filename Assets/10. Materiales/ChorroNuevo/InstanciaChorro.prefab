@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mostrarLog: 0
+  rotacionChoque: {fileID: 0}
   prefabRebote: {fileID: 1281019165633363552, guid: 753cf3191ff79ef4ebbffcd648ae4ee9, type: 3}
   target: {fileID: 0}
   estaTocandoLlenar: 0
@@ -179,3 +180,4 @@ MonoBehaviour:
   reductionSpeedConstant: 1
   rScale: 0.2
   fuerzaEmpujeJugador: 0.1
+  hitJugador: 0

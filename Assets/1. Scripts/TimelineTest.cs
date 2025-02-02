@@ -11,6 +11,8 @@ public class TimelineTest : MonoBehaviour
     public GameObject timeLineObject;
     public CinemachineVirtualCamera virtualCamera;
     public ChorroTargetController targetController;
+    public TimelineController timelineController;
+
     public GameObject follow;
     public GameObject targetChorro;
     public GameObject player;
@@ -22,10 +24,13 @@ public class TimelineTest : MonoBehaviour
 
     void Start()
     {
+        timelineController = GameObject.Find("TimelineManager").GetComponent<TimelineController>();
+
         if (esCanon)
         {
             if (test)
             {
+                timelineController.enabled = false;
                 timeLineObject.gameObject.SetActive(false);
                 targetController.test = true;
                 AsignarFollowCinemachine();
@@ -38,6 +43,7 @@ public class TimelineTest : MonoBehaviour
             {
                 player.transform.position = playerPosTimeline.position;
                 targetChorro.transform.position = targetPosTimeline.position;
+                timelineController.enabled = true;
             }
         }
     }

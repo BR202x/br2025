@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 796462726270447652}
   - component: {fileID: 4941647008156579447}
   - component: {fileID: 8769686694861652439}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Choque de agua
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5711961634097762717}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -142,11 +142,14 @@ VisualEffect:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: 0, y: 0, z: 0}
+      - m_Value: {x: 90, y: 0, z: 0}
         m_Name: Rotacion
         m_Overridden: 1
       - m_Value: {x: 0, y: 0, z: 0}
         m_Name: Posicion
+        m_Overridden: 1
+      - m_Value: {x: 0.1, y: 0.1, z: 0.1}
+        m_Name: Escala
         m_Overridden: 1
     m_Vector4f:
       m_Array: []
@@ -219,6 +222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57df0737ac513cc498e0177bf00e5eeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sinContacto: 1
+  cosContacto: 0
 --- !u!1 &7198755400857869050
 GameObject:
   m_ObjectHideFlags: 0
