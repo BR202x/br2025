@@ -17276,6 +17276,7 @@ MonoBehaviour:
   vidaActual: 0
   vida: 300
   cooldownDealDamage: 0.3
+  isDead: 0
   OnDamage:
     m_PersistentCalls:
       m_Calls: []
@@ -26860,6 +26861,7 @@ MonoBehaviour:
   vidaActual: 0
   vida: 13
   cooldownDealDamage: 0.5
+  isDead: 0
   OnDamage:
     m_PersistentCalls:
       m_Calls: []
