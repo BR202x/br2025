@@ -10,6 +10,7 @@ public class TimelineController : MonoBehaviour
     
     public float contadorCanon;
     public bool esCanon;
+    public bool esPato;
     void Start()
     {
         contadorCanon = 0;
@@ -36,7 +37,7 @@ public class TimelineController : MonoBehaviour
                 menuPausaManager.enabled = true;
             }
 
-            if (contadorCanon >= 24 && timeLineIntro.activeSelf)
+            if (contadorCanon >= 20 && timeLineIntro.activeSelf)
             {                
                 timeLineCanon.SetActive(true);
                 inicioChorro.iniciar = true;

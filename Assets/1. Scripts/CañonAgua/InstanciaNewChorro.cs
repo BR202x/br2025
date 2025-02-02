@@ -169,8 +169,7 @@ public class InstanciaNewChorro : MonoBehaviour
                     rotacionChoque.cosContacto = true;
 
                     // Usar una rotación predeterminada en Euler
-                    Vector3 nuevaRotacionEuler = new Vector3(90, 0, 0); // Rotación fija como ejemplo
-                    Debug.Log($"Rotación Forzada en Euler: {nuevaRotacionEuler}");
+                    Vector3 nuevaRotacionEuler = new Vector3(90, 0, 0); // Rotación fija como ejemplo                    
 
                     // Aplicar la rotación al efecto visual
                     rotacionChoque.EstablecerRotacion(nuevaRotacionEuler);

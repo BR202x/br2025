@@ -25,14 +25,12 @@ public class RotacionVfx : MonoBehaviour
             vfx.SetVector3("Rotacion", rotacion.eulerAngles);
         }
         else if (cosContacto)
-        {
-            Debug.Log($"Enviando Rotación al VFX: {rotacionExterna}");
+        {            
             vfx.SetVector3("Rotacion", rotacionExterna); // Asegúrate de que este valor es correcto
         }
     }
     public void EstablecerRotacion(Vector3 nuevaRotacion)
-    {
-        Debug.Log($"Estableciendo Rotación Externa: {nuevaRotacion}");
+    {        
         rotacionExterna = nuevaRotacion; // Actualizar la rotación externa
     }
 
