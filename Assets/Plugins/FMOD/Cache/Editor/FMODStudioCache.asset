@@ -287,10 +287,10 @@ MonoBehaviour:
   Path: Assets/wm/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638740903634181105
+  lastModified: 638740942597365130
   FileSizes:
   - Name: Desktop
-    Value: 2194
+    Value: 2240
   Exists: 1
 --- !u!114 &-3366917133777511609
 MonoBehaviour:
@@ -429,6 +429,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-585463211992481185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Player_Drown
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Player_Drown
+  Guid:
+    Data1: 1654317778
+    Data2: 1134727475
+    Data3: 1668707262
+    Data4: -1165034610
+  Banks:
+  - {fileID: 5213428122516410032}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-516952128144125256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -500,12 +527,13 @@ MonoBehaviour:
   - {fileID: 7410417513535905103}
   - {fileID: -1910666727639152039}
   - {fileID: -9222739695005179995}
+  - {fileID: -585463211992481185}
   EditorParameters: []
   MasterBanks:
   - {fileID: 5213428122516410032}
   StringsBanks:
   - {fileID: -3367407833877153125}
-  cacheTime: 638740903634181105
+  cacheTime: 638740942597365130
   cacheVersion: 131621
 --- !u!114 &1582003406574015514
 MonoBehaviour:
@@ -821,10 +849,10 @@ MonoBehaviour:
   Path: Assets/wm/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638740903634125430
+  lastModified: 638740942597295386
   FileSizes:
   - Name: Desktop
-    Value: 2973760
+    Value: 2996544
   Exists: 1
 --- !u!114 &5650629332328644770
 MonoBehaviour:
