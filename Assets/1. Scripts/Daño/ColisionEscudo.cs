@@ -17,7 +17,7 @@ public class ColisionEscudo : MonoBehaviour
 
     private void OnEnable()
     {
-        panelVidaEnemigos = GameObject.Find("Panel_VidaEnemigos").GetComponent<ActivacionPanelTargets>();
+        // panelVidaEnemigos = GameObject.Find("Panel_VidaEnemigos").GetComponent<ActivacionPanelTargets>();
         chorroTargetController = GameObject.Find("Chorro_Manager").GetComponent<ChorroTargetController>();
     }
 

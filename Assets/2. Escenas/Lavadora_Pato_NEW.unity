@@ -4297,6 +4297,12 @@ MonoBehaviour:
     gameobject: {fileID: 0}
     start: 0
     Tipo: Ambiente
+  - NombreElegido: BossDie
+    Metodo: OneShot
+    EventoFMOD: BossDie
+    gameobject: {fileID: 0}
+    start: 0
+    Tipo: Ambiente
   Musica:
   - NombreElegido: d
     Metodo: TimeLine
@@ -4495,6 +4501,12 @@ MonoBehaviour:
   - NombreElegido: PlayerDie
     Metodo: OneShot
     EventoFMOD: PlayerDie
+    gameobject: {fileID: 0}
+    start: 0
+    Tipo: Ambiente
+  - NombreElegido: BossDie
+    Metodo: OneShot
+    EventoFMOD: BossDie
     gameobject: {fileID: 0}
     start: 0
     Tipo: Ambiente
@@ -6241,7 +6253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transicion: {fileID: 1428797698}
   contadorValvula: {fileID: 0}
-  escenaSiguiente: Lavadora_Pato
+  escenaSiguiente: MenuPrincipal
   esCanon: 0
   esPato: 0
 --- !u!1 &661989179
@@ -12194,6 +12206,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vidaActual: {fileID: 2065101684}
+  estaVivo: 1
+  reproduccion: 0
+  cambioEscena: {fileID: 640405372}
 --- !u!114 &1531233815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13368,7 +13383,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1682750956}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ecff0a570a2df2d4f898f5e473ada665, type: 3}
   m_Name: 
@@ -13768,6 +13783,14 @@ MonoBehaviour:
         Data3: -1844595535
         Data4: -563195431
       Path: event:/Player/Player_Die
+  - nombreEvento: BossDie
+    eventReference:
+      Guid:
+        Data1: 1995525969
+        Data2: 1184870448
+        Data3: 2111127725
+        Data4: 1037913139
+      Path: event:/Enemy/Boss_Die
   ambiente: []
 --- !u!1 &1734814396
 GameObject:

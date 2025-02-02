@@ -4,9 +4,14 @@ public class SonidoDañoBoss : MonoBehaviour
 {
     public HealthController vidaActual;
     private float ultimaVida;
+    public bool estaVivo = true;
+    public int reproduccion = 0;
+    public GestionEscenarios cambioEscena;
 
     void Start()
     {
+        estaVivo = true;
+
         if (vidaActual != null)
         {           
             ultimaVida = vidaActual.vidaActual;
@@ -23,8 +28,20 @@ public class SonidoDañoBoss : MonoBehaviour
                 
         if (!Mathf.Approximately(ultimaVida, vidaActual.vidaActual))
         {
-            AudioImp.Instance.Reproducir("enemyBossHit");
+            reproduccion++;
+
+            if (reproduccion > 1)
+            {
+                AudioImp.Instance.Reproducir("enemyBossHit");
+            }
             ultimaVida = vidaActual.vidaActual;
+        }
+
+        if (vidaActual.vidaActual == 0 && estaVivo)
+        {            
+            AudioImp.Instance.Reproducir("BossDie");
+            cambioEscena.CambiarEscenaDelay();
+            estaVivo = false;
         }
     }
 }

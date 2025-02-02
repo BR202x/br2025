@@ -8527,6 +8527,14 @@ MonoBehaviour:
         Data3: 1555920572
         Data4: 748755148
       Path: event:/UI/SFX_UI_Button
+  - nombreEvento: PlayerDrown
+    eventReference:
+      Guid:
+        Data1: 691475134
+        Data2: 1301538661
+        Data3: 1555920572
+        Data4: 748755148
+      Path: event:/UI/SFX_UI_Button
   ambiente: []
 --- !u!1 &1093551853
 GameObject:
@@ -14055,6 +14063,7 @@ MonoBehaviour:
   playerhealth: {fileID: 0}
   recargarEscena: Lavadora_Canon
   panelTransicion: {fileID: 1428797698}
+  estaVivo: 1
 --- !u!114 &1682750960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17679,7 +17688,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60.000004
+  field of view: 44.25
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -24828,8 +24837,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3387058055385218570}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.1778509, y: 0.0047761095, z: -0.0018351203, w: -0.9840442}
-  m_LocalPosition: {x: 3.3389099, y: -0.39, z: 7.6669464}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 2.5889099, y: 0.03999996, z: 6.6369467}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
