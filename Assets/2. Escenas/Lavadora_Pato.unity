@@ -4846,11 +4846,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcf9b5f24758fdc4f879e4ed5a8a81d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transicion: {fileID: 1428797698}
-  contadorValvula: {fileID: 0}
-  escenaSiguiente: Lavadora_Pato
-  esCanon: 0
-  esPato: 0
 --- !u!1 &649709064
 GameObject:
   m_ObjectHideFlags: 0
